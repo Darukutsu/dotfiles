@@ -1,0 +1,30 @@
+#DIRS
+#
+
+# unsuported for adb tools
+#export ANDROID_HOME="$XDG_DATA_HOME/android"
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export WINEPREFIX="$XDG_DATA_HOME/wine"
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
+#export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export TERMINFO="$XDG_DATA_HOME/terminfo"                                
+export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export GOPATH="$XDG_DATA_HOME/go"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+#export TASKRC="$XDG_DATA_HOME/task"
+export VIT_DIR="$XDG_CONFIG_HOME/vit"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export LEIN_HOME="$XDG_DATA_HOME/lein"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export STEAM_APP_DIR="$HOME/.var/app/com.valvesoftware.Steam/data/Steam/steamapps/common/"
+export STACK_ROOT='"$XDG_DATA_HOME"/stack' 
+export PYLINTHOME='"$XDG_CACHE_HOME"/pylint'                        
+export PARALLEL_HOME='"$XDG_CONFIG_HOME"/parallel' 
+export CGDB_DIR='"$XDG_CONFIG_HOME"/cgdb'
+export NIMBLE_DIR="$XDG_DATA_HOME/nimble" 
+#export HISTFILE='"$XDG_STATE_HOME"/bash/history'
+export MBSYNCRC='"$XDG_CONFIG_HOME"/isync/mbsyncrc'

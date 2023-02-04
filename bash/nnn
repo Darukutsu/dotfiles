@@ -1,0 +1,45 @@
+if [ $(whoami) == "root" ]; then
+  export NNN_COLORS='1111'
+fi
+export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
+export NNN_FIFO=/tmp/nnn.fifo
+export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
+export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;y:imgur;i:imgview;g:kdeconnect;p:addtoplaylist;d:diffs;m:nmount;e:-!sudo-Envim$nnn*;c:cpoverwrite;h:dragdrop;f:fzcd;w:wallpaper;x:xdgdefault;v:preview-tui;'
+#;j:autojump
+#;f:fzopen
+
+#not working under kitty xembed missing
+#v:preview-tabbed;'
+
+export NNN_BMS="D:/home/daru/Downloads/;n:/home/daru/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/media/;M:/mnt/;h:/home/daru/Templates/fixing-guides"
+
+#nnn -c to activate disables -e
+
+n () {
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, either remove the "export" as in:
+    #    NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
+    #    (or, to a custom path: NNN_TMPFILE=/tmp/.lastd)
+    # or, export NNN_TMPFILE after nnn invocation
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    nnn -cdHa "$@"
+    #nnn -cdHa "$@" -P v
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}

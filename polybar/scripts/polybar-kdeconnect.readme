@@ -1,0 +1,5 @@
+[module/kdeconnect]  
+type = custom/script  
+exec = "/path/to/files/polybar-kdeconnect.sh -d"  
+tail = true
+

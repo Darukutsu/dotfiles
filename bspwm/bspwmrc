@@ -1,0 +1,57 @@
+#! /bin/sh
+
+#sxhkd=/usr/local/bin/sxhkd
+#bspc=/usr/local/bin/bspc
+
+#pgrep -x sxhkd  -c /etc/X11/bspwm/sxhkdrc> /dev/null || sxhkd -c /etc/X11/bspwm/sxhkdrc &
+#sxhkd -c /etc/X11/bspwm/sxhkdrc &
+export CM_LAUNCHER=rofi-script
+export XDG_CURRENT_DESKTOP=bspwm
+export OPACITY_VALUE=1.0
+
+if [ $(bspc query -M --names | wc -l) -gt 1 ]; then
+  bspc monitor DP-1 -d I II III IV V VI VII VIII IX X
+  bspc monitor eDP-1 -r 
+  xrandr --output eDP-1 --off
+  bspc remove_unplugged_monitors
+  bspc remove_disabled_monitors
+else
+  bspc monitor -d I II III IV V VI VII VIII IX X
+fi
+
+feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
+
+sxhkd &
+clipmenud &
+polybar &
+#$HOME/.fehbg &
+xinput set-prop 'Logitech M705' 'libinput Accel Speed' -0.7
+picom &
+#xset s 1200 30
+#xss-lock -n $XDG_CONFIG_HOME/bslock/dim-screen.sh -- bslock &
+kdeconnect-indicator &
+#/home/daru/.local/share/gnome-shell/extensions/gsconnect@andyholmes.github.io/service/daemon.js &
+#$HOME/.config/polybar/launch.sh &
+
+
+bspc config border_width        3
+bspc config focused_border_color "#6181FF" 
+#bspc config normal_border_color "#FFFFFF"
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      false
+bspc config ignore_ewmh_focus	 true
+
+bspc rule -r "*"
+bspc rule -a "*" rectangle=900x550+0+0 center=on follow=on
+#bspc rule -a tdropkitty state=floating layer=above center=on
+bspc rule -a mpv state=floating layer=above center=off rectangle=550x350+1340+660
+#bspc rule -a Gimp desktop='^8' state=floating follow=on
+#bspc rule -a Chromium desktop='^2'
+bspc rule -a firefox desktop=focused focus=on
+bspc rule -a Zathura state=tiled
+#bspc rule -a mplayer2 state=floating
+#bspc rule -a Kupfer.py focus=on
+#bspc rule -a Screenkey manage=off

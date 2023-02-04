@@ -1,0 +1,213 @@
+#
+# wm independent hotkeys
+#
+
+super + Return
+	kitty
+
+super + g
+	firefox
+
+super + slash
+	/home/daru/.config/sxhkd/sxhkd-help.sh
+
+# media keys
+@Print
+	rofi-screenshot
+
+XF86MonBrightness{Up,Down}
+	brightnessctl s 5%{+,-}
+	# won't work if using some sort of adapter like KVM
+	#ddcutil setvcp 10 {+,-} 5
+
+XF86Audio{Raise,Lower}Volume
+	pamixer {-i,-d} 5 ; /home/daru/.config/sxhkd/volume-notify.sh
+
+XF86AudioMute
+	pamixer -t
+
+XF86Audio{Play,Next,Prev}
+	playerctl {play-pause,next,previous}
+
+# tdrop (square mid)
+F12
+	tdrop -P 'bspc node -t floating -l above' kitty
+#tdrop -y 100% -h 49% kitty
+#tdrop -y 0% -h 49% kitty
+
+# program launcher
+super + @space
+	rofi -show combi
+
+alt + Tab
+	rofi -show window
+
+super + alt + BackSpace
+	bslock
+# clipmenu
+super + v
+	rofi -modi "clipboard:clipmenu,emoji" -show "clipboard"
+
+#
+# bspwm hotkeys
+#
+
+# toggle windows transparency
+#ctrl + super + {equal,minus,0}
+#	/home/daru/.config/sxhkd/opacity.sh active {+,_,off}
+ctrl + super + {equal,minus}
+	/home/daru/.config/sxhkd/opacity.sh inactive {on,off}
+	#/home/daru/.config/sxhkd/opacity.sh active {on,off}
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd; sxhkd &
+
+# quit/restart bspwm
+super + {_,shift +}m
+	bspc {quit,wm -r}
+
+# close and kill
+alt + q
+	bspc node -c
+
+# alternate between the tiled and monocle layout
+#super + f
+#	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+#super + y
+#	bspc node newest.marked.local -n newest.!automatic.local
+
+#
+# state/flags
+#
+
+# set the window state
+super + {d,s,f}
+	bspc node -t {tiled,floating,fullscreen}
+
+# hide/unhide mpv window
+#super + p
+#	bspc node -g hidden
+
+# hide focused window
+super + x
+	bspc node -g hidden
+
+# unhide/show all hidden windows
+super + z
+	bspc node any.hidden -g hidden=off -f
+
+#super + s
+#	bspc subscribe node -t floating -z top_left -100 0 -z top_right 100 0
+	#bspc node -t floating -z top_left -100 0 -z top_right 100 0
+# set the node flags
+#super + ctrl + {m,x,y,z}
+#	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# swap the current node and the biggest window
+super + b
+	bspc node -s biggest.window
+
+# swap left with right windows
+#super + r
+#	bspc node
+
+# Rotate tree
+super + {_,shift + }n
+    bspc node @/ -C {forward,backward}
+
+# focus (or swap with alt) the node in the given direction
+super + {_,alt + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
+
+# focus prev window
+#super + bracket{left}
+#	bspc node -f prev.local.!hidden.window
+#
+## focus next window
+#super + bracket{right}
+#	bspc node -f next.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.occupied
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+# focus the next/previous window in the current desktop
+super + {o,i}
+	bspc node -f {next,prev}.local.!hidden.window
+	#bspc wm -h off; \
+	#bspc node {older,newer} -f; \
+	#bspc wm -h on
+
+# focus and move 'older' window to focused desktop
+super + a
+	bspc node older -f; bspc node -d last --follow
+
+# send to the given desktop
+super + alt + {1-9,0}
+	bspc node -d '^{1-9,10}' --follow
+
+# focus desktop
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}' --follow
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# Expand/contract a window by moving one of its side outward/inward
+#super + s : {h,j,k,l}
+#    STEP=20; SELECTION={1,2,3,4}; \
+#    bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+#    bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
+# expand/contract a window 
+super + alt + {Left,Down,Up,Right}
+  bspc node -z {left -20 0 || bspc node -z right -20 0,\
+                bottom 0 20 || bspc node -z top 0 20,\
+                top 0 -20 || bspc node -z bottom 0 -20,\
+                right 20 0 || bspc node -z left 20 0}
+#super + alt + {Left,Down,Up,Right}
+#  ;bash ~/.config/sxhkd/float_resize.sh {x -,y -,y +,x +}
+
+# contract a window by moving one of its side inward
+ctrl + super + alt + {Left,Down,Up,Right}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
