@@ -6,9 +6,9 @@ nnoremap <leader>; :noh<cr>
 nnoremap <leader>/ :Telescope live_grep<cr>
 
 " Edit vimr configuration file
-nnoremap confi :e $MYVIMRC<cr>
-nnoremap confk :e $XDG_CONFIG_HOME/nvim/lua/keymap.lua<cr>
-nnoremap confp :e $XDG_CONFIG_HOME/nvim/lua/plugins.lua<cr>
+nnoremap confi :tabedit $MYVIMRC<cr>
+nnoremap confk :tabedit $XDG_CONFIG_HOME/nvim/lua/keymap.lua<cr>
+nnoremap confp :tabedit $XDG_CONFIG_HOME/nvim/lua/plugins.lua<cr>
 " Reload vims configuration (current file)
 nnoremap confr :so %<cr>
 "nnoremap confr :source $MYVIMRC | $XDG_CONFIG_HOME/nvim/lua/keymap.lua | $XDG_CONFIG_HOME/nvim/lua/plugins.lua<cr>
@@ -19,6 +19,19 @@ nnoremap confr :so %<cr>
 nnoremap <leader>? :Telescope keymaps<cr>
 nnoremap <leader>: :Telescope commands<cr>
 "nnoremap <leader>gs <cmd>Telescope git_status<cr>
+
+" LSP enable(def)/disable
+let g:isLSP = 1
+function! ToggleLsp(isLSP)
+  if g:isLSP==1 
+    :LspStop<cr> 
+    let g:isLSP = 0
+  else
+    :LspStart<cr>
+    let g:isLSP = 1
+  endif
+endfunction
+nnoremap <F4> :call ToggleLsp(isLSP)<cr>
 
 " Info
 " Only apply the mapping to generated buffers

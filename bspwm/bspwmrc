@@ -44,14 +44,21 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      false
 bspc config ignore_ewmh_focus	 true
 
+#minecraft=$(xprop -root _NET_CLIENT_LIST | pcreerep -o1 '# (.*)' | sed 's/, /\n/g' | xargs -I{} -n1 xprop -id {} WM_NAME | grep -o '"Minecraft.*"' | sed -n '2p')
+#tlminecraft=$(xprop -root _NET_CLIENT_LIST | pcregrep -o1 '# (.*)' | sed 's/, /\n/g' | xargs -I{} -n1 xprop -id {} WM_NAME | grep -o '"TL.*"' | sed -n '2p')
+
 bspc rule -r "*"
 bspc rule -a "*" rectangle=900x550+0+0 center=on follow=on
 #bspc rule -a tdropkitty state=floating layer=above center=on
 bspc rule -a mpv state=floating layer=above center=off rectangle=550x350+1340+660
-#bspc rule -a Gimp desktop='^8' state=floating follow=on
-#bspc rule -a Chromium desktop='^2'
+bspc rule -a Gimp desktop='^9'  follow=on
+#bspc rule -a Chromium state=floating desktop='^2'
 bspc rule -a firefox desktop=focused focus=on
 bspc rule -a Zathura state=tiled
-#bspc rule -a mplayer2 state=floating
+bspc rule -a RLCraft desktop='^10' focus=off
+minecraft="Minecraft 1.12.2"
+bspc rule -a "$minecraft" desktop='^10' focus=off
+#tlminecraft="TL 155.3 [AUR]"
+bspc rule -a "$tlminecraft" desktop='^10' focus=off
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off

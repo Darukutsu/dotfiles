@@ -35,8 +35,8 @@ n () {
     # stty lwrap undef
     # stty lnext undef
 
-    nnn -cdHa "$@"
-    #nnn -cdHa "$@" -P v
+    nnn -cdHar "$@"
+    #nnn -cdHar "$@" -P v
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
