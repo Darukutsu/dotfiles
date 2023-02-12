@@ -31,9 +31,14 @@ XF86Audio{Play,Next,Prev}
 
 # tdrop (square mid)
 F12
-	tdrop -P 'bspc node -t floating -l above' kitty
-#tdrop -y 100% -h 49% kitty
-#tdrop -y 0% -h 49% kitty
+	tdrop -N -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	#tdrop -a -l 'bspc rule -a "*" -o state=floating layer=above' kitty
+	#tdrop -ma -w 900 -h 550 -x 26% -y 24% -l 'bspc rule -a "*" -o state=floating layer=above' kitty
+	#tdrop -l 'bspc rule -a kitty center=on state=floating layer=above' kitty\
+	#;bspc rule -r kitty
+	# don't do  -r tail ... it will break your rules if spamming key
+	
+	#tdrop -P 'bspc node -t floating -l above' kitty
 
 # program launcher
 super + @space

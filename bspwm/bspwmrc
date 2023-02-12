@@ -57,8 +57,10 @@ bspc rule -a firefox desktop=focused focus=on
 bspc rule -a Zathura state=tiled
 bspc rule -a RLCraft desktop='^10' focus=off
 minecraft="Minecraft 1.12.2"
+#minecraft="Minecraft* 1.19.2"
 bspc rule -a "$minecraft" desktop='^10' focus=off
 #tlminecraft="TL 155.3 [AUR]"
+tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
 bspc rule -a "$tlminecraft" desktop='^10' focus=off
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
