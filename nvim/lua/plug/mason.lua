@@ -5,7 +5,12 @@ require("mason-lspconfig").setup_handlers {
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
   function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {}
+    if (server_name == "sumneko_lua")
+    then
+      require("lspconfig").lua_ls.setup {}
+    else
+      require("lspconfig")[server_name].setup {}
+    end
   end,
   -- Next, you can provide a dedicated handler for specific servers.
   -- For example, a handler override for the `rust_analyzer`:
