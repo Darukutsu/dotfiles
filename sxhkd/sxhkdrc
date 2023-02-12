@@ -31,7 +31,7 @@ XF86Audio{Play,Next,Prev}
 
 # tdrop (square mid)
 F12
-	tdrop -N -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	tdrop -N -C "autohide-tdrop &" -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
 	#tdrop -a -l 'bspc rule -a "*" -o state=floating layer=above' kitty
 	#tdrop -ma -w 900 -h 550 -x 26% -y 24% -l 'bspc rule -a "*" -o state=floating layer=above' kitty
 	#tdrop -l 'bspc rule -a kitty center=on state=floating layer=above' kitty\
@@ -66,7 +66,7 @@ ctrl + super + {equal,minus}
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd; sxhkd &
+	killall "sxhkd"; sxhkd &
 
 # quit/restart bspwm
 super + {_,shift +}m
