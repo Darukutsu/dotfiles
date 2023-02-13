@@ -21,14 +21,19 @@ fi
 
 feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
 
+killall "sxhkd"
 sxhkd &
+killall "clipmenu"
 clipmenud &
+killall "polybar"
 polybar &
 #$HOME/.fehbg &
 xinput set-prop 'Logitech M705' 'libinput Accel Speed' -0.7
+killall "picom"
 picom &
 #xset s 1200 30
 #xss-lock -n $XDG_CONFIG_HOME/bslock/dim-screen.sh -- bslock &
+killall "kdeconnect-indicator"
 kdeconnect-indicator &
 #/home/daru/.local/share/gnome-shell/extensions/gsconnect@andyholmes.github.io/service/daemon.js &
 #$HOME/.config/polybar/launch.sh &
@@ -44,6 +49,16 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      false
 bspc config ignore_ewmh_focus	 true
 
+# mouse actions
+# works by default
+#bspc config pointer_modifier super
+#bspc config pointer_action1 move
+#bspc config pointer_action2 resize_side
+#bspc config pointer_action3 resize_corner
+#bspc config click_to_focus true
+
+# this was because regex doesn't exist in bspwm and I wanted to catch window names
+# relative to their versions e.g. foo 1.6 | foo 2.3
 #minecraft=$(xprop -root _NET_CLIENT_LIST | pcreerep -o1 '# (.*)' | sed 's/, /\n/g' | xargs -I{} -n1 xprop -id {} WM_NAME | grep -o '"Minecraft.*"' | sed -n '2p')
 #tlminecraft=$(xprop -root _NET_CLIENT_LIST | pcregrep -o1 '# (.*)' | sed 's/, /\n/g' | xargs -I{} -n1 xprop -id {} WM_NAME | grep -o '"TL.*"' | sed -n '2p')
 
