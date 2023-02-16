@@ -108,7 +108,7 @@ super + c
 
 #disables OBS below effect
 super + q 
-	bspc node any.below -l normal -t tiled -g sticky=off
+	bspc node any.below -l normal -g sticky=off -f
 
 #super + s
 #	bspc subscribe node -t floating -z top_left -100 0 -z top_right 100 0
