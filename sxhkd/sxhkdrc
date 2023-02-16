@@ -6,10 +6,10 @@ super + Return
 	kitty
 
 super + g
-	firefox
+	firefox-developer-edition
 
 super + slash
-	/home/daru/.config/sxhkd/sxhkd-help.sh
+	/home/daru/.config/sxhkd/sxhkd_help.sh
 
 # media keys
 @Print
@@ -21,7 +21,7 @@ XF86MonBrightness{Up,Down}
 	#ddcutil setvcp 10 {+,-} 5
 
 XF86Audio{Raise,Lower}Volume
-	pamixer {-i,-d} 5 ; /home/daru/.config/sxhkd/volume-notify.sh
+	pamixer {-i,-d} 5 ; /home/daru/.config/sxhkd/volume_notify.sh
 
 XF86AudioMute
 	pamixer -t
@@ -31,14 +31,11 @@ XF86Audio{Play,Next,Prev}
 
 # tdrop (square mid)
 F12
-	tdrop -N -C "autohide-tdrop &" -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
-	#tdrop -a -l 'bspc rule -a "*" -o state=floating layer=above' kitty
-	#tdrop -ma -w 900 -h 550 -x 26% -y 24% -l 'bspc rule -a "*" -o state=floating layer=above' kitty
-	#tdrop -l 'bspc rule -a kitty center=on state=floating layer=above' kitty\
-	#;bspc rule -r kitty
-	# don't do  -r tail ... it will break your rules if spamming key
-	
-	#tdrop -P 'bspc node -t floating -l above' kitty
+	tdrop -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	#tdrop -N -P 'xdotool getactivewindow behave %1 blur windowunmap exec killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	#tdrop --class "tdrop-kitty" -N -P 'xdotool search --name "tdrop-kitty" behave %1 blur windowunmap exec --sync killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	#tdrop --class "tdrop-kitty" -N -P 'xdotool search --name "tdrop-kitty" behave %1 blur exec --sync killall xdotool windowunmap %1' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	#tdrop -N -C 'xdotool set_window --class "tdrop-kitty"' -P 'xdotool search "tdrop-kitty" behave %1 blur windowunmap exec killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
 
 # program launcher
 super + @space
@@ -104,6 +101,15 @@ super + x
 super + z
 	bspc node any.hidden -g hidden=off -f
 
+# make window appear in below level to be able to record
+# with OBS xcomposite, because bspwm unmaps workspaces on lost focus
+super + c
+	bspc node -l below -t fullscreen -g sticky=on
+
+#disables OBS below effect
+super + q 
+	bspc node any.below -l normal -t tiled -g sticky=off
+
 #super + s
 #	bspc subscribe node -t floating -z top_left -100 0 -z top_right 100 0
 	#bspc node -t floating -z top_left -100 0 -z top_right 100 0
@@ -123,7 +129,11 @@ super + b
 #super + r
 #	bspc node
 
-# Rotate tree
+# switch from vertical to horizontal tiling and vice-versa
+super + r
+	bspc node @/ -R 90
+
+# rotate tree
 super + {_,shift + }n
     bspc node @/ -C {forward,backward}
 
@@ -134,7 +144,7 @@ super + {_,alt + }{h,j,k,l}
 # focus the node for the given path jump
 #super + {p,b,comma,period}
 #	bspc node -f @{parent,brother,first,second}
-
+#
 # focus prev window
 #super + bracket{left}
 #	bspc node -f prev.local.!hidden.window
