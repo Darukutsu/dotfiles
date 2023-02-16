@@ -21,13 +21,13 @@ fi
 
 feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
 
+killall "autohide-tdrop"
 killall "sxhkd"
 sxhkd &
 killall "clipmenu"
 clipmenud &
 killall "polybar"
 polybar &
-#$HOME/.fehbg &
 xinput set-prop 'Logitech M705' 'libinput Accel Speed' -0.7
 killall "picom"
 picom &
@@ -36,12 +36,14 @@ picom &
 killall "kdeconnect-indicator"
 kdeconnect-indicator &
 #/home/daru/.local/share/gnome-shell/extensions/gsconnect@andyholmes.github.io/service/daemon.js &
-#$HOME/.config/polybar/launch.sh &
 
 
 bspc config border_width        3
 bspc config focused_border_color "#6181FF" 
 #bspc config normal_border_color "#FFFFFF"
+#
+#outdated in 0.9.1 and up
+#bspc config urgent_border_color "#ff0000#" 
 bspc config window_gap          12
 
 bspc config split_ratio          0.52
@@ -68,14 +70,16 @@ bspc rule -a "*" rectangle=900x550+0+0 center=on follow=on
 bspc rule -a mpv state=floating layer=above center=off rectangle=550x350+1340+660
 bspc rule -a Gimp desktop='^9'  follow=on
 #bspc rule -a Chromium state=floating desktop='^2'
-bspc rule -a firefox desktop=focused focus=on
+bspc rule -a "firefoxdeveloperedition" desktop=focused focus=on
 bspc rule -a Zathura state=tiled
 bspc rule -a RLCraft desktop='^10' focus=off
+bspc rule -a "tdrop-kitty" locked=on
 minecraft="Minecraft 1.12.2"
 #minecraft="Minecraft* 1.19.2"
 bspc rule -a "$minecraft" desktop='^10' focus=off
 #tlminecraft="TL 155.3 [AUR]"
 tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
 bspc rule -a "$tlminecraft" desktop='^10' focus=off
+bspc rule -a obs desktop='^9' focus=on follow=on
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
