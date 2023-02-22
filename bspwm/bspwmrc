@@ -44,6 +44,8 @@ bspc config focused_border_color "#6181FF"
 #
 #outdated in 0.9.1 and up
 #bspc config urgent_border_color "#ff0000#" 
+#
+./border_color.sh
 bspc config window_gap          12
 
 bspc config split_ratio          0.52
@@ -80,6 +82,8 @@ bspc rule -a "$minecraft" desktop='^10' focus=off
 #tlminecraft="TL 155.3 [AUR]"
 tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
 bspc rule -a "$tlminecraft" desktop='^10' focus=off
-bspc rule -a obs desktop='^9' focus=on follow=on
+bspc rule -a "obs" desktop='^9' focus=on follow=on
+bspc rule -a "Guitarix" desktop='^8' focus=on follow=on
+bspc rule -a "Carla2" desktop='^7' focus=on follow=on
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
