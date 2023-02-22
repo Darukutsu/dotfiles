@@ -54,8 +54,8 @@ nnoremap <F5> :UndotreeToggle<cr>:UndotreeFocus<cr>
 nnoremap <leader>\ :NnnExplorer<cr>
 
 " Firenvim
-nnoremap <leader>'l :set lines=0
-nnoremap <leader>'c :set columns=00
+nnoremap <leader>'l :set lines=
+nnoremap <leader>'c :set columns=
 
 " Markdown preview
 nnoremap <leader>m :MarkdownPreviewToggle<cr>

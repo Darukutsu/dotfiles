@@ -43,12 +43,15 @@ vim.cmd([[
 
   "Vim defaults set
   set tabstop=8
+  " after softtabstop*N will turn into <Tab> character
+  "set softtabstop=2
+  " replace tab with spaces
+  set expandtab
 
   "setting this to 0 means it will use tabstop
+  " shiftwidth >>
   "set shiftwidth=4
-  "set expandtab
   set shiftwidth=2
-  "set softtabstop=2
 
   set number relativenumber
   set wildmode=longest:full,list,full
