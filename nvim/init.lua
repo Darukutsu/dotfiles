@@ -14,7 +14,13 @@ require('plug/readline')
 require('plug/undotree')
 require('plug/mason')
 --require('plug/lsp-signature')
+--require('plug/formatter')
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+        vim.lsp.buf.format()
+    end,
+})
 
 vim.cmd([[
   augroup packer_user_config
@@ -22,8 +28,13 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
 
+""  augroup autoformat_on_quit
+""    autocmd!
+""    autocmd BufWritePre * lua vim.lsp.buf.format({ async = true })
+""  augroup end
+
   " firenvim
-  let g:firenvim_config = { 
+  let g:firenvim_config = {
       \ 'globalSettings': {
 	  \ 'alt': 'all',
       \  },
@@ -67,4 +78,3 @@ vim.cmd([[
   "set autoindent
   COQnow -s
 ]])
-

@@ -11,10 +11,11 @@ local remap = vim.api.nvim_set_keymap
 --require('lspconfig').bashls.setup{}
 
 -- Linters
-require('lint').linters_by_ft={
-  ['markdown'] = {'markdownlint', },
+require('lint').linters_by_ft = {
+  ['markdown'] = { 'markdownlint', },
   --['sh'] = {'shellcheck',},
-  ['c'] = {'cpplint',},
+  ['c'] = { 'cpplint', },
+  --['python'] = {'pylint',},
 }
 vim.cmd('autocmd BufEnter,BufWritePost,InsertLeave * lua require("lint").try_lint()')
 
@@ -54,7 +55,7 @@ local npairs = require('nvim-autopairs')
 npairs.setup({ map_bs = false, map_cr = false })
 
 -- skip it, if you use another global object
-_G.MUtils= {}
+_G.MUtils = {}
 
 MUtils.CR = function()
   if vim.fn.pumvisible() ~= 0 then
@@ -77,6 +78,3 @@ MUtils.BS = function()
   end
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
-
-
-

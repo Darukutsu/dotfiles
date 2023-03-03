@@ -18,6 +18,7 @@ return require('packer').startup(function()
   --use 'rstacruz/vim-closer' -- autobracket enter ...problem with COQ
   use 'uga-rosa/ccc.nvim' -- color picker with :CccPick 
   use 'lervag/vimtex' -- latex thingi...
+  --use 'sbdchd/neoformat' -- format text
 
 
 

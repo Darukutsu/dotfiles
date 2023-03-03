@@ -23,8 +23,8 @@ nnoremap <leader>: :Telescope commands<cr>
 " LSP enable(def)/disable
 let g:isLSP = 1
 function! ToggleLsp(isLSP)
-  if g:isLSP==1 
-    :LspStop<cr> 
+  if g:isLSP==1
+    :LspStop<cr>
     let g:isLSP = 0
   else
     :LspStart<cr>
@@ -32,8 +32,9 @@ function! ToggleLsp(isLSP)
   endif
 endfunction
 nnoremap <F4> :call ToggleLsp(isLSP)<cr>
+nnoremap <F1> :lua vim.diagnostic.open_float()<cr>
 
-" Info
+" GNUInfo
 " Only apply the mapping to generated buffers
 "if &buftype =~? 'nofile'
 "    nmap <buffer> gu <Plug>(InfoUp)
@@ -72,8 +73,14 @@ nnoremap <leader><leader> z=
 
 " Navigation
 " Move highlighted text
+"inoremap J :m +1<cr>
+"inoremap K :m -2<cr>
+"xnoremap K xkP`[V`]
+"xnoremap J xp`[V`]
+"xnoremap H <gv
+"xnoremap L >gv
 vnoremap J :m '>+1<cr>gv=gv
-vnoremap K :m '<-2<cr>gv=gv 
+vnoremap K :m '<-2<cr>gv=gv
 
 " Folding functions
 " za/zA toggle current 1 level/toggle current full
