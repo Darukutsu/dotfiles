@@ -11,15 +11,26 @@ export OPACITY_VALUE=1.0
 
 if [ $(bspc query -M --names | wc -l) -gt 1 ]; then
   bspc monitor DP-1 -d I II III IV V VI VII VIII IX X
+  #bspc monitor DP-1 -d   II III IV V VI      
+  #bspc monitor DP-1 -d  II III IV V VI VII   
   bspc monitor eDP-1 -r 
   xrandr --output eDP-1 --off
   bspc remove_unplugged_monitors
   bspc remove_disabled_monitors
 else
   bspc monitor -d I II III IV V VI VII VIII IX X
+  #bspc monitor -d   II III IV V VI      
+  #bspc monitor -d  II III IV V VI VII   
+   
 fi
 
 feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
+
+# probably unneeded
+#dbus-update-activation-environment --all
+# for protonvpn
+killall "nm-applet"
+nm-applet &
 
 killall "autohide-tdrop"
 killall "sxhkd"
@@ -31,6 +42,7 @@ polybar &
 xinput set-prop 'Logitech M705' 'libinput Accel Speed' -0.7
 killall "picom"
 picom &
+xset b off
 #xset s 1200 30
 #xss-lock -n $XDG_CONFIG_HOME/bslock/dim-screen.sh -- bslock &
 killall "kdeconnect-indicator"
@@ -79,9 +91,11 @@ bspc rule -a "tdrop-kitty" locked=on
 minecraft="Minecraft 1.12.2"
 #minecraft="Minecraft* 1.19.2"
 bspc rule -a "$minecraft" desktop='^10' focus=off
+bspc rule -a "pyrogenesis" desktop='^10' focus=off
 #tlminecraft="TL 155.3 [AUR]"
 tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
 bspc rule -a "$tlminecraft" desktop='^10' focus=off
+
 bspc rule -a "obs" desktop='^9' focus=on follow=on
 bspc rule -a "Guitarix" desktop='^8' focus=on follow=on
 bspc rule -a "Carla2" desktop='^7' focus=on follow=on
