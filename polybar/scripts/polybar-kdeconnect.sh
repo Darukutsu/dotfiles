@@ -23,9 +23,9 @@ COLOR_BATTERY_50='#8ABEB7'         # Battery >= 90
 COLOR_BATTERY_LOW='#f00'        # Battery <  50
 
 # Icons shown in Polybar
-ICON_SMARTPHONE=''
-ICON_TABLET=''
-SEPERATOR='|'
+ICON_SMARTPHONE=''
+ICON_TABLET='tablet'
+SEPERATOR=':'
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
