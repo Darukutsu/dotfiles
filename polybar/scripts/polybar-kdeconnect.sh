@@ -9,13 +9,17 @@ WIDTH_WIDE=24
 THEME=solarized
 
 # Color Settings of Icon shown in Polybar
-COLOR_DISCONNECTED='#000'       # Device Disconnected
+COLOR_DISCONNECTED='#375e5a'       # Device Disconnected
 COLOR_NEWDEVICE='#ff0'          # New Device
-COLOR_BATTERY_90='#fff'         # Battery >= 90
-COLOR_BATTERY_80='#ccc'         # Battery >= 80
-COLOR_BATTERY_70='#aaa'         # Battery >= 70
-COLOR_BATTERY_60='#888'         # Battery >= 60
-COLOR_BATTERY_50='#666'         # Battery >= 50
+COLOR_BATTERY_90='#8ABEB7'         # Battery >= 90
+COLOR_BATTERY_80='#8ABEB7'         # Battery >= 90
+COLOR_BATTERY_70='#8ABEB7'         # Battery >= 90
+COLOR_BATTERY_60='#8ABEB7'         # Battery >= 90
+COLOR_BATTERY_50='#8ABEB7'         # Battery >= 90
+#COLOR_BATTERY_80='#ccc'         # Battery >= 80
+#COLOR_BATTERY_70='#aaa'         # Battery >= 70
+#COLOR_BATTERY_60='#888'         # Battery >= 60
+#COLOR_BATTERY_50='#666'         # Battery >= 50
 COLOR_BATTERY_LOW='#f00'        # Battery <  50
 
 # Icons shown in Polybar

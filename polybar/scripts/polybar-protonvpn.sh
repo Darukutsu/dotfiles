@@ -1,7 +1,7 @@
 #!/bin/bash
-COLOR_CONNECTED='#f00' 
+COLOR_CONNECTED='#8ABEB7' 
 COLOR_DISCONNECTED='#0f0'
-ICON_CONNECTED=
+ICON_CONNECTED=
 ICON_DISCONNECTED=
 INTERVAL=5
 PRINT_VALUES=("ip" "server" "contime")
@@ -63,11 +63,12 @@ function output () {
         b=`expr $ts % $a`
         c=`expr $b / $INTERVAL`
         out+=${prints[$c]}
-       
+        echo "%{A1:$DIR/polybar-protonvpn -t:}$out%{A}"
     else
-        out="%{F$COLOR_DISCONNECTED}$ICON_DISCONNECTED Disconnected%{F-}"
+        echo ""
+        #out="%{F$COLOR_DISCONNECTED}$ICON_DISCONNECTED Disconnected%{F-}"
+        #out=""
     fi
-    echo "%{A1:$DIR/polybar-protonvpn -t:}$out%{A}"
 }
 while getopts 'ot' c
 do
