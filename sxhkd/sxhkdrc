@@ -29,9 +29,13 @@ XF86AudioMute
 XF86Audio{Play,Next,Prev}
 	playerctl {play-pause,next,previous}
 
-# tdrop (square mid)
+# tdrop1 (square mid)
+#F11
+#	tdrop --class="kitty-drop1" -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty --class="kitty-drop1"
+
+# tdrop2 (square mid)
 F12
-	tdrop -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+	tdrop --class="kitty-drop" -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty --class="kitty-drop"
 	#tdrop -N -P 'xdotool getactivewindow behave %1 blur windowunmap exec killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
 	#tdrop --class "tdrop-kitty" -N -P 'xdotool search --name "tdrop-kitty" behave %1 blur windowunmap exec --sync killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
 	#tdrop --class "tdrop-kitty" -N -P 'xdotool search --name "tdrop-kitty" behave %1 blur exec --sync killall xdotool windowunmap %1' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
@@ -39,16 +43,19 @@ F12
 
 # program launcher
 super + @space
-	rofi -show combi
+        /home/daru/.config/sxhkd/rofi_launcher.sh combi
+	#rofi -show combi -theme $HOME/.config/rofi/applets/type-3/style-1.rasi
 
 alt + Tab
-	rofi -show window
+        /home/daru/.config/sxhkd/rofi_launcher.sh window
+	#rofi -show window
 
 super + alt + BackSpace
 	bslock
 # clipmenu
 super + v
-	rofi -modi "clipboard:clipmenu,emoji" -show "clipboard"
+        /home/daru/.config/sxhkd/rofi_launcher.sh clipboard
+	#rofi -modi "clipboard:clipmenu,emoji" -show "clipboard"
 
 #
 # bspwm hotkeys
