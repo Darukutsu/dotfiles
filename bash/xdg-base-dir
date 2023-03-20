@@ -28,3 +28,11 @@ export CGDB_DIR='"$XDG_CONFIG_HOME"/cgdb'
 export NIMBLE_DIR="$XDG_DATA_HOME/nimble" 
 #export HISTFILE='"$XDG_STATE_HOME"/bash/history'
 export MBSYNCRC='"$XDG_CONFIG_HOME"/isync/mbsyncrc'
+export W3M_DIR='"$XDG_DATA_HOME"/w3m'
+
+## XDG_FOLLOW_CORRECT_DIR
+alias dosbox='dosbox -conf "$XDG_CONFIG_HOME"/dosbox/dosbox.conf'
+alias mbsync='mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc'
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
+alias lmms='lmms -c "$XDG_CONFIG_HOME/lmms/lmmsrc.xml"'
