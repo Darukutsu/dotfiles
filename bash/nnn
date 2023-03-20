@@ -4,7 +4,7 @@ fi
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
-export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;y:imgur;i:imgview;g:kdeconnect;p:addtoplaylist;d:diffs;m:nmount;e:-!sudo-Envim$nnn*;c:cpoverwrite;h:dragdrop;f:fzcd;w:wallpaper;x:xdgdefault;v:preview-tui;'
+export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;y:imgur;i:imgview;g:kdeconnect;p:addtoplaylist;d:diffs;m:nmount;e:-!sudo-Envim$nnn*;c:cpoverwrite;h:dragdrop;f:fzcd;w:wallpaper;x:xdgdefault;v:preview-tui;z:zip'
 #;j:autojump
 #;f:fzopen
 

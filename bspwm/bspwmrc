@@ -82,22 +82,22 @@ bspc rule -r "*"
 bspc rule -a "*" rectangle=900x550+0+0 center=on follow=on
 #bspc rule -a tdropkitty state=floating layer=above center=on
 bspc rule -a mpv state=floating layer=above center=off rectangle=550x350+1340+660
-bspc rule -a Gimp desktop='^9'  follow=on
-#bspc rule -a Chromium state=floating desktop='^2'
 bspc rule -a "firefoxdeveloperedition" desktop=focused focus=on
 bspc rule -a Zathura state=tiled
-bspc rule -a RLCraft desktop='^10' focus=off
 bspc rule -a "tdrop-kitty" locked=on
+bspc rule -a "Show Me The Key" manage=off
+#bspc rule -a Screenkey manage=off
+
+# workspace/desktop assigment
+bspc rule -a "Gimp" desktop='^5' follow=on
+bspc rule -a "lmms" desktop='^6' focus=on follow=on
+bspc rule -a "Carla2" desktop='^7' focus=on follow=on
+bspc rule -a "Guitarix" desktop='^8' focus=on follow=on
+bspc rule -a "obs" desktop='^9' focus=on follow=on
 minecraft="Minecraft 1.12.2"
 #minecraft="Minecraft* 1.19.2"
 bspc rule -a "$minecraft" desktop='^10' focus=off
-bspc rule -a "pyrogenesis" desktop='^10' focus=off
-#tlminecraft="TL 155.3 [AUR]"
 tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
 bspc rule -a "$tlminecraft" desktop='^10' focus=off
-
-bspc rule -a "obs" desktop='^9' focus=on follow=on
-bspc rule -a "Guitarix" desktop='^8' focus=on follow=on
-bspc rule -a "Carla2" desktop='^7' focus=on follow=on
-#bspc rule -a Kupfer.py focus=on
-#bspc rule -a Screenkey manage=off
+bspc rule -a "pyrogenesis" desktop='^10' focus=off
+bspc rule -a "RLCraft" desktop='^10' focus=off

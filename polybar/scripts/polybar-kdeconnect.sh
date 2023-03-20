@@ -101,6 +101,8 @@ get_icon () {
     case $1 in
     "-1")     ICON="%{F$COLOR_DISCONNECTED}$icon%{F-}" ;;
     "-2")     ICON="%{F$COLOR_NEWDEVICE}$icon%{F-}" ;;
+    3*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
+    4*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
     5*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
     6*)     ICON="%{F$COLOR_BATTERY_60}$icon%{F-}" ;;
     7*)     ICON="%{F$COLOR_BATTERY_70}$icon%{F-}" ;;
