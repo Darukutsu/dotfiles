@@ -1,0 +1,43 @@
+" INFO
+" unset mode.key (to reset to default)
+
+" don't source or starts glitching after start 
+" creates lots of problems when already using custom css
+" guiset statuspanel top-left
+" guiset hoverlink top-left
+" guiset navbar always
+" guiset tabs count
+" guiset tabstoolbar show
+" guiset tabcounter on
+" guiset tabcounters show
+
+
+" mouse hover
+bind ;U !s xdotool mousemove 0 0
+bind ;u hint -F e => { const pos = tri.dom.getAbsoluteCentre(e); tri.excmds.exclaim_quiet("xdotool mousemove --sync " + window.devicePixelRatio * pos.x + " " + window.devicePixelRatio * pos.y)}
+
+" click link
+bind ;x hint -F e => { const pos = tri.dom.getAbsoluteCentre(e); tri.excmds.exclaim_quiet("xdotool mousemove --sync " + window.devicePixelRatio * pos.x + " " + window.devicePixelRatio * pos.y + "; xdotool click 1").then(x=>tri.excmds.unfocus())}
+
+" ctrl+shift (new page) click link
+bind ;X hint -F e => { const pos = tri.dom.getAbsoluteCentre(e); tri.excmds.exclaim_quiet("xdotool mousemove --sync " + window.devicePixelRatio * pos.x + " " + window.devicePixelRatio * pos.y + "; xdotool keydown ctrl+shift; xdotool click 1; xdotool keyup ctrl+shift")}
+
+" :back and :forward for history list
+bind ;j fillcmdline back 
+bind ;l fillcmdline forward 
+
+bind ' gobble 1 markjump
+
+"hint some elements
+bind ;s hint svg
+
+"newwindow tridactil
+"bind <C-n> winopen
+
+"disable autofocus on somepages = uses CPU so seturl
+seturl github allowautofocus false
+seturl github preventautofocusjackhammer true
+seturl messenger allowautofocus false
+seturl messenger preventautofocusjackhammer true
+seturl discord allowautofocus false
+seturl discord preventautofocusjackhammer true
