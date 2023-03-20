@@ -26,9 +26,10 @@ window {
     location:                    north;
     anchor:                      north;
     fullscreen:                  false;
-    width:                       720px;
+    /*width:                       720px;*/
+    width:                       540px;
     x-offset:                    0px;
-    y-offset:                    0px;
+    y-offset:                    18px;
 
     enabled:                     true;
     margin:                      0px;
@@ -116,7 +117,7 @@ listview {
     fixed-columns:               true;
     
     spacing:                     35px;
-    margin:                      0px 40px;
+    margin:                      0px 15px;
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px;
@@ -129,7 +130,7 @@ listview {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    padding:                     23px 30px;
+    padding:                     10px 17px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;

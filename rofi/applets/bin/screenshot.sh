@@ -20,7 +20,7 @@ if [[ "$theme" == *'type-1'* ]]; then
 elif [[ "$theme" == *'type-3'* ]]; then
 	list_col='1'
 	list_row='5'
-	win_width='720px'
+	#win_width='720px'
 elif [[ "$theme" == *'type-5'* ]]; then
 	list_col='1'
 	list_row='5'
@@ -49,8 +49,8 @@ fi
 
 # Rofi CMD
 rofi_cmd() {
-	rofi -theme-str "window {width: $win_width;}" \
-		-theme-str "listview {columns: $list_col; lines: $list_row;}" \
+	#rofi -theme-str "window {width: $win_width;}" \
+	rofi -theme-str "listview {columns: $list_col; lines: $list_row;}" \
 		-theme-str 'textbox-prompt-colon {str: "";}' \
 		-dmenu \
 		-p "$prompt" \
@@ -123,8 +123,10 @@ shotwin () {
 }
 
 shotarea () {
-	cd ${dir} && maim -u -f png -s -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
+        #/home/daru/.config/sxhkd/mouse.sh &
+	cd ${dir} && maim -u -f png -s -D -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
 	notify_view
+        #killall mouse.sh
 }
 
 # Execute Command
