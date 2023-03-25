@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+#set -x
+# Description: Send the selected (or hovered) files to your Android device using gsconnect daemon.js.
+#              GSConnect must be configured on the Android device and the PC.
+#
+# Shell: POSIX compliant
+# Author: Darukutsu 
+selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
+
+printf "ZIP File name: "
+read -r zipname
+
+	if [ -s "$selection" ]; then
+          zip "$zipname" $(tr '\000' '\n' < "$selection")
+		# Clear selection
+		printf "-" > "$NNN_PIPE"
+	else
+		zip "$zipname" "$2/$1"
+	fi
