@@ -84,6 +84,7 @@ bspc rule -a "*" rectangle=900x550+0+0 center=on follow=on
 bspc rule -a mpv state=floating layer=above center=off rectangle=550x350+1340+660
 bspc rule -a "firefoxdeveloperedition" desktop=focused focus=on
 bspc rule -a Zathura state=tiled
+bspc rule -a polybar layer=below
 bspc rule -a "tdrop-kitty" locked=on
 bspc rule -a "Show Me The Key" manage=off
 #bspc rule -a Screenkey manage=off
@@ -101,3 +102,4 @@ tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
 bspc rule -a "$tlminecraft" desktop='^10' focus=off
 bspc rule -a "pyrogenesis" desktop='^10' focus=off
 bspc rule -a "RLCraft" desktop='^10' focus=off
+bspc rule -a "Steam" desktop='^10' focus=off

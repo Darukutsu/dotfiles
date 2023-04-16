@@ -131,9 +131,9 @@ super + q
 # focus/swap
 #
 
-# swap the current node and the biggest window
+# swap the current node and the biggest window on workspace
 super + b
-	bspc node -s biggest.window
+	bspc node -s biggest.local.window
 
 # rotates tree
 # switch from vertical to horizontal tiling and vice-versa
@@ -245,6 +245,7 @@ super + w : {h,j,k,l}
 # button2 right
 
 # maximize/minimize a window
-super + {button9,button8}
-       bspc node -t {fullscreen,~fullscreen}
-
+super + button9
+       bspc node -f pointed; bspc node -t ~fullscreen
+#button9 + button8
+#       bspc node -t ~fullscreen
