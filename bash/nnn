@@ -1,6 +1,7 @@
 if [ $(whoami) == "root" ]; then
   export NNN_COLORS='1111'
 fi
+#export NNN_TRASH=1
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"

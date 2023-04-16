@@ -12,9 +12,9 @@ printf "ZIP File name: "
 read -r zipname
 
 	if [ -s "$selection" ]; then
-          zip "$zipname" $(tr '\000' '\n' < "$selection")
+          zip -j "$zipname" $(tr '\000' '\n' < "$selection")
 		# Clear selection
 		printf "-" > "$NNN_PIPE"
 	else
-		zip "$zipname" "$2/$1"
+		zip -j "$zipname" "$2/$1"
 	fi

@@ -18,13 +18,13 @@ input anything else to cancel ('q' for example)"
 read -r option
 
 case $option in
-     y | yes | Y | YES) option='if [ -d {} ]; then cp -r {} .; else cp {} .; fi';;
-  "" | n | no | N | NO) option='if [ -d {} ]; then cp -nr {} .; else cp {} .; fi';;
-		 d | D) option='if [ -d {} ]; then rsync -a --delete {} .; else cp {} .; fi';;
+     y | yes | Y | YES) option='if [ -d "{}" ]; then cp -r "{}" .; else cp "{}" .; fi';;
+  "" | n | no | N | NO) option='if [ -d "{}" ]; then cp -nr "{}" .; else cp "{}" .; fi';;
+		 d | D) option='if [ -d "{}" ]; then rsync -a --delete "{}" .; else cp "{}" .; fi';;
 		     *) echo "Nothing to do..." exit;;
 esac
 
-xargs -0 < "$selection" -I{} sh -c "$option"
+xargs -0 -I{} sh -c "$option" < "$selection" 
 # Clear selection
 printf "-" > "$NNN_PIPE"
 
