@@ -12,7 +12,7 @@ printf "ZIP File name: "
 read -r zipname
 
 	if [ -s "$selection" ]; then
-          zip -j "$zipname" $(tr '\000' '\n' < "$selection")
+          xargs -0 -I{} zip -j "$zipname" "{}" < "$selection"
 		# Clear selection
 		printf "-" > "$NNN_PIPE"
 	else

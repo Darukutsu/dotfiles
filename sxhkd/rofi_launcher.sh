@@ -1,25 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
-## Author : Aditya Shakya (adi1090x)
-## Github : @adi1090x
-#
-## Rofi   : Launcher (Modi Drun, Run, File Browser, Window)
-#
-## Available Styles
-#
-## style-1     style-2     style-3     style-4     style-5
-## style-6     style-7     style-8     style-9     style-10
-
-dir="$HOME/.config/rofi/launchers/type-3"
-theme='style-5'
+#path="$HOME/.config/rofi/myemojis.pango"
+theme_applet="$XDG_CONFIG_HOME/rofi/applet.rasi"
 
 ## Run
 if [ "$1" = "combi" ];then
-	rofi -show combi -theme "$dir/$theme"
-elif [ "$1" = "window" ];then
-	rofi -show window -theme "$dir/$theme"
-elif [ "$1" = "clipboard" ];then
-	rofi -modi "clipboard:clipmenu,emoji" -show "clipboard" -theme "$dir/$theme"
+  #rofi -modi "combi,emoji,calc" -show "combi"  -emoji-file "$path" -normal-window
+  rofi -modi "combi,calc" -show "combi" -combi-modes run -normal-window
+  elif [ "$1" = "window" ];then
+  rofi -show window  -normal-window
+  elif [ "$1" = "hidden-window" ];then
+  rofi_hidden_window
+  elif [ "$1" = "clipboard" ];then
+  rofi-gpaste
+  elif [ "$1" = "layout" ];then
+  rofi-bsp-layout
+  elif [ "$1" = "screenshot" ];then
+  rofi-applet-screenshot "$theme_applet"
+  elif [ "$1" = "bitwarden" ];then
+  bwmenu
+  elif [ "$1" = "powermenu" ];then
+  rofi-applet-powermenu "$theme_applet"
+  elif [ "$1" = "sxhkd_help" ];then
+  awk '/^[a-z]/ && last {print "<small>",$0,"\t",last,"</small>"} {last=""} /^#/{last=$0}' ~/.config/sxhkd/sxhkdrc |
+  column -t -s $'\t' |
+  rofi  -dmenu -i -markup-rows -no-show-icons -width 1000 -lines 15 -yoffset 40 -normal-window
 else
   echo "unknown option"
 fi

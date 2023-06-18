@@ -1,21 +1,33 @@
 #!/bin/bash
 
-# recognizes only one song then exits
-nohup songrec recognize -d default > shazam.txt &
+#set -x
+#
+# This sets songrec default output source
+# therefore songrec must run before 'pactl source-outputs' command
+#
 
-# need to wait before songrec init
+songrec recognize -d default > /tmp/songname.txt &
+
+#wait until songrec initialized
 sleep 1
 
-# expecting there will be only songrec
-SOURCE_OUTPUT_ID=$(pactl list short source-outputs | cut -d$'\t' -f1)
+client=$(pactl list short clients | grep "songrec" | cut -d$'\t' -f1)
+
+# pick songrec id
+source_output_id=$(pactl list short source-outputs | grep "$client" | cut -d$'\t' -f1)
 
 # list sources and then pick one (type number)
 pactl list short sources
-read SOURCE_ID
+printf "\nSelect Microphone ID: "
+read new_source_id
 
-pactl move-source-output "$SOURCE_OUTPUT_ID" "$SOURCE_ID"
+# set songrec to desired input
+pactl move-source-output "$source_output_id" "$new_source_id"
 
-# wait until recognizes
-wait
+while [ -z "$(cat /tmp/songname.txt)" ]; do :; done
+notify-send "$(cat /tmp/songname.txt)"
+cat /tmp/songname.txt
 
-cat shazam.txt && rm shazam.txt
+if [ -e songname.txt ];then
+  rm /tmp/songname.txt
+fi

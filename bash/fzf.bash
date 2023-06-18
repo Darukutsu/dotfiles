@@ -32,8 +32,8 @@
 # Key bindings
 # ------------
 if [[ ${BLE_VERSION-} ]]; then
-  #source /home/daru/.config/bash/fzf-key-bindings.bash
   ble-import contrib/fzf-key-bindings
+  #ble-import -d integration/fzf-key-bindings
 else
   source /usr/share/fzf/key-bindings.bash
 fi

@@ -1,31 +1,43 @@
 #
-# wm independent hotkeys
+# WM INDEPENDENT HOTKEYS
 #
 
+# Terminal launcher
 super + Return
 	kitty
 
+# Browser launcher
 super + g
-	firefox-developer-edition
+        qutebrowser
+	#firefox-developer-edition
+        #vieb
 
+# print help
 super + slash
-	/home/daru/.config/sxhkd/sxhkd_help.sh
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh sxhkd_help
 
-# media keys
+# screenshot
 @Print
-	rofi-screenshot
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh screenshot
 
+# poweroff
+super + p
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh powermenu
+
+# Brightness control
 XF86MonBrightness{Up,Down}
-	brightnessctl s 5%{+,-}
-	# won't work if using some sort of adapter like KVM
-	#ddcutil setvcp 10 {+,-} 5
+	ddcutil -d 1 --sleep-multiplier 2.0 setvcp 10 {+,-} 20
+	#brightnessctl s 5%{+,-}
 
+# Audio control
 XF86Audio{Raise,Lower}Volume
-	pamixer {-i,-d} 5 ; /home/daru/.config/sxhkd/volume_notify.sh
+	pamixer {-i,-d} 5 ; $XDG_CONFIG_HOME/sxhkd/volume_notify.sh
 
+# Audio mute
 XF86AudioMute
 	pamixer -t
 
+# Media controls
 XF86Audio{Play,Next,Prev}
 	playerctl {play-pause,next,previous}
 
@@ -35,40 +47,36 @@ XF86Audio{Play,Next,Prev}
 
 # tdrop2 (square mid)
 F12
-	tdrop --class="kitty-drop" -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty --class="kitty-drop"
-	#tdrop -N -P 'xdotool getactivewindow behave %1 blur windowunmap exec killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
-	#tdrop --class "tdrop-kitty" -N -P 'xdotool search --name "tdrop-kitty" behave %1 blur windowunmap exec --sync killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
-	#tdrop --class "tdrop-kitty" -N -P 'xdotool search --name "tdrop-kitty" behave %1 blur exec --sync killall xdotool windowunmap %1' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
-	#tdrop -N -C 'xdotool set_window --class "tdrop-kitty"' -P 'xdotool search "tdrop-kitty" behave %1 blur windowunmap exec killall xdotool' -U 'killall xdotool' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh
+	#tdrop -N -C 'autohide-tdrop &' kitty --class="kitty-drop"
 
 # program launcher
 super + @space
-        /home/daru/.config/sxhkd/rofi_launcher.sh combi
-	#rofi -show combi -theme $HOME/.config/rofi/applets/type-3/style-1.rasi
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh combi
 
+# program switcher
 alt + Tab
-        /home/daru/.config/sxhkd/rofi_launcher.sh window
-	#rofi -show window
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh window
 
 # screenlock
 super + alt + BackSpace
 	bslock
 
-# clipmenu
+# bitwarden
+super + apostrophe
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh bitwarden
+
+# clipmenu/clipboard
 super + v
-        /home/daru/.config/sxhkd/rofi_launcher.sh clipboard
-	#rofi -modi "clipboard:clipmenu,emoji" -show "clipboard"
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh clipboard
 
 #
-# bspwm hotkeys
+# BSPWM HOTKEYS
 #
 
 # toggle windows transparency
-ctrl + super + {equal,minus}
-	/home/daru/.config/sxhkd/opacity.sh inactive {on,off}
-	#/home/daru/.config/sxhkd/opacity.sh active {on,off}
-#ctrl + super + {equal,minus,0}
-#	/home/daru/.config/sxhkd/opacity.sh active {+,_,off}
+super + ctrl + {equal,minus}
+	$XDG_CONFIG_HOME/sxhkd/opacity.sh inactive {on,off}
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -98,17 +106,17 @@ alt + q
 super + {d,s,f}
 	bspc node -t {tiled,floating,fullscreen}
 
-# hide/unhide mpv window
-#super + p
-#	bspc node -g hidden
-
 # hide focused window
 super + x
 	bspc node -g hidden
 
-# unhide/show all hidden windows
+# unhide/show all hidden windows on current desktop
+super + Z
+	bspc node any.local.hidden -g hidden=off
+       
+# unhide/show one hidden window on current desktop
 super + z
-	bspc node any.hidden -g hidden=off -f
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh hidden-window
 
 # make window appear in below level to be able to record
 # with OBS xcomposite, because bspwm unmaps workspaces on lost focus
@@ -121,24 +129,36 @@ super + q
 
 #super + s
 #	bspc subscribe node -t floating -z top_left -100 0 -z top_right 100 0
-	#bspc node -t floating -z top_left -100 0 -z top_right 100 0
+#       bspc node -t floating -z top_left -100 0 -z top_right 100 0
 
 # set the node flags
-#super + ctrl + {m,x,y,z}
+#       super + ctrl + {m,x,y,z}
 #	bspc node -g {marked,locked,sticky,private}
 
 #
-# focus/swap
+# FOCUS/SWAP/TRANSFORM
 #
 
 # swap the current node and the biggest window on workspace
 super + b
 	bspc node -s biggest.local.window
 
+# layouts
+super + parenleft
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh layout
+
+# layouts persistent
+super + parenright
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh layout persistent
+
+# layouts reset
+super + r
+        bsp-layout remove
+
 # rotates tree
 # switch from vertical to horizontal tiling and vice-versa
-super + r
-	bspc node @/ -R 90
+super + {period,comma}
+	bspc node @/ -R {90,270}
 
 # rotates "switch" tree in focused node places new node
 super + {_,alt + }n
@@ -149,15 +169,15 @@ super + {_,alt + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-#super + {p,b,comma,period}
+#       super + {p,b,comma,period}
 #	bspc node -f @{parent,brother,first,second}
 
 # focus prev window
-#super + bracket{left}
+#       super + bracket{left}
 #	bspc node -f prev.local.!hidden.window
 
-## focus next window
-#super + bracket{right}
+# focus next window
+#       super + bracket{right}
 #	bspc node -f next.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
@@ -178,7 +198,7 @@ super + {o,i}
 
 # focus and move 'older' window to focused desktop
 super + a
-	bspc node older -f; bspc node -d last --follow
+	bspc node older.!local -f; bspc node -d last --follow
 
 # send to the given desktop
 super + alt + {1-9,0}
@@ -187,8 +207,9 @@ super + alt + {1-9,0}
 # focus desktop
 super + {1-9,0}
 	bspc desktop -f '^{1-9,10}' --follow
+
 #
-# preselect
+# PRESELECT
 #
 
 # preselect the direction
@@ -208,7 +229,7 @@ super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
-# move/resize
+# MOVE/RESIZE
 #
 
 # Expand/contract a window by moving one of its side outward/inward
@@ -219,25 +240,26 @@ super + ctrl + shift + space
 
 # expand/contract a window (in floating only expands)
 super + e : {h,j,k,l}
-  bspc node -z {left -20 0 || bspc node -z right -20 0,\
-                bottom 0 20 || bspc node -z top 0 20,\
-                top 0 -20 || bspc node -z bottom 0 -20,\
-                right 20 0 || bspc node -z left 20 0}
+        bspc node -z {left -20 0 || bspc node -z right -20 0,\
+                      bottom 0 20 || bspc node -z top 0 20,\
+                      top 0 -20 || bspc node -z bottom 0 -20,\
+                      right 20 0 || bspc node -z left 20 0}
 #super + alt + {Left,Down,Up,Right}
 #  ;bash ~/.config/sxhkd/float_resize.sh {x -,y -,y +,x +}
 
 # contract a window by moving one of its side inward (for floating)
 super + alt + e : {h,j,k,l}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-#ctrl + super + alt + {Left,Down,Up,Right}
 
 # move a floating window
 super + w : {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-#super + {Left,Down,Up,Right}
 
+# resize to equal size - size reset
+super + equal
+        bspc node any.local -E
 #
-# MOUSE Keybids
+# MOUSE KEYBIDS
 #
 # button9 side-front
 # button8 side-back
@@ -247,5 +269,6 @@ super + w : {h,j,k,l}
 # maximize/minimize a window
 super + button9
        bspc node -f pointed; bspc node -t ~fullscreen
+
 #button9 + button8
 #       bspc node -t ~fullscreen

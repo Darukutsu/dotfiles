@@ -1,0 +1,25 @@
+#!/bin/bash
+#set -x
+
+wids=$(bspc query -N -n .local.hidden)
+
+for wid in $wids;do
+  wclass=$(xdotool getwindowclassname "$wid")
+  wname=$(xdotool getwindowname "$wid")
+  #if [ -n "$wclass" ]; then
+  if [ -n "$wclass" ] && [ -n "$wname" ]; then
+    warr+=("$wclass - $wname")
+    widarr+=("#$wid")
+  fi
+done
+
+#for i in "${!warr[@]}"; do
+#  warr_rofi+="$(printf "%s\twid:%s\n" "${warr[i]}" "${widarr[i]}")"
+#done
+warr_rofi=$(paste <(printf "%s\n" "${warr[@]}") <(printf "\twid: %s\n" "${widarr[@]}"))
+
+choice=$(rofi -dmenu -p "Unhide Window" -normal-window <<< "$warr_rofi")
+
+wid=$(echo "$choice" | awk -F"wid: #" '{print $2}')
+
+bspc node "$wid" -g hidden=off

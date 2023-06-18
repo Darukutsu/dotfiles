@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+set -x
+# Description: remove other files if trash enabled
+#
+# Shell: POSIX compliant
+# Author: Darukutsu 
+selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
+
+if [ -s "$selection" ]; then
+        xargs -0 < "$selection" -I{} rm -rf "{}"
+        # Clear selection
+        printf "-" > "$NNN_PIPE"
+else
+        rm -rf "$1"
+fi

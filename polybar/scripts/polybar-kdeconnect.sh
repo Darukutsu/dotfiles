@@ -6,21 +6,21 @@ YOFFSET=0
 XOFFSET=0
 WIDTH=12
 WIDTH_WIDE=24
-THEME=solarized
+THEME="$HOME/.config/rofi/launchers/type-3/style-5"
 
 # Color Settings of Icon shown in Polybar
-COLOR_DISCONNECTED='#375e5a'       # Device Disconnected
-COLOR_NEWDEVICE='#ff0'          # New Device
-COLOR_BATTERY_90='#8ABEB7'         # Battery >= 90
-COLOR_BATTERY_80='#8ABEB7'         # Battery >= 90
-COLOR_BATTERY_70='#8ABEB7'         # Battery >= 90
-COLOR_BATTERY_60='#8ABEB7'         # Battery >= 90
-COLOR_BATTERY_50='#8ABEB7'         # Battery >= 90
+COLOR_DISCONNECTED="$(polybar -d disabled -q)"       # Device Disconnected
+COLOR_NEWDEVICE="$(polybar -d foreground -q)"          # New Device
+COLOR_BATTERY_90="$(polybar -d primary -q)"         # Battery >= 90
+COLOR_BATTERY_80="$(polybar -d primary -q)"         # Battery >= 90
+COLOR_BATTERY_70="$(polybar -d primary -q)"         # Battery >= 90
+COLOR_BATTERY_60="$(polybar -d primary -q)"         # Battery >= 90
+COLOR_BATTERY_50="$(polybar -d primary -q)"         # Battery >= 90
 #COLOR_BATTERY_80='#ccc'         # Battery >= 80
 #COLOR_BATTERY_70='#aaa'         # Battery >= 70
 #COLOR_BATTERY_60='#888'         # Battery >= 60
 #COLOR_BATTERY_50='#666'         # Battery >= 50
-COLOR_BATTERY_LOW='#f00'        # Battery <  50
+COLOR_BATTERY_LOW="$(polybar -d alert -q)"        # Battery <  50
 
 # Icons shown in Polybar
 ICON_SMARTPHONE=''
@@ -62,33 +62,33 @@ show_devices (){
 
 show_menu () {
     menu="$(rofi -sep "|" -dmenu -i -p "$DEV_NAME" -location $LOCATION -yoffset $YOFFSET -xoffset $XOFFSET -theme $THEME -width $WIDTH -hide-scrollbar -line-padding 4 -padding 20 -lines 5 <<< "Battery: $DEV_BATTERY%|Ping|Find Device|Send File|Browse Files|Unpair")"
-                case "$menu" in
-                    *Ping) qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/ping" org.kde.kdeconnect.device.ping.sendPing ;;
-                    *'Find Device') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/findmyphone" org.kde.kdeconnect.device.findmyphone.ring ;;
-                    *'Send File') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/share" org.kde.kdeconnect.device.share.shareUrl "file://$(zenity --file-selection)" ;;
-                    *'Browse Files')
-                        if "$(qdbus --literal org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/sftp" org.kde.kdeconnect.device.sftp.isMounted)" == "false"; then
-                            qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/sftp" org.kde.kdeconnect.device.sftp.mount
-                        fi
-                        qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/sftp" org.kde.kdeconnect.device.sftp.startBrowsing
-                        ;;
-                    *'Unpair' ) qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID" org.kde.kdeconnect.device.unpair
-                esac
+    case "$menu" in
+        *Ping) qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/ping" org.kde.kdeconnect.device.ping.sendPing ;;
+        *'Find Device') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/findmyphone" org.kde.kdeconnect.device.findmyphone.ring ;;
+        *'Send File') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/share" org.kde.kdeconnect.device.share.shareUrl "file://$(zenity --file-selection)" ;;
+        *'Browse Files')
+            if "$(qdbus --literal org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/sftp" org.kde.kdeconnect.device.sftp.isMounted)" == "false"; then
+                qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/sftp" org.kde.kdeconnect.device.sftp.mount
+            fi
+            qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID/sftp" org.kde.kdeconnect.device.sftp.startBrowsing
+            ;;
+        *'Unpair' ) qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID" org.kde.kdeconnect.device.unpair
+    esac
 }
 
 show_pmenu () {
     menu="$(rofi -sep "|" -dmenu -i -p "$DEV_NAME" -location $LOCATION -yoffset $YOFFSET -xoffset $XOFFSET -theme $THEME -width $WIDTH -hide-scrollbar -line-padding 1 -padding 20 -lines 1<<<"Pair Device")"
-                case "$menu" in
-                    *'Pair Device') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID" org.kde.kdeconnect.device.requestPair
-                esac
+    case "$menu" in
+        *'Pair Device') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$DEV_ID" org.kde.kdeconnect.device.requestPair
+    esac
 }
 
 show_pmenu2 () {
     menu="$(rofi -sep "|" -dmenu -i -p "$1 has sent a pairing request" -location $LOCATION -yoffset $YOFFSET -xoffset $XOFFSET -theme $THEME -width $WIDTH_WIDE -hide-scrollbar -line-padding 4 -padding 20 -lines 2 <<< "Accept|Reject")"
-                case "$menu" in
-                    *'Accept') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$2" org.kde.kdeconnect.device.acceptPairing ;;
-                    *) qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$2" org.kde.kdeconnect.device.rejectPairing
-                esac
+    case "$menu" in
+        *'Accept') qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$2" org.kde.kdeconnect.device.acceptPairing ;;
+        *) qdbus org.kde.kdeconnect "/modules/kdeconnect/devices/$2" org.kde.kdeconnect.device.rejectPairing
+    esac
 
 }
 get_icon () {
@@ -99,16 +99,16 @@ get_icon () {
         icon=$ICON_SMARTPHONE
     fi
     case $1 in
-    "-1")     ICON="%{F$COLOR_DISCONNECTED}$icon%{F-}" ;;
-    "-2")     ICON="%{F$COLOR_NEWDEVICE}$icon%{F-}" ;;
-    3*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
-    4*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
-    5*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
-    6*)     ICON="%{F$COLOR_BATTERY_60}$icon%{F-}" ;;
-    7*)     ICON="%{F$COLOR_BATTERY_70}$icon%{F-}" ;;
-    8*)     ICON="%{F$COLOR_BATTERY_80}$icon%{F-}" ;;
-    9*|100) ICON="%{F$COLOR_BATTERY_90}$icon%{F-}" ;;
-    *)      ICON="%{F$COLOR_BATTERY_LOW}$icon%{F-}" ;;
+        "-1")     ICON="%{F$COLOR_DISCONNECTED}$icon%{F-}" ;;
+        "-2")     ICON="%{F$COLOR_NEWDEVICE}$icon%{F-}" ;;
+        3*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
+        4*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
+        5*)     ICON="%{F$COLOR_BATTERY_50}$icon%{F-}" ;;
+        6*)     ICON="%{F$COLOR_BATTERY_60}$icon%{F-}" ;;
+        7*)     ICON="%{F$COLOR_BATTERY_70}$icon%{F-}" ;;
+        8*)     ICON="%{F$COLOR_BATTERY_80}$icon%{F-}" ;;
+        9*|100) ICON="%{F$COLOR_BATTERY_90}$icon%{F-}" ;;
+        *)      ICON="%{F$COLOR_BATTERY_LOW}$icon%{F-}" ;;
     esac
     echo $ICON
 }
