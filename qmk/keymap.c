@@ -22,8 +22,7 @@ enum layers {
     _LAY3, // numlock
     _LAY4, // mouse
     _LAY5, // rgb
-    _LAY6, // slovak
-    _LAY7  // default slovak
+    _LAY6 // slovak
 };
 
 //enum my_keycodes {

@@ -16,14 +16,16 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 KEY_OVERRIDE_ENABLE = yes
 TAP_DANCE_ENABLE = no
 DYNAMIC_MACRO_ENABLE = yes
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no 
+#MAGIC_ENABLE = no 
+#AVR_USE_MINIMAL_PRINTF = yes
 
-LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = yes
+#LTO_ENABLE = yes # Link time optimization
 
-#UNICODE_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes
