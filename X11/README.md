@@ -1,2 +1,3 @@
-**to refresh after editing Xresources**
+# To refresh after editing Xresources
+
 `xrdb -load $ABSOLUTE_FILE`
