@@ -11,95 +11,22 @@ local lsp_handlers = {
 
   -- Next, you can provide a dedicated handler for specific servers.
   ["lua_ls"] = function()
-    require("lspconfig").lua_ls.setup {
-      settings = {
-        Lua = {
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { 'vim' },
-          },
-        },
-      },
-    }
+    require("plug/lsp/lua_ls")
   end,
   --["pyright"] = function()
-  --  require("lspconfig").pyright.setup {
-  --    -- AUTOFORMATTING
-  --    on_attach = function(client, bufnr)
-  --      if client.supports_method("textDocument/formatting") then
-  --        vim.api.nvim_clear_autocmds({
-  --          group = augroup,
-  --          buffer = bufrn,
-  --        })
-  --        vim.api.nvim_create_autocmd("BufWritePre", {
-  --          group = augroup,
-  --          buffer = bufrn,
-  --          callback = function()
-  --            vim.lsp.buf.format({ bufnr = bufnr })
-  --          end,
-  --        })
-  --      end
-  --    end,
-  --    --capabilities = capabilities,
-  --    filetypes = { "python" },
-  --  }
+  --  require("plug/lsp/pyright")
   --end,
   --["pylyzer"] = function()
-  --  require("lspconfig").pylyzer.setup {
-  --    settings = {
-  --      Python = {
-  --        diagnostics = {
-  --          -- Get the language server to recognize the `vim` global
-  --          globals = { 'config' },
-  --        },
-  --      },
-  --    },
-  --  }
+  --  require("plug/lsp/pylyzer")
   --end,
   ["clangd"] = function()
-    require("plug/clangd")
-
-    --require("lspconfig").clangd.setup {
-    --  cmd = { "clangd", "--background-index" },
-    --  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" }
-    --  init_options = {
-    --    clangdFileStatus = true,
-    --    usePlaceholders = true,
-    --    completeUnimported = true,
-    --    semanticHighlighting = true,
-    --  },
-    --  -- Mostly for keybindings, autocompletion, set buffer options etc.
-    --  on_attach = {},
-    --  settings = {
-    --    clangd = {
-    --      diagnostic = {
-    --        enable = true,
-    --        -- Disable the specific diagnostic message here
-    --        suppressions = {
-
-    --        },
-    --      },
-    --      formatting = "file",
-    --      format = {
-    --        BasedOnStyle = "llvm",
-    --        IndentWidth = 4,
-    --        ColumnLimit = 120,
-    --      },
-    --      completion = {
-    --        caseSensitive = false,
-    --        triggerCharacter = { "." },
-    --      },
-    --    },
-    --  },
-    --}
+    require("plug/lsp/clangd")
   end,
   ["rust_analyzer"] = function()
-    require("plug/rust-tools")
+    require("plug/lsp/rust-tools")
   end,
   ["ltex"] = function()
-    require("lspconfig").ltex.setup {
-      filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "text", "plain" }
-    }
+    require("plug/lsp/ltex")
   end,
 }
 require("mason-lspconfig").setup({ handlers = lsp_handlers });
