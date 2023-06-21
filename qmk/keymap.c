@@ -16,18 +16,18 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _LAY0, // default
-    _LAY1, // vim
-    _LAY2, // programming
-    _LAY3, // numlock
-    _LAY4, // mouse
-    _LAY5, // rgb
-    _LAY6 // slovak
+    _LAY0,        // default
+    _LAY1,        // vim
+    _LAY2,        // programming
+    _LAY3,        // numlock
+    _LAY4,        // mouse
+    _LAY5,        // rgb
+    _LAY6         // slovak
 };
 
-//enum my_keycodes {
-//    LIS1, // listener
-//};
+// enum my_keycodes {
+//     LIS1, // listener
+// };
 
 #define _DEF TO(_LAY0)
 #define _VIM LT(_LAY1, KC_LBRC)
@@ -36,7 +36,7 @@ enum layers {
 #define _MOUSE TO(_LAY4)
 #define _RGB TO(_LAY5)
 #define _SVK MO(_LAY6)
-//#define LIS1 MO(_LAY6)
+// #define LIS1 MO(_LAY6)
 #define ___ KC_NO
 
 enum slovak_unicode {
@@ -77,69 +77,43 @@ enum slovak_unicode {
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-    [_EACU] = 0x00E9,
-    [_TEACU] = 0x00C9,
-    [_YACU] = 0x00FD,
-    [_TYACU] = 0x00DD,
-    [_AACU] = 0x00E1,
-    [_TAACU] = 0x00C1,
-    [_IACU] = 0x00ED,
-    [_TIACU] = 0x00CD,
-    [_LCAR] = 0x013E,
-    [_TLCAR] = 0x013D,
-    [_SCAR] = 0x0161,
-    [_TSCAR] = 0x0160,
-    [_CCAR] = 0x010D,
-    [_TCCAR] = 0x010C,
-    [_ZCAR] = 0x017E,
-    [_TZCAR] = 0x017D,
-    [_UACU] = 0x00FA,
-    [_TUACU] = 0x00DA,
-    [_OACU] = 0x00F3,
-    [_TOACU] = 0x00D3,
-    [_OKVO] = 0x00F4,
-    [_TOKVO] = 0x00D4,
-    [_ACAR] = 0x00E4,
-    [_TACAR] = 0x00C4,
-    [_NCAR] = 0x0148,
-    [_TNCAR] = 0x0147,
-    [_TCAR] = 0x0165,
-    [_TTCAR] = 0x0164,
-    [_DCAR] = 0x010F,
-    [_TDCAR] = 0x010E,
-    [_RACU] = 0x0155,
-    [_TRACU] = 0x0154,
+    [_EACU] = 0x00E9, [_TEACU] = 0x00C9, [_YACU] = 0x00FD, [_TYACU] = 0x00DD,
+    [_AACU] = 0x00E1, [_TAACU] = 0x00C1, [_IACU] = 0x00ED, [_TIACU] = 0x00CD,
+    [_LCAR] = 0x013E, [_TLCAR] = 0x013D, [_SCAR] = 0x0161, [_TSCAR] = 0x0160,
+    [_CCAR] = 0x010D, [_TCCAR] = 0x010C, [_ZCAR] = 0x017E, [_TZCAR] = 0x017D,
+    [_UACU] = 0x00FA, [_TUACU] = 0x00DA, [_OACU] = 0x00F3, [_TOACU] = 0x00D3,
+    [_OKVO] = 0x00F4, [_TOKVO] = 0x00D4, [_ACAR] = 0x00E4, [_TACAR] = 0x00C4,
+    [_NCAR] = 0x0148, [_TNCAR] = 0x0147, [_TCAR] = 0x0165, [_TTCAR] = 0x0164,
+    [_DCAR] = 0x010F, [_TDCAR] = 0x010E, [_RACU] = 0x0155, [_TRACU] = 0x0154,
 };
 
-/***
- *      ______   _    _   _   _    _____   _______   _____    ____    _   _    _____
- *     |  ____| | |  | | | \ | |  / ____| |__   __| |_   _|  / __ \  | \ | |  / ____|
- *     | |__    | |  | | |  \| | | |         | |      | |   | |  | | |  \| | | (___
- *     |  __|   | |  | | | . ` | | |         | |      | |   | |  | | | . ` |  \___ \
- *     | |      | |__| | | |\  | | |____     | |     _| |_  | |__| | | |\  |  ____) |
- *     |_|       \____/  |_| \_|  \_____|    |_|    |_____|  \____/  |_| \_| |_____/
- *
- *
- */
+/* _____ _   _ _   _  ____ _____ ___ ___  _   _ ____  */
+/*|  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___| */
+/*| |_  | | | |  \| | |     | |  | | | | |  \| \___ \ */
+/*|  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |*/
+/*|_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/ */
+/*                                                    */
+/**/
+/**/
+/**/
 
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
-    NULL // Null terminate the array of overrides!
+    NULL        // Null terminate the array of overrides!
 };
 
-/***
- *      _____     _____   ____
- *     |  __ \   / ____| |  _ \
- *     | |__) | | |  __  | |_) |
- *     |  _  /  | | |_ | |  _ <
- *     | | \ \  | |__| | | |_) |
- *     |_|  \_\  \_____| |____/
- *
- *
- */
+/* ____   ____ ____  */
+/*|  _ \ / ___| __ ) */
+/*| |_) | |  _|  _ \ */
+/*|  _ <| |_| | |_) |*/
+/*|_| \_\\____|____/ */
+/*                   */
+/**/
+/**/
+/**/
 
 // mid barr
 void set_color(int r, int g, int b) {
@@ -154,15 +128,15 @@ void set_color(int r, int g, int b) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch (get_highest_layer(layer_state)) {
-        case _LAY0:
-            //set_color(244,14,35);
-            break;
-        case _LAY2:
-            rgb_matrix_set_color(25, 255, 76, 0);       //KC_LINX
-            rgb_matrix_set_color(26, 51, 77, 255);      //KC_WIN
-            rgb_matrix_set_color(27, 255, 255, 255);    //KC_MAC
-            rgb_matrix_set_color(43, 255, 76, 0);       //KO_TOGG
-            break;
+    case _LAY0:
+        // set_color(244,14,35);
+        break;
+    case _LAY2:
+        rgb_matrix_set_color(25, 255, 76, 0);           // KC_LINX
+        rgb_matrix_set_color(26, 51, 77, 255);          // KC_WIN
+        rgb_matrix_set_color(27, 255, 255, 255);        // KC_MAC
+        rgb_matrix_set_color(43, 255, 76, 0);           // KO_TOGG
+        break;
     }
 
     // every configured button lay4, lay5
@@ -173,7 +147,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
                 uint8_t index = g_led_config.matrix_co[row][col];
 
-                if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
+                if (index >= led_min && index <= led_max && index != NO_LED &&
+                    keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
                     rgb_matrix_set_color(index, RGB_PINK);
                 }
             }
@@ -188,32 +163,47 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 uint8_t index = g_led_config.matrix_co[row][col];
 
                 // def layer switch
-                if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == _DEF) {
+                if (index >= led_min && index <= led_max && index != NO_LED &&
+                    keymap_key_to_keycode(layer, (keypos_t){col, row}) == _DEF) {
                     rgb_matrix_set_color(index, 140, 0, 43);
                 }
 
                 // caps-lock
-                //            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
+                //            if (g_led_config.flags[i] &
+                //            LED_FLAG_KEYLIGHT) {
                 //                rgb_matrix_set_color(i, RGB_RED);
                 //            }
 
                 // macro
-                if (index >= led_min && index <= led_max && index != NO_LED && (keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_REC1 || keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_REC2 || keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_PLY1 || keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_PLY2)) {
+                if (index >= led_min && index <= led_max && index != NO_LED &&
+                    (keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_REC1 ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_REC2 ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_PLY1 ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == DM_PLY2)) {
                     rgb_matrix_set_color(index, RGB_ORANGE);
                 }
 
                 // prnt
-                if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PSCR) {
+                if (index >= led_min && index <= led_max && index != NO_LED &&
+                    keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PSCR) {
                     rgb_matrix_set_color(index, RGB_YELLOW);
                 }
 
                 // pgup/dn
-                if (index >= led_min && index <= led_max && index != NO_LED && (keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PGUP || keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PGDN)) {
+                if (index >= led_min && index <= led_max && index != NO_LED &&
+                    (keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PGUP ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PGDN)) {
                     rgb_matrix_set_color(index, RGB_WHITE);
                 }
 
                 // media keys
-                if (index >= led_min && index <= led_max && index != NO_LED && (keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PWR || keymap_key_to_keycode(layer, (keypos_t){col, row}) == QK_BOOT || keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_MNXT || keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_MPRV || keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_BRID || keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_BRIU)) {
+                if (index >= led_min && index <= led_max && index != NO_LED &&
+                    (keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_PWR ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == QK_BOOT ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_MNXT ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_MPRV ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_BRID ||
+                     keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_BRIU)) {
                     rgb_matrix_set_color(index, RGB_RED);
                 }
             }
@@ -223,17 +213,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 
-/***
- *      _  __                 _                                  _
- *     | |/ /                | |                                | |
- *     | ' /    ___   _   _  | |__     ___     __ _   _ __    __| |
- *     |  <    / _ \ | | | | | '_ \   / _ \   / _` | | '__|  / _` |
- *     | . \  |  __/ | |_| | | |_) | | (_) | | (_| | | |    | (_| |
- *     |_|\_\  \___|  \__, | |_.__/   \___/   \__,_| |_|     \__,_|
- *                     __/ |
- *                    |___/
- */
+/* _  _________   ______   ___    _    ____  ____  */
+/*| |/ / ____\ \ / / __ ) / _ \  / \  |  _ \|  _ \ */
+/*| ' /|  _|  \ V /|  _ \| | | |/ _ \ | |_) | | | |*/
+/*| . \| |___  | | | |_) | |_| / ___ \|  _ <| |_| |*/
+/*|_|\_\_____| |_| |____/ \___/_/   \_\_| \_\____/ */
+/*                                                 */
+/**/
+/**/
+/**/
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // default
     [_LAY0] = LAYOUT_planck_mit(
@@ -290,4 +280,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     //    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     //),
+
 };
+// clang-format on
