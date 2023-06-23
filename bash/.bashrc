@@ -36,15 +36,19 @@ shopt -u globstar
 export MANPAGER="$PAGER -t man"
 
 # Alternatively, to pick a bit better `man` highlighting:
-#man () {
-#    test $1 -eq 0 2>/dev/null
-#    if [ $? -lt 2 ]; then
-#      $PAGER man://"$2($1)"
-#    else
-#      $PAGER man://"$1"
-#    fi
-##  SECT=${@[-2]}; PROG=${@[-1]}; page man://"$PROG($SECT)"
-#}
+man () {
+  test $(/bin/man -w "${@:$#}")
+  if [ $? -eq 0 ]; then
+    if [ $2 ]; then
+      $PAGER man://"$2($1)"
+    elif [ $1 ]; then
+      $PAGER man://"$1"
+    fi
+  else
+    "$1" --help
+  fi
+  #  SECT=${@[-2]}; PROG=${@[-1]}; page man://"$PROG($SECT)"
+}
 
 #just keep both same for same output
 HISTSIZE=10000 #writes to memory
@@ -73,9 +77,10 @@ source "$XDG_CONFIG_HOME/bash/newt_colors"
 ## COMPLETION
 source /usr/share/bash-completion/bash_completion
 source /usr/share/bash-complete-alias/complete_alias
-#eval "$(register-python-argcomplete pipx)"
+eval "$(register-python-argcomplete pipx)"
 #shopt -s progcomp_alias
 complete -F _complete_alias SS
+complete -F _man man
 
 
 # Enhanced file path completion in bash - https://github.com/sio/bash-complete-partial-path
@@ -103,6 +108,9 @@ source "$XDG_CONFIG_HOME/bash/kitty"
 ##ALIAS
 source "$XDG_CONFIG_HOME/bash/alias"
 source "$XDG_CONFIG_HOME/bash/xdg-base-dir"
+
+## PYTHON venv
+#source "$HOME/.local/bin/bin/activate"
 
 cat /home/daru/Templates/Guides/0usefull-commands-I-always-forget
 
