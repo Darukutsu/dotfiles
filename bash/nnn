@@ -41,7 +41,7 @@ nn () {
     ble-detach && stty sane
     nnn -aAcdHrQSU "$@"
     #nnn -aAcdHrQSU "$@" -P v
-    ble-attach && stty sane
+    ble-attach && xdotool type "sstty sane;" && xdotool key Return
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
@@ -59,7 +59,7 @@ n () {
 
     ble-detach && stty sane
     nnn -aAcdHrQU
-    ble-attach && stty sane
+    ble-attach && xdotool type "sstty sane;" && xdotool key Return
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
