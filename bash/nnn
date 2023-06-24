@@ -38,10 +38,8 @@ nn () {
     # stty lnext undef
 
 
-    ble-detach && stty sane
-    nnn -aAcdHrQSU "$@"
+    ble-detach && stty sane && nnn -aAcdHrQSU "$@" && ble-attach
     #nnn -aAcdHrQSU "$@" -P v
-    ble-attach && xdotool type "sstty sane;" && xdotool key Return
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
@@ -57,9 +55,7 @@ n () {
 
     export NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
 
-    ble-detach && stty sane
-    nnn -aAcdHrQU
-    ble-attach && xdotool type "sstty sane;" && xdotool key Return
+    ble-detach && stty sane && nnn -aAcdHrQU && ble-attach
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"

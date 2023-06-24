@@ -54,7 +54,7 @@ man () {
 HISTSIZE=10000 #writes to memory
 HISTFILESIZE=10000 #write to disk
 HISTCONTROL=ignoreboth:erasedups
-HISTIGNORE='n:c:nn'
+HISTIGNORE='?:??:stty*'
 source /usr/share/blesh/ble.sh --norc
 # When the shell exits, append to the history file instead of overwriting it
 #shopt -s histappend
@@ -119,6 +119,8 @@ source "$XDG_CONFIG_HOME/bash/nnn"
 # n
 
 if [[ ${BLE_VERSION-} ]]; then
+  #bleopt canvas_winch_action=redraw-prev
+
   ble-import contrib/colorglass
   #bleopt term_true_colors=
   #bleopt colorglass_gamma=-50
@@ -138,8 +140,8 @@ if [[ ${BLE_VERSION-} ]]; then
 
   ble-bind -m vi_nmap -f Y daru/copy_readline
   #ble-bind -m vi_nmap -x Y _copy_readline
-  ble-bind -m vi_nmap -x 'g s' 'git status'
-  ble-bind -m vi_nmap -x '; n' 'nn'
+  ble-bind -m vi_nmap -c 'g s' 'git status'
+  ble-bind -m vi_nmap -c '; n' 'nn'
   ble-bind -m menu_complete -f '__default__' menu_complete/cancel
 
   #ble-bind -x C-r _fzf_history_for_blesh
