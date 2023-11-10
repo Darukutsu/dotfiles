@@ -1,19 +1,11 @@
 #!/bin/sh
 #set -x
 
-wid=$(xdotool search --classname "kitty-drop")
+dropname="$1"
+wid=$(xdotool search --classname "$dropname")
 
 if [ -z "$wid" ]; then
-  kitty --class="kitty-drop" &
-  #while :; do
-  #  kitty --class="kitty-drop" &
-  #  if [ $? ]; then break; fi
-  #done
-  sleep 1
-  wid=$(xdotool search --classname "kitty-drop")
-  if ! pgrep unmap_kitty; then
-    "$XDG_CONFIG_HOME/sxhkd/unmap_kitty.sh" "$wid" &
-  fi
+  kitty --hold --class="$dropname" "$XDG_CONFIG_HOME/sxhkd/unmap_kitty.sh" "$dropname"
 else
   if bspc node "$wid".!hidden -g hidden=on; then
     :

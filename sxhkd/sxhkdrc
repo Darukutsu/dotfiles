@@ -12,6 +12,9 @@ super + g
 	#firefox-developer-edition
         #vieb
 
+super + G
+        $XDG_CONFIG_HOME/qutebrowser/userscripts/container-open
+
 # print help
 super + slash
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh sxhkd_help
@@ -21,7 +24,7 @@ super + slash
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh screenshot
 
 # poweroff
-super + p
+super + shift + @space
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh powermenu
 
 # Brightness control
@@ -42,12 +45,18 @@ XF86Audio{Play,Next,Prev}
 	playerctl {play-pause,next,previous}
 
 # tdrop1 (square mid)
-#F11
+#super + F6
+#        $XDG_CONFIG_HOME/sxhkd/dropdown.sh
+
+# kitty-fzf
+#super + F11
+F11
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-fzf
 #	tdrop --class="kitty-drop1" -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty --class="kitty-drop1"
 
-# tdrop2 (square mid)
+#super + F12
 F12
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-drop
 	#tdrop -N -C 'autohide-tdrop &' kitty --class="kitty-drop"
 
 # program launcher
@@ -59,8 +68,8 @@ alt + Tab
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh window
 
 # screenlock
-super + alt + BackSpace
-	bslock
+#super + alt + BackSpace
+#	bslock
 
 # bitwarden
 super + apostrophe
@@ -83,11 +92,15 @@ super + Escape
 	killall "sxhkd"; sxhkd &
 
 # quit/restart bspwm
-super + {_,shift +}m
-	bspc {quit,wm -r}
+super + shift + Escape
+	bspc wm -r
+#super + {_,shift +}h
+#	bspc {quit,wm -r}
 
 # close and kill
 alt + q
+	bspc node -c
+ctrl + shift + q
 	bspc node -c
 
 # alternate between the tiled and monocle layout
@@ -103,7 +116,7 @@ alt + q
 #
 
 # set the window state
-super + {d,s,f}
+super + {t,s,f}
 	bspc node -t {tiled,floating,fullscreen}
 
 # hide focused window
@@ -152,7 +165,7 @@ super + parenright
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh layout persistent
 
 # layouts reset
-super + r
+super + p
         bsp-layout remove
 
 # rotates tree
@@ -161,11 +174,12 @@ super + {period,comma}
 	bspc node @/ -R {90,270}
 
 # rotates "switch" tree in focused node places new node
-super + {_,alt + }n
+#super + {_,alt + }k
+super + brace{left,right}
     bspc node @/ -C {forward,backward}
 
 # focus (or swap with alt) the node in the given direction
-super + {_,alt + }{h,j,k,l}
+super + {_,alt + }{m,n,e,i}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
@@ -190,7 +204,9 @@ super + {grave,Tab}
 
 # focus the older or newer node in the focus history
 # focus the next/previous window in the current desktop
-super + {o,i}
+super + o
+	bspc node -f next.local.!hidden.window
+super + {u,y}
 	bspc node -f {next,prev}.local.!hidden.window
 	#bspc wm -h off; \
 	#bspc node {older,newer} -f; \
@@ -213,7 +229,7 @@ super + {1-9,0}
 #
 
 # preselect the direction
-super + ctrl + {h,j,k,l}
+super + ctrl + {m,n,e,i}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
@@ -239,7 +255,7 @@ super + ctrl + shift + space
 #    bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
 
 # expand/contract a window (in floating only expands)
-super + e : {h,j,k,l}
+super + r : {m,n,e,i}
         bspc node -z {left -20 0 || bspc node -z right -20 0,\
                       bottom 0 20 || bspc node -z top 0 20,\
                       top 0 -20 || bspc node -z bottom 0 -20,\
@@ -248,11 +264,11 @@ super + e : {h,j,k,l}
 #  ;bash ~/.config/sxhkd/float_resize.sh {x -,y -,y +,x +}
 
 # contract a window by moving one of its side inward (for floating)
-super + alt + e : {h,j,k,l}
+super + alt + r : {m,n,e,i}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
-super + w : {h,j,k,l}
+super + w : {m,n,e,i}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # resize to equal size - size reset
