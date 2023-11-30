@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+#set -x
+# Description: hide OR make visible snapshot .zfs dir for chosen dataset
+#
+# Shell: POSIX compliant
+# Author: Darukutsu
+#
+header=$(zfs get snapdir|head -n1|xargs -d"\n" printf "NTH %s")
+
+choice=$(zfs get -H snapdir|awk -F'\t' '{printf("%-3d %-20s%-10s%-9s%-10s\n", NR, $1,$2,$3,$4)}'|fzf --tac --header="$header")
+
+path_to_dataset=$(echo "$choice"|tr -s " "|cut -d" " -f2)
+snapdir_value=$(echo "$choice"|tr -s " "|cut -d" " -f4)
+
+
+
+if [ "$snapdir_value" = hidden ]; then
+  snapdir_value=visible
+else
+  snapdir_value=hidden
+fi
+
+sudo zfs set snapdir="$snapdir_value" "$path_to_dataset"
