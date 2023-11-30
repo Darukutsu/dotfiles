@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Description: create http-server on localip:50500 with current pwd location
+#
+# Shell: POSIX compliant
+# Author: Darukutsu
+#
+simple-http-server --ip $(ip addr | grep 192.168 | sed "s/\/.*//;s/inet//;s/ //g") -p 50500 "$(pwd)"
