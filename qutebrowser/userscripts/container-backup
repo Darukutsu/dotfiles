@@ -1,0 +1,16 @@
+#!/bin/sh
+# Copyright (c) 2022 Praveen Kumar S
+set -e
+
+# Include config
+. $(dirname $0)/containers_config
+
+backup_name="default.yml.bak"
+origin_name="default.yml"
+
+
+for backup_dir in $(ls -1 "$CONTAINER_BASE"); do
+  cp -f "$CONTAINER_BASE/$backup_dir/data/sessions/$origin_name" $CONTAINER_BASE/$backup_dir/data/sessions/$backup_name
+done
+
+send_msg "info" "All sessions backed-up"

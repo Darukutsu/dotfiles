@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#QUTE_COUNT passed count like repeat @n times
+echo "cmd-repeat $QUTE_COUNT reload;;tab-next">>"$QUTE_FIFO"
