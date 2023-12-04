@@ -1,0 +1,177 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/*
+to visualize keymap:
+https://nickcoutsos.github.io/keymap-editor/
+*/
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+//#include <./unicode.h>
+
+#define COLEMAK  0
+#define QWERTY   1
+#define VIM      2
+#define PROG     3
+#define MOUSE    4
+#define SVK      5
+#define SETTINGS 6
+
+
+&mt {
+      //tapping-term-ms = <1300>;
+      flavor = "tap-preferred";
+};
+
+/ {
+    //macros{
+    //      unicode: unicode{
+    //          compatible = "zmk,behavior-macro";
+    //          #binding-cells = <0>;
+    //          wait-ms = <40>;
+    //          tap-ms = <40>;
+    //          bindings
+    //              = <&macro_press   &kp LCTRL &kp LSHFT>
+    //              , <&macro_tap     &kp U>
+    //              , <&macro_release &kp LCTRL &kp LSHFT>
+    //              , <&macro_tap     &kp N0 &kp N0 &kp N0 &kp N0 &kp RET>
+    //              , <&macro_tap     &kp RET>
+    //              ;
+    //       };
+    //};
+
+
+
+    behaviors {
+        shift_caps: tap_dance_caps {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_CAPS";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LSHFT>, <&caps_word>;
+        };
+
+        td_gui: tap_dance_sticky_gui {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_STICKY_GUI";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LGUI>, <&sk LG(LALT)>, <&sk LG(LCTRL)>;
+        };
+
+        mod_sl: hold_mod_sticky_layer {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_MOD_STICKY_LAYER";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&sl>;
+        };
+
+
+        bspc_del: backspace_delete {
+            compatible = "zmk,behavior-mod-morph";
+            label = "BACKSPACE_DELETE";
+            #binding-cells = <0>;
+            bindings = <&kp BACKSPACE>, <&kp DELETE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_RSFT)>;
+        };
+    };
+
+    //conditional_layers {
+    //    compatible = "zmk,conditional-layers";
+    //    to_qwerty_layer {
+    //        if-layers = <COLEMAK>;
+    //        then-layer = <QWERTY>;
+    //    };
+    //    to_colemak_layer {
+    //        if-layers = <QWERTY>;
+    //        then-layer = <COLEMAK>;
+    //    };
+    //};
+
+    chosen {
+      zmk,battery = &vbatt;
+    };
+
+    vbatt: vbatt {
+        compatible = "zmk,battery-nrf-vddh";
+        label = "VBATT";
+    };
+
+    keymap {
+            compatible = "zmk,keymap";
+
+                default_layer {
+                        bindings = <
+   &kp TAB   &kp Q &kp W &kp F &kp P &kp B   &kp J &kp L  &kp U     &kp Y   &kp SEMI &bspc_del
+   &kp ESC   &kp A &kp R &kp S &kp T &kp G   &kp M &kp N  &kp E     &kp I   &kp O    &kp SQT
+   &shift_caps &mt LGUI Z &kp X &kp C &kp D &kp V   &kp K &kp H  &kp COMMA &kp DOT &kp FSLH &mt RSHIFT RET
+             &td_gui &lt VIM LBKT &mt RALT SPACE   &mt LCTRL LBKT &lt PROG RBKT &mo SVK
+                        >;
+                };
+
+                qwerty_layer {
+                        bindings = <
+   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P &bspc_del
+   &kp LSHFT &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
+   &kp LCTRL &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &mt RSHIFT RET
+             &kp ESC &kp LALT &kp SPACE   &mt LCTRL LBKT &lt PROG RBKT &kp RALT
+                        >;
+                };
+
+
+                vim_layer {
+                        bindings = <
+   &kp F1 &kp F2 &kp F3 &kp F4 &kp F5 &kp F6      &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
+   &kp ESC &kp INS &kp PSCRN &none &kp PG_DN &none    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp HOME &kp END
+   &kp LSHFT &kp C_PP &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp PG_UP    &none &kp C_NEXT &kp C_PREV &kp C_BRI_UP &kp C_BRI_DN &none
+                    	     &trans &none &trans    &trans &tog MOUSE &sl SETTINGS
+//&mod_sl LALT SETTINGS
+                        >;
+                };
+
+//impl dynamic macro
+                programming_layer {
+                        bindings = <
+   &kp GRAVE &kp N1 &kp N2 &kp N3 &kp N4 &kp N5    &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS
+   &kp ESC &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT    &kp CARET &kp AMPS &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp EQUAL
+   &kp LSHFT &kp F20 &kp F21 &kp F22 &kp F23 &kp F24    &sk LG(LC(LALT)) &kp COMMA &kp DOT &kp LBKT &kp RBKT &kp BSLH
+                    	     &trans &tog QWERTY &trans    &trans &none &kp RCTL
+                        >;
+                };
+
+                mouse_layer {
+                        bindings = <
+   &tog MOUSE &none &none &none &none &none    &none &none &none &none &none &none
+   &none &none &none &none &none &none    &none &none &none &none &none &none
+   &none &none &none &none &none &none    &none &none &none &none &none &none
+                     &none &none &none    &none &none &none
+                        >;
+                };
+
+                slovak_layer {
+                        bindings = <
+   &trans &trans &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
+   &trans &trans &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
+   &trans &trans &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
+                     &trans &trans &trans    &trans &trans &trans
+                        >;
+                };
+
+                settings_layer {
+                        bindings = <
+   &none &none &none &none &none &none    &none &none &none &none &none &kp C_PWR
+   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &none &none &none &none &none &none
+   &none &none &none &none &none &none    &none &none &none &none &none &none
+                     &none &none &none    &none &none &none
+                        >;
+                };
+        };
+};
