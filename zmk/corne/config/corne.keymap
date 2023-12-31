@@ -12,6 +12,8 @@ https://nickcoutsos.github.io/keymap-editor/
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/mouse.h>
+
 //#include <./unicode.h>
 
 #define COLEMAK  0
@@ -73,6 +75,15 @@ https://nickcoutsos.github.io/keymap-editor/
             bindings = <&kp>, <&sl>;
         };
 
+        lm_sk: hold_layer_sticky_key {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_LAYER_STICKY_KEY";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&sk>;
+        };
+
 
         bspc_del: backspace_delete {
             compatible = "zmk,behavior-mod-morph";
@@ -113,7 +124,7 @@ https://nickcoutsos.github.io/keymap-editor/
    &kp TAB   &kp Q &kp W &kp F &kp P &kp B   &kp J &kp L  &kp U     &kp Y   &kp SEMI &bspc_del
    &kp ESC   &kp A &kp R &kp S &kp T &kp G   &kp M &kp N  &kp E     &kp I   &kp O    &kp SQT
    &shift_caps &mt LGUI Z &kp X &kp C &kp D &kp V   &kp K &kp H  &kp COMMA &kp DOT &kp FSLH &mt RSHIFT RET
-             &td_gui &lt VIM LBKT &mt RALT SPACE   &mt LCTRL LBKT &lt PROG RBKT &mo SVK
+             &td_gui &lt VIM LBKT &mt LALT SPACE   &mt LCTRL LBKT &lt PROG RBKT &lm_sk SVK RALT
                         >;
                 };
 
@@ -122,7 +133,7 @@ https://nickcoutsos.github.io/keymap-editor/
    &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P &bspc_del
    &kp LSHFT &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
    &kp LCTRL &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &mt RSHIFT RET
-             &kp ESC &kp LALT &kp SPACE   &mt LCTRL LBKT &lt PROG RBKT &kp RALT
+             &kp ESC &kp LALT &kp SPACE   &lt VIM LBKT &lt PROG RBKT &kp RALT
                         >;
                 };
 
