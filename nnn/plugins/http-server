@@ -5,4 +5,10 @@
 # Shell: POSIX compliant
 # Author: Darukutsu
 #
-simple-http-server --ip $(ip addr | grep 192.168 | sed "s/\/.*//;s/inet//;s/ //g") -p 50500 "$(pwd)"
+
+port=50500
+ip=$(ip addr | grep 192.168 | sed "s/\/.*//;s/inet//;s/ //g")
+
+qrencode -m 2 -t utf8 <<< "http://$ip:$port"
+
+simple-http-server --ip $ip -p $port "$(pwd)"

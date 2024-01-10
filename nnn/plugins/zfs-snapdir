@@ -8,7 +8,7 @@
 #
 header=$(zfs get snapdir|head -n1|xargs -d"\n" printf "NTH %s")
 
-choice=$(zfs get -H snapdir|awk -F'\t' '{printf("%-3d %-20s%-10s%-9s%-10s\n", NR, $1,$2,$3,$4)}'|fzf --tac --header="$header")
+choice=$(zfs get -H snapdir -t filesystem|awk -F'\t' '{printf("%-3d %-20s%-10s%-9s%-10s\n", NR, $1,$2,$3,$4)}'|fzf --tac --header="$header")
 
 path_to_dataset=$(echo "$choice"|tr -s " "|cut -d" " -f2)
 snapdir_value=$(echo "$choice"|tr -s " "|cut -d" " -f4)
