@@ -1,20 +1,202 @@
 #!/usr/bin/env sh
 
 #set -x
-# Description: Send the selected (or hovered) files to your Android device using gsconnect daemon.js.
-#              GSConnect must be configured on the Android device and the PC.
+# Better zip solution, compress selection - archive or batch(deterministic way '$filename.zip')
+# or hover individual compression
+#
+# Dependencies: 7z|tar & particular algorithm if not bundled within
 #
 # Shell: POSIX compliant
-# Author: Darukutsu 
+# Author: Darukutsu
+
+# Change these for better suited defaults
+default_alg=zstd
+suffix=zst
+working_dir=$(pwd)
+default_compression=5
+default_archivename=archive
+#encryption=no
+# TODO: encryption option for password,
+# TODO: extract to dir
+
+choose_alg(){
+  case "$alg" in
+    "1"|"bzip2") alg=bzip2
+      suffix=bz2
+      ;;
+    "2"|"gzip") alg=gzip
+      suffix=gz
+      ;;
+    "3"|"lzip") alg=lzip
+      suffix=lz
+      ;;
+    "4"|"lzma") alg=lzma
+      suffix=lzma
+      ;;
+    "5"|"tar") alg=tar
+      ;;
+    "6"|"zip") alg=zip
+      ;;
+    "7"|"zstd") alg=zstd
+      suffix=zst
+      ;;
+    "8"|"xz") alg=xz
+      suffix=xz
+      ;;
+    *)
+      alg="$default_alg"
+      echo "picking default - $alg"
+      ;;
+  esac
+}
+
+print_alg(){
+  printf "
+#https://linuxreviews.org/Comparison_of_Compression_Algorithms
+
+1. bzip2 (fast compression)
+2. gzip (available everywhere)
+3. lzip (high compression, RAM intensive,)
+4. lzma (highest compression)
+5. tar (archive only, no compression)
+6. zip (windows friend :D)
+7. zstd (fastest compression)
+8. xz (high compression, RAM intensive, multicore)\n\n
+  "
+}
+
+print_alg
+printf "Pick algorithm[%s - default]: " "$default_alg"
+read -r alg
+choose_alg
+
+# TODO: zstd has more levels
+printf "Choose compression level(except tar)[1.3.5.7.9, %s - default]: " "$default_compression"
+read -r compression
+case $compression in
+  [0123456789])
+    #do nothing
+    ;;
+  *)
+    compression=$default_compression
+    ;;
+esac
+
+
+
+
 selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
 
-printf "ZIP File name: "
-read -r zipname
+zip_selection_individualy(){
+  if [ "$include_abs" = "y" ] || [ "$include_abs" = "Y" ] ; then
+    if [ "$alg" = "zip" ]; then
+      xargs -0 -I{} zip -r -$compression "{}.zip" "{}" < "$selection"
+    elif [ "$alg" = "tar" ]; then
+      xargs -0 -I{} tar -cvf "{}.tar" "{}" < "$selection"
+    else
+      xargs -0 -I{} tar -I"$alg -$compression" -cvf "{}.tar.$suffix" "{}" < "$selection"
 
-	if [ -s "$selection" ]; then
-          xargs -0 -I{} zip -j "$zipname" "{}" < "$selection"
-		# Clear selection
-		printf "-" > "$NNN_PIPE"
-	else
-		zip -j "$zipname" "$2/$1"
-	fi
+      # this is because we want fancy icon with correct extension
+      # 'keep' is due to zstd not following standard
+      #if $alg -"$compression" --keep "$file.tar"; then
+      #  rm "$file.tar"
+      #fi
+    fi
+  else
+    for abspath in $(sed 's#\x0# #' < "$selection"); do
+      ppath=$(echo "$abspath" | sed 's#\(/.*/\).*#\1#')
+      file=$(echo "$abspath" | sed 's#/.*/\(.*\)#\1#')
+
+      if [ "$alg" = "zip" ]; then
+        cd "$ppath" && zip -r -$compression "$working_dir/$file.zip" "$file"
+      else
+        tar -C "$ppath" -cvf "$file.tar" "$file"
+        if [ $alg != tar ]; then
+          cd "$working_dir"
+          # 'keep' is due to zstd not following standard
+          if $alg -"$compression" --keep "$file.tar"; then
+            rm "$file.tar"
+          fi
+        fi
+      fi
+    done
+  fi
+}
+
+zip_selection(){
+  if [ "$include_abs" = "y" ] || [ "$include_abs" = "Y" ] ; then
+    if [ "$alg" = "zip" ]; then
+      xargs -0 zip -r -$compression "$zipname.zip" < "$selection"
+    else
+      xargs -0 tar -cvf "$zipname.tar" < "$selection"
+      #xargs -0 7z a -m0=$alg -mx=$compression "$zipname.7z.$ext" < "$selection"
+      #xargs -0 tar -acvf "$zipname.tar.$ext" < "$selection"
+    fi
+  else
+    for abspath in $(sed 's#\x0# #' < "$selection"); do
+      ppath=$(echo "$abspath" | sed 's#\(/.*/\).*#\1#')
+      file=$(echo "$abspath" | sed 's#/.*/\(.*\)#\1#')
+
+      if [ "$alg" = "zip" ]; then
+        cd "$ppath" && zip -r -$compression "$working_dir/$zipname.zip" "$file"
+      else
+        tar -C "$ppath" -rvf "$zipname.tar" "$file"
+      fi
+    done
+  fi
+
+  if [ $alg != tar ] && [ $alg != zip ];then
+    # 'keep' is due to zstd not following standard
+    if $alg -"$compression" --keep "$zipname.tar"; then
+      rm "$zipname.tar"
+    fi
+  fi
+}
+
+zip_hovered(){
+  #zipname=${default_archivename:-"$1"}
+  zipname="$1"
+  if [ "$alg" = "zip" ]; then
+    zip -r -$compression "$zipname.zip" "$1"
+  else
+    tar -cvf "$zipname.tar" "$1"
+    if [ $alg != tar ]; then
+      # 'keep' is due to zstd not following standard
+      if $alg -"$compression" --keep "$zipname.tar"; then
+        rm "$1.tar"
+      fi
+    fi
+  fi
+}
+
+if [ -s "$selection" ]; then
+  printf "Include abs path[y/N]: "
+  read -r include_abs
+  include_abs=${include_abs:-n}
+
+  printf "Compress individualy[y/N]: "
+  read -r individual
+  individual=${individual:-n}
+
+  case $individual in
+    "n"|"N")
+      individual=""
+      printf "Archive name['%s' - default]: " "$default_archivename"
+      read -r zipname
+      zipname=${zipname:-$default_archivename}
+      ;;
+    "y"|"Y")
+      #leave this empty
+      ;;
+  esac
+
+  if test "$individual"; then
+    zip_selection_individualy
+  else
+    zip_selection
+  fi
+  # Clear selection
+  printf "-" > "$NNN_PIPE"
+else
+  zip_hovered "$1" "$2"
+fi
