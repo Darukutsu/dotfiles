@@ -103,7 +103,7 @@ zip_selection_individualy(){
       #fi
     fi
   else
-    for abspath in $(sed 's#\x0# #' < "$selection"); do
+    for abspath in $(sed 's#\x0# #g' < "$selection"); do
       ppath=$(echo "$abspath" | sed 's#\(/.*/\).*#\1#')
       file=$(echo "$abspath" | sed 's#/.*/\(.*\)#\1#')
 
@@ -133,7 +133,7 @@ zip_selection(){
       #xargs -0 tar -acvf "$zipname.tar.$ext" < "$selection"
     fi
   else
-    for abspath in $(sed 's#\x0# #' < "$selection"); do
+    for abspath in $(sed 's#\x0# #g' < "$selection"); do
       ppath=$(echo "$abspath" | sed 's#\(/.*/\).*#\1#')
       file=$(echo "$abspath" | sed 's#/.*/\(.*\)#\1#')
 
