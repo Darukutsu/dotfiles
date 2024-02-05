@@ -14,11 +14,12 @@ if [ "$1" = "combi" ];then
   elif [ "$1" = "clipboard" ];then
   rofi-gpaste
   elif [ "$1" = "layout" ];then
-  rofi-bsp-layout
+  rofi-bsp-layout $2
   elif [ "$1" = "screenshot" ];then
   rofi-applet-screenshot "$theme_applet"
   elif [ "$1" = "bitwarden" ];then
-  bwmenu
+  #bwmenu
+  rofi-rbw
   elif [ "$1" = "powermenu" ];then
   rofi-applet-powermenu "$theme_applet"
   elif [ "$1" = "sxhkd_help" ];then

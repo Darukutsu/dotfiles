@@ -15,4 +15,3 @@ if [ "$1" = "active" ]; then
 elif [ "$1" = "inactive" ]; then
   pkill picom; picom --inactive-opacity $OPACITY_VALUE &
 fi
-

@@ -23,7 +23,7 @@ super + slash
 @Print
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh screenshot
 
-# poweroff
+# poweroff menu
 super + shift + @space
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh powermenu
 
@@ -44,20 +44,29 @@ XF86AudioMute
 XF86Audio{Play,Next,Prev}
 	playerctl {play-pause,next,previous}
 
-# tdrop1 (square mid)
-#super + F6
-#        $XDG_CONFIG_HOME/sxhkd/dropdown.sh
+# dropdown terminal/scratchpad (square mid)
+F20
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f20
 
-# kitty-fzf
+F21
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f21
+
+F22
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f22
+
+F23
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f23
+
+F24
+        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f24
+
 #super + F11
 F11
         $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-fzf
-#	tdrop --class="kitty-drop1" -N -C 'autohide-tdrop &' -l 'bspc rule -a \* -o rectangle=900x550+0+0 center=on state=floating layer=above' kitty --class="kitty-drop1"
 
 #super + F12
 F12
         $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-drop
-	#tdrop -N -C 'autohide-tdrop &' kitty --class="kitty-drop"
 
 # program launcher
 super + @space
@@ -84,8 +93,8 @@ super + v
 #
 
 # toggle windows transparency
-super + ctrl + {equal,minus}
-	$XDG_CONFIG_HOME/sxhkd/opacity.sh inactive {on,off}
+#super + {equal,minus}
+#	$XDG_CONFIG_HOME/sxhkd/opacity.sh active {on,off}
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -120,25 +129,28 @@ super + {t,s,f}
 	bspc node -t {tiled,floating,fullscreen}
 
 # hide focused window
-super + x
+super + h : h
+        notify-send --hint int:transient:1 "sxhkd" "Hide mode enabled"; \
 	bspc node -g hidden
 
 # unhide/show all hidden windows on current desktop
-super + Z
-	bspc node any.local.hidden -g hidden=off
+super + h : a
+	xdotool key Escape; \
+        bspc node any.local.hidden -g hidden=off
        
 # unhide/show one hidden window on current desktop
-super + z
+super + h : u
+        xdotool key Escape; \
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh hidden-window
 
 # make window appear in below level to be able to record
 # with OBS xcomposite, because bspwm unmaps workspaces on lost focus
-super + c
-	bspc node -l below -t fullscreen -g sticky=on
+#super + c
+#	bspc node -l below -t fullscreen -g sticky=on
 
 #disables OBS below effect
-super + q 
-	bspc node any.below -l normal -g sticky=off -f
+#super + q 
+#	bspc node any.below -l normal -g sticky=off -f
 
 #super + s
 #	bspc subscribe node -t floating -z top_left -100 0 -z top_right 100 0
@@ -164,9 +176,13 @@ super + parenleft
 super + parenright
         $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh layout persistent
 
-# layouts reset
-super + p
+# layouts remove/reset to default
+super + l
         bsp-layout remove
+
+# pin window to foreground on every workspace
+#super + p
+#        bsp-layout remove
 
 # rotates tree
 # switch from vertical to horizontal tiling and vice-versa
@@ -174,8 +190,7 @@ super + {period,comma}
 	bspc node @/ -R {90,270}
 
 # rotates "switch" tree in focused node places new node
-#super + {_,alt + }k
-super + brace{left,right}
+super + {less,greater}
     bspc node @/ -C {forward,backward}
 
 # focus (or swap with alt) the node in the given direction
@@ -204,19 +219,33 @@ super + {grave,Tab}
 
 # focus the older or newer node in the focus history
 # focus the next/previous window in the current desktop
-super + o
-	bspc node -f next.local.!hidden.window
-super + {u,y}
+super + {j,k}
 	bspc node -f {next,prev}.local.!hidden.window
+super + o: {n,p}
+	bspc node -f {next,prev}.local.!hidden.window
+#super + o
+#	bspc node -f next.local.!hidden.window
 	#bspc wm -h off; \
 	#bspc node {older,newer} -f; \
 	#bspc wm -h on
 
-# focus and move 'older' window to focused desktop
-super + a
+# move focused window to prev-focused workspace
+super + a : l
+	bspc node -d last
+
+# move focused window to prev workspace
+#super + a : p
+#	bspc node -d older
+
+# move focused window to next workspace
+#super + a : n
+#	bspc node -d newer
+
+# focus and move 'older' node from last desktop to focused desktop
+super + a : o
 	bspc node older.!local -f; bspc node -d last --follow
 
-# send to the given desktop
+# send focused window to the given desktop
 super + alt + {1-9,0}
 	bspc node -d '^{1-9,10}' --follow
 
@@ -229,19 +258,19 @@ super + {1-9,0}
 #
 
 # preselect the direction
-super + ctrl + {m,n,e,i}
+super + p : {m,n,e,i}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
-super + ctrl + {1-9}
+super + p : {1-9}
 	bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
-super + ctrl + space
+super + p : {n,space}
 	bspc node -p cancel
 
 # cancel the preselection for the focused desktop
-super + ctrl + shift + space
+super + p : d
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
@@ -260,20 +289,23 @@ super + r : {m,n,e,i}
                       bottom 0 20 || bspc node -z top 0 20,\
                       top 0 -20 || bspc node -z bottom 0 -20,\
                       right 20 0 || bspc node -z left 20 0}
-#super + alt + {Left,Down,Up,Right}
-#  ;bash ~/.config/sxhkd/float_resize.sh {x -,y -,y +,x +}
 
 # contract a window by moving one of its side inward (for floating)
 super + alt + r : {m,n,e,i}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
+# resize to equal size - size reset
+super + r : @equal
+        xdotool key Escape; \
+        bspc node any.local -E
+
+#super + alt + {Left,Down,Up,Right}
+#  ;bash ~/.config/sxhkd/float_resize.sh {x -,y -,y +,x +}
+
 # move a floating window
 super + w : {m,n,e,i}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# resize to equal size - size reset
-super + equal
-        bspc node any.local -E
 #
 # MOUSE KEYBIDS
 #
