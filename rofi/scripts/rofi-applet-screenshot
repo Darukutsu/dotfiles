@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+set -o pipefail
 
-## Author  : Aditya Shakya (adi1090x)
-## Github  : @adi1090x
+## Author  : Darukutsu
+## Github  : @Darukutsu
 #
 ## Applets : Screenshot
 
@@ -23,14 +24,16 @@ if [[ "$layout" == 'NO' ]]; then
   option_1=" Capture Desktop"
   option_2=" Capture Area"
   option_3=" Capture Window"
-  option_4=" Capture in 5s"
-  option_5=" Capture in 10s"
+  #option_4=" Capture in 5s"
+  #option_5=" Capture in 10s"
+  option_4=" Record Desktop"
+  option_5=" Record Windwow"
 else
   option_1=""
   option_2=""
   option_3=""
-  option_4=""
-  option_5=""
+  option_4=""
+  option_5=""
 fi
 
 # Rofi CMD
@@ -52,10 +55,12 @@ run_rofi() {
 }
 
 # Screenshot
-time=`date +%Y-%m-%d-%H-%M-%S`
-geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
+time=`date +%Y%m%d_%H%M%S`
 dir="`xdg-user-dir PICTURES`/Screenshots"
-file="Screenshot_${time}_${geometry}.png"
+#geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
+#file="Screenshot_${time}_${geometry}.png"
+ft=png
+file="Screenshot_${time}.${ft}"
 
 if [[ ! -d "$dir" ]]; then
   mkdir -p "$dir"
@@ -67,15 +72,15 @@ notify_view() {
   ${notify_cmd_shot} "Copied to clipboard."
   viewnior ${dir}/"$file"
   if [[ -e "$dir/$file" ]]; then
-    ${notify_cmd_shot} "Screenshot Saved."
+    ${notify_cmd_shot} "${prompt} Saved." "$file"
   else
-    ${notify_cmd_shot} "Screenshot Deleted."
+    ${notify_cmd_shot} "${prompt}  Deleted."
   fi
 }
 
 # Copy screenshot to clipboard
 copy_shot () {
-  tee "$file" | xclip -selection clipboard -t image/png
+  tee "$file" | xclip -selection clipboard -t image/$ft
 }
 
 # countdown
@@ -86,34 +91,33 @@ countdown () {
   done
 }
 
-# take shots
+# take shots of whole monitor (optionaly can resize)
 shotnow () {
-  cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot
-  notify_view
-}
-
-shot5 () {
-  countdown '5'
-  sleep 1 && cd ${dir} && maim -u -f png | copy_shot
-  notify_view
-}
-
-shot10 () {
-  countdown '10'
-  sleep 1 && cd ${dir} && maim -u -f png | copy_shot
-  notify_view
-}
-
-shotwin () {
-  cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
-  notify_view
+  cd ${dir} && menyoki -q capture --root --select png save "-" | copy_shot && notify_view
 }
 
 shotarea () {
-  #/home/daru/.config/sxhkd/mouse.sh &
-  cd ${dir} && maim -u -f png -s -D -b 2 -c 0.35,0.55,0.85,0.25 -l | copy_shot
-  notify_view
-  #killall mouse.sh
+  cd ${dir} && menyoki -q capture --root --select -s 300x100 png save "-" | copy_shot && notify_view
+}
+
+shotwin () {
+  cd ${dir} && menyoki -q capture -f --select png save "-" | copy_shot && notify_view
+}
+
+recordmon () {
+  #prompt='Recording'
+  #ft=gif
+  #file="Record_${time}.${ft}"
+  #cd ${dir} && menyoki -q record --root --select gif save "-" | copy_shot && notify_view
+  obs --startrecording --scene MonitorCapture
+}
+
+recordwin () {
+  obs --startrecording --scene WindowCapture
+  #prompt='Recording'
+  #ft=gif
+  #file="Record_${time}.${ft}"
+  #cd ${dir} && menyoki -q record -f --select gif save "-" | copy_shot && notify_view
 }
 
 # Execute Command
@@ -125,9 +129,9 @@ run_cmd() {
   elif [[ "$1" == '--opt3' ]]; then
     shotwin
   elif [[ "$1" == '--opt4' ]]; then
-    shot5
+    recordmon
   elif [[ "$1" == '--opt5' ]]; then
-    shot10
+    recordwin
   fi
 }
 
