@@ -62,8 +62,8 @@ require 'nvim-treesitter.configs'.setup {
 
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-        ["ad"] = "@statement.outer",
-        ["id"] = "@statement.outer",
+        ["as"] = "@statement.outer",
+        ["is"] = "@statement.outer",
         ["aa"] = "@parameter.outer",
         ["ia"] = "@parameter.inner",
         ["af"] = "@function.outer",

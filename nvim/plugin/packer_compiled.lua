@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/daru/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/daru/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/daru/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/daru/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/daru/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/daru/.cache/nvim/packer_hererocks/2.1.1702233742/share/lua/5.1/?.lua;/home/daru/.cache/nvim/packer_hererocks/2.1.1702233742/share/lua/5.1/?/init.lua;/home/daru/.cache/nvim/packer_hererocks/2.1.1702233742/lib/luarocks/rocks-5.1/?.lua;/home/daru/.cache/nvim/packer_hererocks/2.1.1702233742/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/daru/.cache/nvim/packer_hererocks/2.1.1702233742/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -99,10 +99,10 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/coq_nvim",
     url = "https://github.com/ms-jpq/coq_nvim"
   },
-  firenvim = {
+  ["diffview.nvim"] = {
     loaded = true,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/start/firenvim",
-    url = "https://github.com/glacambre/firenvim"
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
   },
   ["gitsigns.nvim"] = {
     config = { "\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0" },
@@ -125,6 +125,11 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
+  ["marks.nvim"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/marks.nvim",
+    url = "https://github.com/chentoast/marks.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -145,21 +150,26 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  neogit = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/neogit",
+    url = "https://github.com/NeogitOrg/neogit"
+  },
   ["nnn.nvim"] = {
     config = { "\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bnnn\frequire\0" },
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nnn.nvim",
     url = "https://github.com/luukvbaal/nnn.nvim"
   },
+  ["none-ls.nvim"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/none-ls.nvim",
+    url = "https://github.com/nvimtools/none-ls.nvim"
+  },
   ["nord.nvim"] = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nord.nvim",
     url = "https://github.com/shaunsingh/nord.nvim"
-  },
-  ["null-ls.nvim"] = {
-    loaded = true,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
-    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -181,6 +191,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-fFHighlight",
     url = "https://github.com/kevinhwang91/nvim-fFHighlight"
+  },
+  ["nvim-jdtls"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-jdtls",
+    url = "https://github.com/mfussenegger/nvim-jdtls"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -208,10 +223,9 @@ _G.packer_plugins = {
     url = "https://github.com/windwp/nvim-ts-autotag"
   },
   ["nvim-web-devicons"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
-    url = "https://github.com/kyazdani42/nvim-web-devicons"
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -222,11 +236,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
-  },
-  ["readline.nvim"] = {
-    loaded = true,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/start/readline.nvim",
-    url = "https://github.com/linty-org/readline.nvim"
   },
   ["rust-tools.nvim"] = {
     loaded = true,
@@ -242,6 +251,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/suda.vim",
     url = "https://github.com/lambdalisue/suda.vim"
+  },
+  ["targets.vim"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/targets.vim",
+    url = "https://github.com/wellle/targets.vim"
   },
   ["telescope-dap.nvim"] = {
     loaded = true,
@@ -263,6 +277,11 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  ["vim-wordmotion"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/vim-wordmotion",
+    url = "https://github.com/chaoren/vim-wordmotion"
+  },
   vimtex = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/vimtex",
@@ -281,14 +300,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-fFHighlight
-time([[Config for nvim-fFHighlight]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16fFHighlight\frequire\0", "config", "nvim-fFHighlight")
-time([[Config for nvim-fFHighlight]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 time([[Config for gitsigns.nvim]], false)
+-- Config for: nvim-fFHighlight
+time([[Config for nvim-fFHighlight]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16fFHighlight\frequire\0", "config", "nvim-fFHighlight")
+time([[Config for nvim-fFHighlight]], false)
 -- Config for: nnn.nvim
 time([[Config for nnn.nvim]], true)
 try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bnnn\frequire\0", "config", "nnn.nvim")

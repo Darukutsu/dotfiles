@@ -1,5 +1,6 @@
 require('plugins')
-require('keymap')
+--require('keymap')
+require('keymap-colemak')
 require('theme')
 require('plug/mason')
 require('plug/treesitter')
@@ -10,11 +11,13 @@ require('plug/coq')
 --require('plug/hologram')
 --require('plug/linter')
 --require('plug/undotree')
-require('plug/readline')
+--require('plug/readline')
 require('plug/indent-blank')
 require('plug/which-key')
 require('plug/ccc')
-require('plug/firenvim')
+--require('plug/firenvim')
+--require('plug/fcitx')
+require('plug/nvim-lspconfig-ui')
 --require('plug/nvim-next')
 
 --vim.b.page_alternate_bufnr = {$initial_buf_nr}
@@ -50,6 +53,9 @@ vim.cmd 'silent doautocmd User PageOpen | redraw'
 --{$after}
 
 vim.cmd([[
+  nnoremap <leader><leader>c :so $XDG_CONFIG_HOME/nvim/lua/keymap-colemak.lua<cr>
+  nnoremap <leader><leader>q :so $XDG_CONFIG_HOME/nvim/lua/keymap.lua<cr>
+
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerSync
@@ -83,6 +89,21 @@ vim.cmd([[
   "set spell
   "set autoindent
   set scrollback=100000
+
+  " fixes man page bindings
+  let g:no_man_maps=1
+
+  " Alias
+  command W noa wq
+
+  " targets.vim
+  "let g:targets_nl='kK'
+  let g:targets_nl='nN'
+  " due to this i have to inoremap and nnoremap"
+  let g:targets_aiAI='alAL'
+  let g:targets_mapped_aiAI='aiAI'
+  let g:targets_gracious = 1
+
   COQnow -s
 ]])
 

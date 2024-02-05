@@ -13,12 +13,12 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'lambdalisue/suda.vim'    -- write sudo if not in sudo
-  use 'alx741/vinfo'            -- vim GNU info implementation <C-]> follow tag
+  use 'lambdalisue/suda.vim' -- write sudo if not in sudo
+  use 'alx741/vinfo'         -- vim GNU info implementation <C-]> follow tag
   --use 'HiPhish/info.vim'                    -- vim GNU info implementation
-  use 'linty-org/readline.nvim' -- readline navigation for :, / or ?
-  use 'folke/tokyonight.nvim'   -- tokyo theme
-  use 'shaunsingh/nord.nvim'    -- nord theme
+  --use 'linty-org/readline.nvim' -- readline navigation for :, / or ?
+  use 'folke/tokyonight.nvim' -- tokyo theme
+  use 'shaunsingh/nord.nvim'  -- nord theme
   --use 'mbbill/undotree'                     -- undo any history
   --use 'edluffy/hologram.nvim'               -- images in nvim
   use 'uga-rosa/ccc.nvim'                   -- color picker with :CccPick
@@ -27,14 +27,19 @@ return require('packer').startup(function(use)
   use 'ghostbuster91/nvim-next'             -- repeable movements ;, for all commands
   use 'folke/which-key.nvim'                -- key help floating while typing
   --use 'michaeljsmith/vim-indent-object'     -- python textobject
+  use 'chaoren/vim-wordmotion'              -- advanced wordmotion
+  use 'chentoast/marks.nvim'                -- mark hint on side
+  use 'mfussenegger/nvim-jdtls'             -- java
+  use 'wellle/targets.vim'
+  --use 'folke/trouble.nvim'                -- diagnostics haven't tried yet
 
 
 
 
-  use {
-    'glacambre/firenvim',
-    run = function() vim.fn['firenvim#install'](0) end
-  }
+  --use {
+  --  'glacambre/firenvim',
+  --  run = function() vim.fn['firenvim#install'](0) end
+  --}
 
   --use 'ellisonleao/glow.nvim' -- highlight marker, markdown files etc
   use {
@@ -55,6 +60,14 @@ return require('packer').startup(function(use)
   use {
     'luukvbaal/nnn.nvim',
     config = function() require('nnn').setup() end
+  }
+  use { -- git integration
+    'NeogitOrg/neogit',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+      'nvim-tree/nvim-web-devicons'
+    }
   }
 
   use { -- git time stamps
@@ -99,12 +112,15 @@ return require('packer').startup(function(use)
   use { -- MASON, formatter/linter, debugger, lsp
     'williamboman/mason.nvim',
     requires = {
-      { 'jose-elias-alvarez/null-ls.nvim' },
+      { 'nvimtools/none-ls.nvim' },
+      --{ 'jose-elias-alvarez/null-ls.nvim' },
       { 'jay-babu/mason-null-ls.nvim' },
 
       { 'mfussenegger/nvim-dap' },
       { 'jay-babu/mason-nvim-dap.nvim' },
 
+      --{ 'creativenull/efmls-configs-nvim' },
+      --{ 'VonHeikemen/lsp-zero.nvim' },
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason-lspconfig.nvim' },
     },
@@ -117,7 +133,10 @@ return require('packer').startup(function(use)
   -- Rust config start
   use {
     'simrat39/rust-tools.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'neovim/nvim-lspconfig' },
+    },
   }
   -- Rust config end
 
@@ -143,10 +162,10 @@ return require('packer').startup(function(use)
 
   use { -- fancy line
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
-  use { -- fancy startup screen. Telescope >> fancy fuzyfinder
+  use { -- fancy startup screen. Telescope >> fancy fuzzyfinder
     'startup-nvim/startup.nvim',
     requires = {
       'nvim-telescope/telescope.nvim',
@@ -155,10 +174,8 @@ return require('packer').startup(function(use)
   }
 
   use { -- highlight code
-    'nvim-treesitter/nvim-treesitter',
-    requires = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
+    'nvim-treesitter/nvim-treesitter', requires = { 'nvim-treesitter/nvim-treesitter-textobjects',
+  },
     run = ':TSUpdate',
   }
 

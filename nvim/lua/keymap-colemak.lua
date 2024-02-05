@@ -1,4 +1,27 @@
 vim.cmd([[
+noremap h m
+noremap j e
+noremap k n
+"noremap l i
+nnoremap l i
+noremap m h
+noremap n j
+noremap e k
+noremap i l
+noremap H M
+noremap J E
+noremap K N
+noremap L I
+noremap M H
+noremap N J
+noremap E K
+noremap I L
+" vim-wordmotion
+noremap W w
+xnoremap aW aw
+onoremap aW aw
+xnoremap iW iw
+onoremap iW iw
 
 let mapleader = " "
 nnoremap <leader>; :noh<cr>
@@ -51,20 +74,22 @@ function! ToggleLsp(isLSP, isDiag)
 endfunction
 nnoremap <F3> :call ToggleLsp(isLSP, isDiag)<cr>
 "nnoremap <F4> :call ToggleDiag(isDiag)<cr>
-nnoremap <F1> :lua vim.diagnostic.open_float()<cr>
-nnoremap <F2> :lua vim.lsp.buf.hover()<cr>
+nnoremap <F1> :lua vim.lsp.buf.hover()<cr>
+nnoremap <F2> :lua vim.diagnostic.open_float()<cr>
+nnoremap <F10> :lua vim.diagnostic.goto_prev()<cr>
+nnoremap <F11> :lua vim.diagnostic.goto_next()<cr>
 
 " dapui
 "nnoremap <F4> :lua require("dapui").toggle()<cr>
-nnoremap <F5> :lua require("dap").continue()<cr>
-nnoremap <S-F5> :lua require("dap").restart()<cr>
-nnoremap <F6> :lua require("dap").pause()<cr>
-"nnoremap <F7> :lua require("dap").repl.open()<cr>
-nnoremap <F8> :lua require("dap").toggle_breakpoint()<cr>
-nnoremap <F9> :lua require("dap").run_last()<cr>
-nnoremap <F10> :lua require("dap").step_over()<cr>
-nnoremap <F11> :lua require("dap").step_into()<cr>
-nnoremap <F12> :lua require("dap").step_out()<cr>
+nnoremap <leader><F5> :lua require("dap").continue()<cr>
+nnoremap <leader><S-F5> :lua require("dap").restart()<cr>
+nnoremap <leader><F6> :lua require("dap").pause()<cr>
+"nnoremap<leader> <F7> :lua require("dap").repl.open()<cr>
+nnoremap <leader><F8> :lua require("dap").toggle_breakpoint()<cr>
+nnoremap <leader><F9> :lua require("dap").run_last()<cr>
+nnoremap <leader><F10> :lua require("dap").step_over()<cr>
+nnoremap <leader><F11> :lua require("dap").step_into()<cr>
+nnoremap <leader><F12> :lua require("dap").step_out()<cr>
 nnoremap <leader>dd :lua require("dapui").toggle()<cr>
 nnoremap <leader>dc :lua require("dap").continue()<cr>
 nnoremap <leader>dR :lua require("dap").restart()<cr>
@@ -113,11 +138,14 @@ nnoremap gp :VinfoPrev<cr>
 nnoremap <leader>\ :NnnExplorer<cr>
 
 " Firenvim
-nnoremap <leader>'l :set lines=
-nnoremap <leader>'c :set columns=
+" nnoremap <leader>'l :set lines=
+" nnoremap <leader>'c :set columns=
 
 " Markdown preview
-nnoremap <leader>m :MarkdownPreviewToggle<cr>
+noremap <leader>m :MarkdownPreviewToggle<cr>
+
+" Neogit
+nnoremap <leader>G :Neogit<cr>
 
 " Gitsigns
 nnoremap <leader>gh :Gitsigns preview_hunk<cr>
@@ -126,8 +154,8 @@ nnoremap <leader>gn :Gitsigns next_hunk<cr>
 nnoremap <leader>gp :Gitsigns prev_hunk<cr>
 
 " Spellcheck
-nnoremap <leader>s :set spell!<cr>
-nmap <leader><leader> z=
+nnoremap <leader><leader>s :set spell!<cr>
+nmap <leader>s z=
 
 " Navigation
 " Move highlighted text
@@ -137,9 +165,19 @@ nmap <leader><leader> z=
 "xnoremap J xp`[V`]
 "xnoremap H <gv
 "xnoremap L >gv
-vnoremap J :m '>+1<cr>gv=gv
-vnoremap K :m '<-2<cr>gv=gv
+" split lines under the cursor
+nnoremap E i<CR><Esc>g;
+vnoremap N :m '>+1<cr>gv=gv
+vnoremap E :m '<-2<cr>gv=gv
+nnoremap g[ :lua vim.diagnostic.goto_prev()<cr>
+nnoremap g] :lua vim.diagnostic.goto_next()<cr>
 nnoremap gd :lua vim.lsp.buf.definition()<cr>
+nnoremap gr :lua vim.lsp.buf.references()<cr>
+nnoremap gl ``
+nnoremap gL ''
+nnoremap <leader>R :lua vim.lsp.buf.rename()<cr>
+nnoremap <leader>a :lua vim.lsp.buf.code_action()<cr>
+
 
 " Folding functions
 " za/zA toggle current 1 level/toggle current full
@@ -150,10 +188,26 @@ nnoremap gd :lua vim.lsp.buf.definition()<cr>
 nnoremap <leader>+ <C-W>1000+
 nnoremap <leader>- <C-W>1000-
 nnoremap <leader>= <C-W>=
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>h <C-W>h
-nnoremap <leader>l <C-W>l
+nnoremap <leader>m <C-W>h
+nnoremap <leader>n <C-W>j
+nnoremap <leader>e <C-W>k
+nnoremap <leader>i <C-W>l
+"nnoremap <leader>r <C-w><C-r>
+nnoremap <C-s> <C-w><C-r>
+
+" rotate horizontal/vertical buffer"
+let g:isHorizontal = 1
+function! ToggleRotate(isHorizontal)
+  if g:isHorizontal==1
+    :exe "normal \<C-w>J"
+    let g:isHorizontal = 0
+  else
+    :exe "normal \<C-w>H"
+    let g:isHorizontal = 1
+  endif
+endfunction
+"nnoremap <C-w><C-r> :call ToggleRotate(isHorizontal)<cr>
+nnoremap <leader>r :call ToggleRotate(isHorizontal)<cr>
 
 " Center cursor up/down search
 nnoremap <C-u> <C-u>zz
@@ -163,12 +217,16 @@ nnoremap '[a-z] '[a-z]zz
 "nnoremap N <C-d>Nzzzv
 
 " Scrolling content
-nnoremap <C-j> <C-e>
-nnoremap <C-k> <C-y>
+nnoremap <C-n> <C-e>
+nnoremap <C-e> <C-y>
 
 " Remap defaults
 nnoremap O O<Esc>
 nnoremap o o<Esc>
+nnoremap <C-K> :Man <C-r><C-w><cr>
+nnoremap <C-S-K> <C-t>
+"nnoremap <C-S-K> :Man <C-r><C-w><cr>
+
 
 " Macro replay
 nnoremap <leader>q @@
@@ -237,7 +295,35 @@ function! Del_word_delims()
 endfunction
 inoremap <silent> <C-R>/ <C-R>=Del_word_delims()<cr>
 
-"jump to first ocurance of search and go to visual mode
+"Jump to first ocurance of search and go to visual mode
 noremap \\ //s<cr>v//e+1<cr>
 
+"Unfold when going in fold going out jk
+function! MoveAndFoldLeft()
+    let line = getpos('.')[1]
+    let col  = getpos('.')[2]
+
+    if l:col ==# 1 && foldlevel(l:line)
+        execute "foldclose"
+    else
+        execute "normal! h"
+    endif
+endfunction
+
+function! MoveAndFoldRight()
+    let line = getpos('.')[1]
+
+    if foldlevel(line) && foldclosed(line) != -1
+        execute "foldopen"
+    else
+        execute "normal! l"
+    endif
+endfunction
+
+nnoremap <silent> <Left>  :call MoveAndFoldLeft()<cr>
+nnoremap <silent> m       :call MoveAndFoldLeft()<cr>
+nnoremap <silent> <Right> :call MoveAndFoldRight()<cr>
+nnoremap <silent> i       :call MoveAndFoldRight()<cr>
+
 ]])
+require('plug/wordmotion')

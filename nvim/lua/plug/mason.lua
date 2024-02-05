@@ -1,3 +1,15 @@
+--local lsp_zero = require('lsp-zero')
+--
+--lsp_zero.on_attach(function(client, bufnr)
+--  -- see :help lsp-zero-keybindings
+--  -- to learn the available actions
+--  lsp_zero.default_keymaps({ buffer = bufnr })
+--end)
+
+
+
+
+
 require("mason").setup();
 
 --https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
@@ -6,7 +18,7 @@ local lsp_handlers = {
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
   function(server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {}
+    require("lspconfig")[server_name].setup { require('coq').lsp_ensure_capabilities({}) }
   end,
 
   -- Next, you can provide a dedicated handler for specific servers.
@@ -19,6 +31,9 @@ local lsp_handlers = {
   --["pylyzer"] = function()
   --  require("plug/lsp/pylyzer")
   --end,
+  ["jdtls"] = function()
+    require("plug/lsp/jdtls")
+  end,
   ["clangd"] = function()
     require("plug/lsp/clangd")
   end,
@@ -29,7 +44,14 @@ local lsp_handlers = {
     require("plug/lsp/ltex")
   end,
 }
-require("mason-lspconfig").setup({ handlers = lsp_handlers });
+require("mason-lspconfig").setup({
+  --handlers = {
+  --  lsp_zero.default_setup,
+  --  jdtls = lsp_zero.noop,
+  --},
+  handlers = lsp_handlers,
+  --automatic_installation=true,
+});
 
 
 --https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting
