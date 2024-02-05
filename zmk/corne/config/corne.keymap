@@ -7,6 +7,7 @@
 /*
 to visualize keymap:
 https://nickcoutsos.github.io/keymap-editor/
+https://github.com/caksoylar/keymap-drawer
 */
 
 #include <behaviors.dtsi>
@@ -18,12 +19,15 @@ https://nickcoutsos.github.io/keymap-editor/
 //#include <./unicode.h>
 
 #define COLEMAK  0
-#define QWERTY   1
-#define VIM      2
-#define PROG     3
-#define MOUSE    4
-#define SVK      5
-#define SETTINGS 6
+#define COLEMAKZ 1
+#define QWERTY   2
+#define GAMING   3
+#define GAMING2  4
+#define VIM      5
+#define PROG     6
+#define MOUSE    7
+#define SVK      8
+#define SETTINGS 9
 
 
 &mt {
@@ -35,6 +39,10 @@ https://nickcoutsos.github.io/keymap-editor/
     release-after-ms = <2500>;
     ignore-modifiers;
 };
+
+//&sl {
+//    release-after-ms = <2000>;
+//};
 
 &key_repeat {
     usage-pages = <HID_USAGE_KEY HID_USAGE_CONSUMER>;
@@ -133,6 +141,17 @@ https://nickcoutsos.github.io/keymap-editor/
         label = "VBATT";
     };
 
+   //macros {
+   //     colemakz: colemakz {
+   //         compatible = "zmk,behavior-macro";
+   //         #binding-cells = <0>;
+   //         bindings
+   //             = <&to COLEMAK>
+   //             , <&tog COLEMAKZ>
+   //             ;
+   //     };
+   //};
+
     keymap {
             compatible = "zmk,keymap";
 
@@ -146,6 +165,29 @@ https://nickcoutsos.github.io/keymap-editor/
                         >;
                 };
 
+
+
+
+                colemak_qwertz_layer {
+                        bindings = <
+   &trans &trans &trans &trans &trans &trans    &trans &trans &trans &kp Z &trans &trans
+   &trans &trans &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
+   &trans &mt LGUI Y &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
+                     &trans &trans &trans    &trans &trans &trans
+                        >;
+                };
+//                colemak_qwertz_layer {
+//                        bindings = <
+//   &kp TAB   &kp Q &kp W &kp F &kp P &kp B   &kp J &kp L  &kp U  &kp Z   &kp SEMI &bspc_del
+//   &kp ESC   &kp A &kp R &kp S &kp T &kp G   &kp M &kp N  &kp E  &kp I   &kp O    &kp SQT
+//   &shift_caps &mt LGUI Y &kp X &kp C &kp D &kp V   &kp K &kp H  &kp COMMA &kp DOT &mt LGUI FSLH &mt RSHIFT RET
+//             &td_gui &lt VIM LBKT &mt LALT SPACE   &td_cmeh &lt PROG RBKT &key_repeat
+//                        >;
+//                };
+
+
+
+
                 qwerty_layer {
                         bindings = <
    &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P &bspc_del
@@ -156,15 +198,40 @@ https://nickcoutsos.github.io/keymap-editor/
                 };
 
 
+
+
+                gaming_layer {
+                        bindings = <
+   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P &bspc_del
+   &kp LSHFT &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
+   &kp LCTRL &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &mt RSHIFT RET
+             &kp ESC &lt GAMING2 LALT &kp SPACE   &lt VIM LBKT &lt PROG RBKT &kp RALT
+                        >;
+                };
+                gaming2_layer {
+                        bindings = <
+   &trans &kp N1 &trans &kp N2 &kp N3 &kp N4    &trans &trans &trans &trans &trans &trans
+   &trans &trans &trans &trans &kp N5 &kp N6    &trans &trans &trans &trans &trans &trans
+   &trans &trans &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
+                     &trans &trans &trans    &trans &trans &trans
+                        >;
+                };
+
+
+
+
                 vim_layer {
                         bindings = <
    &kp F1 &kp F2 &kp F3 &kp F4 &kp F5 &kp F6      &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-   &kp ESC &kp INS &kp PSCRN &none &kp PG_DN &none    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp HOME &kp END
+   &kp ESC &kp INS &kp PSCRN &none &kp PG_DN &kp PG_UP    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp HOME &kp END
    &shift_caps &kp C_PP &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp PG_UP    &none &kp C_NEXT &kp C_PREV &kp C_BRI_UP &kp C_BRI_DN &none
                     	     &trans &none &trans    &trans &tog MOUSE &sl SETTINGS
 //&mod_sl LALT SETTINGS
                         >;
                 };
+
+
+
 
 //impl dynamic macro
                 programming_layer {
@@ -172,9 +239,12 @@ https://nickcoutsos.github.io/keymap-editor/
    &kp GRAVE &kp N1 &kp N2 &kp N3 &kp N4 &kp N5    &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS
    &kp ESC &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT    &kp CARET &kp AMPS &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp EQUAL
    &shift_caps  &mt LGUI F20 &kp F21 &kp F22 &kp F23 &kp F24    &none &kp COMMA &kp DOT &kp LBKT &mt LGUI RBKT &kp BSLH
-                    	     &trans &tog QWERTY &trans    &trans &none &kp RCTL
+                    	     &trans &trans &trans    &trans &none &kp RCTL
                         >;
                 };
+
+
+
 
                 mouse_layer {
                         bindings = <
@@ -185,6 +255,9 @@ https://nickcoutsos.github.io/keymap-editor/
                         >;
                 };
 
+
+
+
                 slovak_layer {
                         bindings = <
    &trans &trans &trans &trans &trans &trans    &trans &trans &trans &trans &trans &trans
@@ -194,9 +267,12 @@ https://nickcoutsos.github.io/keymap-editor/
                         >;
                 };
 
+
+
+
                 settings_layer {
                         bindings = <
-   &none &none &none &none &none &none    &out OUT_TOG &none &none &none &none &kp C_PWR
+   &none &none &none &tog QWERTY &tog GAMING &tog COLEMAKZ    &out OUT_TOG &none &none &none &none &kp C_PWR
    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &none &none &none &none &none &none
    &none &none &none &none &none &none    &none &none &none &none &none &none
                      &none &none &none    &none &none &none
