@@ -12,7 +12,7 @@ if [ "$1" = "ui" ]; then
   exec kitty --class kitty-float nmtui &
 fi
 
-ip=$(nmcli -g IP4.ADDRESS device show wlp1s0)
+ip=$(nmcli -g IP4.ADDRESS device show wlan0)
 # Show some output when it is
 if [ -n "$ip" ]; then
   # Connected to a device

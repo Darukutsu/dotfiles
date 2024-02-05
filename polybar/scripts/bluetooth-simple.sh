@@ -17,10 +17,12 @@ if [ "$1" = "ui" ]; then
 fi
 
 name=$(bluetoothctl info | rg Name | sed 's/Name: \(.*\)/\1/')
+battery=$(bluetoothctl info | rg "Battery Percentage" | sed 's/Battery .* \(.*\)/\1/')
+
 # Show some output when it is
 if [ -n "$name" ]; then
   # Connected to a device
-  echo " $name"
+  echo " $battery $name"
 elif [ -n "$(bluetoothctl show | rg 'Powered: yes')" ]; then
   echo ""
 else
