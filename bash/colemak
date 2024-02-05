@@ -1,0 +1,31 @@
+ble-bind -m 'vi_imap' -f C-RET accept-line
+ble-bind -m 'vi_imap' -f S-RET newline
+
+ble-bind -m 'vi_nmap' -f m vi-command/backward-char
+ble-bind -m 'vi_nmap' -f l vi_nmap/insert-mode
+ble-bind -m 'vi_nmap' -f n vi-command/forward-line
+ble-bind -m 'vi_nmap' -f e vi-command/backward-line
+ble-bind -m 'vi_nmap' -f i vi-command/forward-char
+ble-bind -m 'vi_nmap' -f h vi-command/set-mark
+ble-bind -m 'vi_nmap' -f k vi-command/search-repeat
+ble-bind -m 'vi_nmap' -f j vi-command/forward-vword-end
+
+
+ble-bind -m 'vi_omap' -f m vi-command/backward-char
+ble-bind -m 'vi_omap' -f l vi-command/text-object-inner
+ble-bind -m 'vi_omap' -f n vi-command/forward-line
+ble-bind -m 'vi_omap' -f e vi-command/backward-line
+ble-bind -m 'vi_omap' -f i vi-command/forward-char
+ble-bind -m 'vi_omap' -f h vi-command/set-mark
+ble-bind -m 'vi_omap' -f k vi-command/search-repeat
+ble-bind -m 'vi_omap' -f j vi-command/forward-vword-end
+
+
+ble-bind -m 'vi_xmap' -f m vi-command/backward-char
+ble-bind -m 'vi_xmap' -f l vi-command/text-object-inner
+ble-bind -m 'vi_xmap' -f n vi-command/forward-line
+ble-bind -m 'vi_xmap' -f e vi-command/backward-line
+ble-bind -m 'vi_xmap' -f i vi-command/forward-char
+ble-bind -m 'vi_xmap' -f h vi-command/set-mark
+ble-bind -m 'vi_xmap' -f k vi-command/search-repeat
+ble-bind -m 'vi_xmap' -f j vi-command/forward-vword-end

@@ -35,17 +35,24 @@ shopt -u globstar
 ## OTHER VAR
 export MANPAGER="$PAGER -t man"
 
+h(){
+  help "$1" 2>/dev/null || \
+    $1 --help 2>/dev/null || \
+    $1 -h 2>/dev/null || \
+    $1 help || \
+    echo "No help entry for $1"
+}
+
 # Alternatively, to pick a bit better `man` highlighting:
 man () {
-  test $(/bin/man -w "${@:$#}")
-  if [ $? -eq 0 ]; then
+  if test $(/bin/man -w "${@:$#}"); then
     if [ $2 ]; then
       $PAGER man://"$2($1)"
     elif [ $1 ]; then
       $PAGER man://"$1"
     fi
   else
-    "$1" --help
+    h "$1"
   fi
   #  SECT=${@[-2]}; PROG=${@[-1]}; page man://"$PROG($SECT)"
 }
@@ -112,7 +119,9 @@ source "$XDG_CONFIG_HOME/bash/xdg-base-dir"
 ## PYTHON venv
 #source "$HOME/.local/bin/bin/activate"
 
-cat /home/daru/Templates/Guides/0usefull-commands-I-always-forget
+if [ $SHLVL -eq 1 ]; then
+  cat /home/daru/Templates/Guides/0usefull-commands-I-always-forget
+fi
 
 ## NNN
 source "$XDG_CONFIG_HOME/bash/nnn"
@@ -142,7 +151,14 @@ if [[ ${BLE_VERSION-} ]]; then
   #ble-bind -m vi_nmap -x Y _copy_readline
   ble-bind -m vi_nmap -c 'g s' 'git status'
   ble-bind -m vi_nmap -c '; n' 'nn'
+  #ble-bind -m vi_nmap -c '; h' 'h'
+  ble-bind -m vi_nmap -c 'C-]' 'exit'
+  ble-bind -m vi_imap -c 'C-]' 'exit'
+  ble-bind -m vi_xmap -c 'C-]' 'exit'
+  ble-bind -m vi_cmap -c 'C-]' 'exit'
+  ble-bind -m vi_omap -c 'C-]' 'exit'
   ble-bind -m menu_complete -f '__default__' menu_complete/cancel
+  source "$XDG_CONFIG_HOME/bash/colemak"
 
   #ble-bind -x C-r _fzf_history_for_blesh
   #_fzf_history_for_blesh() {
