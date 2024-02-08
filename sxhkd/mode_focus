@@ -1,0 +1,22 @@
+# return to original sxhkd
+Escape
+        killall sxhkd && sxhkd &
+
+# move focused window to prev-focused workspace
+l
+	bspc node -d last
+
+# move focused window to prev workspace
+#p
+#	bspc node -d older
+
+# move focused window to next workspace
+#n
+#	bspc node -d newer
+
+# focus and move 'older' node from last desktop to focused desktop
+o
+	bspc node older.!local -f; bspc node -d last --follow
+
+{n,p}
+	bspc node -f {next,prev}.local.!hidden.window

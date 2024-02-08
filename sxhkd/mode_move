@@ -1,0 +1,6 @@
+# return to original sxhkd
+Escape
+        killall sxhkd && sxhkd &
+
+{m,n,e,i}
+	bspc node -v {-20 0,0 20,0 -20,20 0}

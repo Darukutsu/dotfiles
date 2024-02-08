@@ -1,0 +1,14 @@
+# return to original sxhkd
+Escape
+        killall sxhkd && sxhkd &
+
+c
+      gromit-mpx --clear
+t
+      gromit-mpx --toggle
+v
+      gromit-mpx --visibility
+a
+      gromit-mpx --redo
+z
+      gromit-mpx --undo

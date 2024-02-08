@@ -1,0 +1,19 @@
+# return to original sxhkd
+Escape
+        killall sxhkd && sxhkd &
+
+# expand/contract a window (in floating only expands)
+{m,n,e,i}
+        bspc node -z {left -20 0 || bspc node -z right -20 0,\
+                      bottom 0 20 || bspc node -z top 0 20,\
+                      top 0 -20 || bspc node -z bottom 0 -20,\
+                      right 20 0 || bspc node -z left 20 0}
+
+# contract a window by moving one of its side inward (for floating)
+alt + {m,n,e,i}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# resize to equal size - size reset
+@equal
+        xdotool key Escape; \
+        bspc node any.local -E

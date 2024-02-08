@@ -1,0 +1,17 @@
+# return to original sxhkd
+Escape
+        killall sxhkd && sxhkd &
+
+# hide focused window
+h
+	bspc node -g hidden
+
+# unhide/show all hidden windows on current desktop
+a
+	xdotool key Escape; \
+        bspc node any.local.hidden -g hidden=off
+       
+# unhide/show one hidden window on current desktop
+u
+        xdotool key Escape; \
+        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh hidden-window

@@ -13,19 +13,19 @@ super + g
         #vieb
 
 super + G
-        $XDG_CONFIG_HOME/qutebrowser/userscripts/container-open
+        "$XDG_CONFIG_HOME"/qutebrowser/userscripts/container-open
 
 # print help
 super + slash
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh sxhkd_help
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh sxhkd_help
 
 # screenshot
 @Print
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh screenshot
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh screenshot
 
 # poweroff menu
 super + shift + @space
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh powermenu
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh powermenu
 
 # Brightness control
 XF86MonBrightness{Up,Down}
@@ -34,7 +34,7 @@ XF86MonBrightness{Up,Down}
 
 # Audio control
 XF86Audio{Raise,Lower}Volume
-	pamixer {-i,-d} 5 ; $XDG_CONFIG_HOME/sxhkd/volume_notify.sh
+	pamixer {-i,-d} 5 ; "$XDG_CONFIG_HOME"/sxhkd/volume_notify.sh
 
 # Audio mute
 XF86AudioMute
@@ -46,35 +46,35 @@ XF86Audio{Play,Next,Prev}
 
 # dropdown terminal/scratchpad (square mid)
 F20
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f20
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-f20
 
-F21
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f21
+F21                      
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-f21
 
-F22
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f22
+F22                      
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-f22
 
-F23
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f23
+F23                      
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-f23
 
-F24
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-f24
+F24                      
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-f24
 
 #super + F11
 F11
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-fzf
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-fzf
 
 #super + F12
 F12
-        $XDG_CONFIG_HOME/sxhkd/dropdown.sh kitty-drop
+        "$XDG_CONFIG_HOME"/sxhkd/dropdown.sh kitty-drop
 
-# program launcher
+# progra"m launcher
 super + @space
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh combi
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh combi
 
-# program switcher
+# progra"m switcher
 alt + Tab
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh window
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh window
 
 # screenlock
 #super + alt + BackSpace
@@ -82,11 +82,11 @@ alt + Tab
 
 # bitwarden
 super + apostrophe
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh bitwarden
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh bitwarden
 
 # clipmenu/clipboard
 super + v
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh clipboard
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard
 
 #
 # BSPWM HOTKEYS
@@ -94,10 +94,11 @@ super + v
 
 # toggle windows transparency
 #super + {equal,minus}
-#	$XDG_CONFIG_HOME/sxhkd/opacity.sh active {on,off}
+#	"$XDG_CONFIG_HOME"/sxhkd/opacity.sh active {on,off}
 
 # make sxhkd reload its configuration files:
 super + Escape
+        notify-send --hint int:transient:1 "sxhkd" "Restarting sxhkd"; \
 	killall "sxhkd"; sxhkd &
 
 # quit/restart bspwm
@@ -128,21 +129,11 @@ ctrl + shift + q
 super + {t,s,f}
 	bspc node -t {tiled,floating,fullscreen}
 
-# hide focused window
-super + h : h
+# hide mode
+super + h
         notify-send --hint int:transient:1 "sxhkd" "Hide mode enabled"; \
-	bspc node -g hidden
-
-# unhide/show all hidden windows on current desktop
-super + h : a
-	xdotool key Escape; \
-        bspc node any.local.hidden -g hidden=off
-       
-# unhide/show one hidden window on current desktop
-super + h : u
-        xdotool key Escape; \
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh hidden-window
-
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_hide
+        
 # make window appear in below level to be able to record
 # with OBS xcomposite, because bspwm unmaps workspaces on lost focus
 #super + c
@@ -170,11 +161,11 @@ super + b
 
 # layouts
 super + parenleft
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh layout
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh layout
 
 # layouts persistent
 super + parenright
-        $XDG_CONFIG_HOME/sxhkd/rofi_launcher.sh layout persistent
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh layout persistent
 
 # layouts remove/reset to default
 super + l
@@ -221,29 +212,14 @@ super + {grave,Tab}
 # focus the next/previous window in the current desktop
 super + {j,k}
 	bspc node -f {next,prev}.local.!hidden.window
-super + o: {n,p}
-	bspc node -f {next,prev}.local.!hidden.window
-#super + o
-#	bspc node -f next.local.!hidden.window
-	#bspc wm -h off; \
-	#bspc node {older,newer} -f; \
-	#bspc wm -h on
 
-# move focused window to prev-focused workspace
-super + a : l
-	bspc node -d last
+super + o
+        notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_focus
 
-# move focused window to prev workspace
-#super + a : p
-#	bspc node -d older
-
-# move focused window to next workspace
-#super + a : n
-#	bspc node -d newer
-
-# focus and move 'older' node from last desktop to focused desktop
-super + a : o
-	bspc node older.!local -f; bspc node -d last --follow
+super + a
+        notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_focus
 
 # send focused window to the given desktop
 super + alt + {1-9,0}
@@ -257,54 +233,22 @@ super + {1-9,0}
 # PRESELECT
 #
 
-# preselect the direction
-super + p : {m,n,e,i}
-	bspc node -p {west,south,north,east}
-
-# preselect the ratio
-super + p : {1-9}
-	bspc node -o 0.{1-9}
-
-# cancel the preselection for the focused node
-super + p : {n,space}
-	bspc node -p cancel
-
-# cancel the preselection for the focused desktop
-super + p : d
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+super + p
+        notify-send --hint int:transient:1 "sxhkd" "Preselect mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_preselect
 
 #
 # MOVE/RESIZE
 #
 
-# Expand/contract a window by moving one of its side outward/inward
-#super + s : {h,j,k,l}
-#    STEP=20; SELECTION={1,2,3,4}; \
-#    bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
-#    bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
-
-# expand/contract a window (in floating only expands)
-super + r : {m,n,e,i}
-        bspc node -z {left -20 0 || bspc node -z right -20 0,\
-                      bottom 0 20 || bspc node -z top 0 20,\
-                      top 0 -20 || bspc node -z bottom 0 -20,\
-                      right 20 0 || bspc node -z left 20 0}
-
-# contract a window by moving one of its side inward (for floating)
-super + alt + r : {m,n,e,i}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-# resize to equal size - size reset
-super + r : @equal
-        xdotool key Escape; \
-        bspc node any.local -E
-
-#super + alt + {Left,Down,Up,Right}
-#  ;bash ~/.config/sxhkd/float_resize.sh {x -,y -,y +,x +}
+super + r
+        notify-send --hint int:transient:1 "sxhkd" "Resize mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_resize
 
 # move a floating window
-super + w : {m,n,e,i}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
+super + w
+        notify-send --hint int:transient:1 "sxhkd" "Move mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_move
 
 #
 # MOUSE KEYBIDS
@@ -320,3 +264,10 @@ super + button9
 
 #button9 + button8
 #       bspc node -t ~fullscreen
+
+#
+# DRAWING
+#
+super + d
+        notify-send --hint int:transient:1 "sxhkd" "Draw mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_draw
