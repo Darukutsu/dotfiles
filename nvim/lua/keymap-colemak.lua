@@ -56,9 +56,13 @@ let g:isDark = 1
 function! ToggleTheme(isDark)
   if g:isDark==1
     :lua vim.o.background = "light"
+    :silent !kitty +kitten themes --reload-in=all "Tokyo Night Day"
+    :exe "normal ne"
     let g:isDark = 0
   else
     :lua vim.o.background = "dark"
+    :silent !kitty +kitten themes --reload-in=all "Tokyo Night Storm"
+    :exe "normal ne"
     let g:isDark = 1
   endif
 endfunction
