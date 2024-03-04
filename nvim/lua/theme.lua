@@ -1,6 +1,6 @@
 -- lualine
 local colors = {
-  red = '#ca1243',
+  red = '#e00030',
   grey = '#a0a1a7',
   black = '#383a42',
   white = '#f3f3f3',
@@ -25,7 +25,8 @@ local function process_sections(sections)
   for name, section in pairs(sections) do
     local left = name:sub(9, 10) < 'x'
     for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-      table.insert(section, pos * 2, { empty, color = { fg = colors.white, bg = colors.white } })
+      table.insert(section, pos * 2, { empty })
+      --table.insert(section, pos * 2, { empty, color = { fg = colors.white, bg = colors.white } })
     end
     for id, comp in ipairs(section) do
       if type(comp) ~= 'table' then
@@ -71,12 +72,13 @@ local function modified()
 end
 
 require('lualine').setup {
+  extensions = { 'quickfix', 'mason', 'nvim-dap-ui', 'man' },
   options = {
-    theme = nord,
-    section_separators = '',
     section_separators = { left = '', right = '' },
-  }, sections = process_sections { lualine_a = { 'mode' },
-    lualine_b = {
+  },
+  sections = process_sections {
+    lualine_a = { 'mode' },
+    lualine_c = {
       'branch',
       'diff',
       {
@@ -92,7 +94,6 @@ require('lualine').setup {
         diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
       },
       { 'filename', file_status = false, path = 1 },
-      { modified, color = { bg = colors.red } },
       {
         '%w',
         cond = function()
@@ -112,10 +113,14 @@ require('lualine').setup {
         end,
       },
     },
-    lualine_c = { '%l:%c', '%p%% %L' },
+    lualine_b = { '%l:%c', '%p%% %L' },
     lualine_x = {},
-    lualine_y = { search_result, 'filetype' },
-    lualine_z = { 'encoding', 'fileformat' },
+    lualine_y = { 'filetype', search_result },
+    lualine_z = {
+      'encoding',
+      'fileformat',
+      { modified, color = { fg = colors.white, bg = colors.red } },
+    },
   },
   inactive_sections = {
     lualine_c = { '%f %y %m' },
@@ -123,10 +128,74 @@ require('lualine').setup {
   },
 }
 
+-- Theme
+require("tokyonight").setup({
+  style = "storm",
+  light_style = "day",
+  transparent = false,
+  terminal_colors = true,
+  styles = {
+    -- Style to be applied to different syntax groups
+    -- Value is any valid attr-list value for `:help nvim_set_hl`
+    comments = { italic = true },
+    keywords = { italic = true },
+    functions = {},
+    variables = {},
+    -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "transparent",
+    floats = "transparent",
+  },
+  sidebars = { "qf", "help" },
+  day_brightness = 0.1,
+  hide_inactive_statusline = false,
+  dim_inactive = false,
+  lualine_bold = true,
 
--- startup
---require("startup").setup({ theme = "my_startup" })
+  --- You can override specific color groups to use other groups or a hex color
+  --- function will be called with a ColorScheme table
+  ---@param colors ColorScheme
+  on_colors = function(colors) end,
+
+  --- You can override specific highlights to use other groups or a hex color
+  --- function will be called with a Highlights and ColorScheme table
+  ---@param highlights Highlights
+  ---@param colors ColorScheme
+  --on_highlights = function(highlights, colors) end,
+
+  -- Borderless Telescope
+  on_highlights = function(hl, c)
+    local prompt = "#2d3149"
+    hl.TelescopeNormal = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.TelescopeBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.TelescopePromptNormal = {
+      bg = prompt,
+    }
+    hl.TelescopePromptBorder = {
+      bg = prompt,
+      fg = prompt,
+    }
+    hl.TelescopePromptTitle = {
+      bg = prompt,
+      fg = prompt,
+    }
+    hl.TelescopePreviewTitle = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.TelescopeResultsTitle = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+  end,
+})
 
 --vim.cmd[[colorscheme tokyonight-night]]
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight-storm]]
+--vim.cmd [[colorscheme tokyonight-day]]
 --vim.cmd[[colorscheme nord]]

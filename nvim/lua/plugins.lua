@@ -13,12 +13,12 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'lambdalisue/suda.vim' -- write sudo if not in sudo
-  use 'alx741/vinfo'         -- vim GNU info implementation <C-]> follow tag
+  ---@format disable-next
+  use 'lambdalisue/suda.vim'                -- write sudo if not in sudo
+  ---@format disable-next
+  use 'alx741/vinfo'                        -- vim GNU info implementation <C-]> follow tag
   --use 'HiPhish/info.vim'                    -- vim GNU info implementation
-  --use 'linty-org/readline.nvim' -- readline navigation for :, / or ?
-  use 'folke/tokyonight.nvim' -- tokyo theme
-  use 'shaunsingh/nord.nvim'  -- nord theme
+  --use 'linty-org/readline.nvim'             -- readline navigation for :, / or ?
   --use 'mbbill/undotree'                     -- undo any history
   --use 'edluffy/hologram.nvim'               -- images in nvim
   use 'uga-rosa/ccc.nvim'                   -- color picker with :CccPick
@@ -28,10 +28,10 @@ return require('packer').startup(function(use)
   use 'folke/which-key.nvim'                -- key help floating while typing
   --use 'michaeljsmith/vim-indent-object'     -- python textobject
   use 'chaoren/vim-wordmotion'              -- advanced wordmotion
+  use 'wellle/targets.vim'                  -- advanced textobjects
   use 'chentoast/marks.nvim'                -- mark hint on side
   use 'mfussenegger/nvim-jdtls'             -- java
-  use 'wellle/targets.vim'
-  --use 'folke/trouble.nvim'                -- diagnostics haven't tried yet
+  --use 'folke/trouble.nvim'                  -- diagnostics haven't tried yet
 
 
 
@@ -45,6 +45,17 @@ return require('packer').startup(function(use)
   use {
     'iamcco/markdown-preview.nvim',
     run = function() vim.fn['mkdp#util#install']() end,
+  }
+
+  use { -- better quickfix window
+    'kevinhwang91/nvim-bqf', ft = 'qf',
+    requires = {
+      -- optional
+      use { 'junegunn/fzf', run = function()
+        vim.fn['fzf#install']()
+      end
+      }
+    }
   }
 
   --use{
@@ -81,29 +92,6 @@ return require('packer').startup(function(use)
     config = function() require('fFHighlight').setup() end
   }
 
-  --  use {
-  --    'Pocco81/HighStr.nvim', -- highlight string colors
-  --	    config = function()
-  --		require('high-str').setup({
-  --		verbosity = 0,
-  --		saving_path = '/tmp/highstr/',
-  --		highlight_colors = {
-  --			-- color_id = {'bg_hex_code',<'fg_hex_code'/'smart'>}
-  --			color_0 = {'#0c0d0e', 'smart'},	-- Cosmic charcoal
-  --			color_1 = {'#e5c07b', 'smart'},	-- Pastel yellow
-  --			color_2 = {'#7FFFD4', 'smart'},	-- Aqua menthe
-  --			color_3 = {'#8A2BE2', 'smart'},	-- Proton purple
-  --			color_4 = {'#FF4500', 'smart'},	-- Orange red
-  --			color_5 = {'#008000', 'smart'},	-- Office green
-  --			color_6 = {'#0000FF', 'smart'},	-- Just blue
-  --			color_7 = {'#FFC0CB', 'smart'},	-- Blush pink
-  --			color_8 = {'#FFF9E3', 'smart'},	-- Cosmic latte
-  --			color_9 = {'#7d5c34', 'smart'},	-- Fallow brown
-  --		    }
-  --		})
-  --	    end
-  --  }
-
   use { -- debug ui
     'rcarriga/nvim-dap-ui',
     requires = { 'mfussenegger/nvim-dap' },
@@ -115,6 +103,7 @@ return require('packer').startup(function(use)
       { 'nvimtools/none-ls.nvim' },
       --{ 'jose-elias-alvarez/null-ls.nvim' },
       { 'jay-babu/mason-null-ls.nvim' },
+      --{ 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 
       { 'mfussenegger/nvim-dap' },
       { 'jay-babu/mason-nvim-dap.nvim' },
@@ -162,7 +151,11 @@ return require('packer').startup(function(use)
 
   use { -- fancy line
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    requires = {
+      { 'nvim-tree/nvim-web-devicons', opt = true },
+      { 'folke/tokyonight.nvim' },
+      --{ 'shaunsingh/nord.nvim' },
+    },
   }
 
   use { -- fancy startup screen. Telescope >> fancy fuzzyfinder

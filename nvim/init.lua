@@ -21,6 +21,7 @@ require('plug/nvim-lspconfig-ui')
 --require('plug/nvim-next')
 require('plug/neogit')
 require('plug/marks')
+require('plug/suppress-errors')
 
 --vim.api.nvim_create_autocmd("BufWritePre", {
 --  callback = function()

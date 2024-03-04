@@ -51,6 +51,20 @@ nnoremap <leader>d :Telescope dap commands<cr>
 " Ccc pick
 nnoremap <leader>c :CccPick<cr>
 
+" Tokyo Theme switch
+let g:isDark = 1
+function! ToggleTheme(isDark)
+  if g:isDark==1
+    :lua vim.o.background = "light"
+    let g:isDark = 0
+  else
+    :lua vim.o.background = "dark"
+    let g:isDark = 1
+  endif
+endfunction
+nnoremap <leader>t :call ToggleTheme(isDark)<cr>
+
+
 " LSP enable(def)/disable
 let g:isLSP = 1
 let g:isDiag = 1
@@ -76,20 +90,20 @@ nnoremap <F3> :call ToggleLsp(isLSP, isDiag)<cr>
 "nnoremap <F4> :call ToggleDiag(isDiag)<cr>
 nnoremap <F1> :lua vim.lsp.buf.hover()<cr>
 nnoremap <F2> :lua vim.diagnostic.open_float()<cr>
-nnoremap <F10> :lua vim.diagnostic.goto_prev()<cr>
-nnoremap <F11> :lua vim.diagnostic.goto_next()<cr>
+"nnoremap <F10> :lua vim.diagnostic.goto_prev()<cr>
+"nnoremap <F11> :lua vim.diagnostic.goto_next()<cr>
 
 " dapui
 "nnoremap <F4> :lua require("dapui").toggle()<cr>
-nnoremap <leader><F5> :lua require("dap").continue()<cr>
-nnoremap <leader><S-F5> :lua require("dap").restart()<cr>
-nnoremap <leader><F6> :lua require("dap").pause()<cr>
+"nnoremap <leader><F5> :lua require("dap").continue()<cr>
+"nnoremap <leader><S-F5> :lua require("dap").restart()<cr>
+"nnoremap <leader><F6> :lua require("dap").pause()<cr>
 "nnoremap<leader> <F7> :lua require("dap").repl.open()<cr>
-nnoremap <leader><F8> :lua require("dap").toggle_breakpoint()<cr>
-nnoremap <leader><F9> :lua require("dap").run_last()<cr>
-nnoremap <leader><F10> :lua require("dap").step_over()<cr>
-nnoremap <leader><F11> :lua require("dap").step_into()<cr>
-nnoremap <leader><F12> :lua require("dap").step_out()<cr>
+"nnoremap <leader><F8> :lua require("dap").toggle_breakpoint()<cr>
+"nnoremap <leader><F9> :lua require("dap").run_last()<cr>
+"nnoremap <leader><F10> :lua require("dap").step_over()<cr>
+"nnoremap <leader><F11> :lua require("dap").step_into()<cr>
+"nnoremap <leader><F12> :lua require("dap").step_out()<cr>
 nnoremap <leader>dd :lua require("dapui").toggle()<cr>
 nnoremap <leader>dc :lua require("dap").continue()<cr>
 nnoremap <leader>dR :lua require("dap").restart()<cr>
@@ -157,6 +171,12 @@ nnoremap <leader>gp :Gitsigns prev_hunk<cr>
 nnoremap <leader><leader>s :set spell!<cr>
 nmap <leader>s z=
 
+" Format buffer
+nnoremap <leader><leader>f :lua vim.lsp.buf.format({ async = false })<cr>
+
+" Quickfix
+nnoremap <leader>f :vimgrep /\w\+/j % \| copen<cr>
+
 " Navigation
 " Move highlighted text
 "inoremap J :m +1<cr>
@@ -188,10 +208,14 @@ nnoremap <leader>a :lua vim.lsp.buf.code_action()<cr>
 nnoremap <leader>+ <C-W>1000+
 nnoremap <leader>- <C-W>1000-
 nnoremap <leader>= <C-W>=
-nnoremap <leader>m <C-W>h
-nnoremap <leader>n <C-W>j
-nnoremap <leader>e <C-W>k
-nnoremap <leader>i <C-W>l
+nnoremap <C-W>m <C-W>h
+nnoremap <C-W>n <C-W>j
+nnoremap <C-W>e <C-W>k
+nnoremap <C-W>i <C-W>l
+"nnoremap <leader>m <C-W>h
+"nnoremap <leader>n <C-W>j
+"nnoremap <leader>e <C-W>k
+"nnoremap <leader>i <C-W>l
 "nnoremap <leader>r <C-w><C-r>
 nnoremap <C-s> <C-w><C-r>
 

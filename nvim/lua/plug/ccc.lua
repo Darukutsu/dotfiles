@@ -88,4 +88,5 @@ require("ccc").setup({
   inputs = {
     RgbHslCmykInput,
   },
+
 })

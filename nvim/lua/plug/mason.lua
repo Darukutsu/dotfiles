@@ -12,6 +12,20 @@
 
 require("mason").setup();
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local function autoformat_quit(client, bufnr)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format({ async = false })
+      end,
+    })
+  end
+end
+
 --https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
 local lsp_handlers = {
   -- The first entry (without a key) will be the default handler
@@ -40,10 +54,14 @@ local lsp_handlers = {
   ["rust_analyzer"] = function()
     require("plug/lsp/rust-tools")
   end,
+  --["matlab_ls"] = function()
+  --  require("plug/lsp/matlab")
+  --end,
   ["ltex"] = function()
     require("plug/lsp/ltex")
   end,
 }
+
 require("mason-lspconfig").setup({
   --handlers = {
   --  lsp_zero.default_setup,
@@ -52,29 +70,6 @@ require("mason-lspconfig").setup({
   handlers = lsp_handlers,
   --automatic_installation=true,
 });
-
-
---https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting
---https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-local null_ls = require("null-ls")
-local null_handlers = {
-  ["beautysh"] = function(source_name, methods)
-    null_ls.register(null_ls.builtins.formatting.beautysh.with({
-      extra_args = { "-i", "2" },
-    }))
-  end,
-  --["autopep8"] = function(source_name, methods)
-  --  null_ls.register(null_ls.builtins.formatting.autopep8.with({
-  --    extra_args = { "--indent-size=2", "--ignore=E121" },
-  --  }))
-  --end,
-}
-require("mason-null-ls").setup({
-  automatic_installation = true,
-  automatic_setup = true,
-  handlers = null_handlers,
-  --handlers = {},
-})
 
 
 
@@ -112,20 +107,63 @@ require("mason-nvim-dap").setup({
 
 
 
--- Autoformat on quit
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-require("null-ls").setup({
+local mason_null = require("mason-null-ls")
+mason_null.setup({
+  ensure_installed = nil,
+  --automatic_installation = true,
+  automatic_setup = true,
+  --methods = {
+  --  diagnostics = false,
+  --  formatting = true,
+  --  code_actions = false,
+  --  completion = false,
+  --  hover = false,
+  --},
+  --handlers = null_handlers,
+  handlers = {
+    --  --["shfmt"] = function(source_name, methods)
+    --  --  mason_null.default_setup(source_name, methods) -- to maintain default behavior
+    --  --    --register(null_ls.builtins.formatting.shfmt.with({
+    --  --    --extra_args = { "-i", "2" },
+    --  --    --}))
+    --  --end,
+  },
+})
+
+
+
+
+
+--https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting
+--https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+--
+--if unsupported when installing new check this
+--https://github.com/nvimtools/none-ls.nvim/discussions/81
+local null_ls = require("null-ls")
+--local null_handlers = {
+--  ["shfmt"] = function(source_name, methods)
+--    null_ls.register(null_ls.builtins.formatting.shfmt.with({
+--      extra_args = { "-i", "2" },
+--    }))
+--  end,
+--  --["beautysh"] = function(source_name, methods)
+--  --  null_ls.register(null_ls.builtins.formatting.beautysh.with({
+--  --    extra_args = { "-i", "2" },
+--  --  }))
+--  --end,
+--  --["autopep8"] = function(source_name, methods)
+--  --  null_ls.register(null_ls.builtins.formatting.autopep8.with({
+--  --    extra_args = { "--indent-size=2", "--ignore=E121" },
+--  --  }))
+--  --end,
+--}
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.shfmt.with({
+      extra_args = { "-i", "2" },
+    }),
+  },
   -- you can reuse a shared lspconfig on_attach callback here
-  on_attach = function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ async = false })
-        end,
-      })
-    end
-  end,
+  on_attach = autoformat_quit,
 })
