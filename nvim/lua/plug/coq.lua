@@ -21,7 +21,8 @@ remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, no
 remap('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
 remap('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
 remap('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
-remap('i', '<cr>', [[pumvisible() ? "<c-y><esc>" : "<cr>"]], { expr = true, noremap = true })
+remap('i', '<cr>', [[pumvisible() ? (complete_info().selected != -1 ? "<c-y><esc>" : "<c-e><cr>") : "<cr>"]],
+  { expr = true, noremap = true })
 --remap('i', '<s-tab>', [[pumvisible() ? "<c-y>" : "<bs>"]], { expr = true, noremap = true })
 
 -- autopair + COQ setup
