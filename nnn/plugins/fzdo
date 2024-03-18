@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+# Description: do operations over file selection
+#
+# After pressing enter \`$EDITOR\` will be opened, so you can edit command. wq to continue.
+# DONT FORGET in place of files you want add \`{}\` instead!!!"
+#
+# Dependencies: fzf, xargs
+# Shell: sh
+# Author: Arun Prakash Jana, Darukutsu
+
+selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
+header="After pressing enter \`$EDITOR\` will be opened, so you can edit command. Add \`{}\` in place of files!!!"
+
+if type fzf >/dev/null 2>&1; then
+  fuzzy=fzf
+else
+  exit 1
+fi
+
+shellname="$(basename "$SHELL")"
+
+if [ "$shellname" = "bash" ]; then
+  hist_file=${HISTFILE:-$HOME/.bash_history}
+  entry="$("$fuzzy" --header="$header" <"$hist_file")"
+elif [ "$shellname" = "fish" ]; then
+  hist_file="$HOME/.local/share/fish/fish_history"
+  entry="$(grep "\- cmd: " "$hist_file" | cut -c 8- | "$fuzzy" --header="$header")"
+fi
+
+if [ -n "$entry" ]; then
+  tmpfile=$(mktemp)
+  echo "$entry" >>"$tmpfile"
+  $EDITOR "$tmpfile"
+
+  if [ -s "$tmpfile" ]; then
+    command="$(cat "$tmpfile")"
+
+    if [ -s "$selection" ]; then
+      xargs -0 -I{} $command <"$selection"
+      # Clear selection
+      printf "-" >"$NNN_PIPE"
+    else
+      "$command" "$2/$1"
+    fi
+  fi
+  rm "$tmpfile"
+fi

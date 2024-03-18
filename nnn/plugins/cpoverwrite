@@ -1,30 +1,37 @@
 #!/usr/bin/env sh
 
-#set -x
-# Description: Enables you to copy(overwrite) files without needing 
+# Description: Enables you to copy(overwrite) files without needing
 #              to explicitely state 'y' option for every file
 #
 # Dependencies: cp, rsync
 #
 # Shell: POSIX compliant
-# Author: Darukutsu 
+# Author: Darukutsu
 selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
 
+echo "paste as ROOT[y/N]: "
+read -r isroot
+isroot=${isroot:-n}
+
 echo "
-Do you wish to overwrite existing files? y/N/d 
-y-yes; n-no(default); d-overwrites directory 
-input anything else to cancel ('q' for example)"
+Do you wish to overwrite existing files? [y/N/d]
+d-overwrites directories
+input anything else to cancel operation ('q' for example): "
 
 read -r option
+option=${option:-n}
 
 case $option in
-     y | yes | Y | YES) option='if [ -d "{}" ]; then cp -r "{}" .; else cp "{}" .; fi';;
-  "" | n | no | N | NO) option='if [ -d "{}" ]; then cp -nr "{}" .; else cp "{}" .; fi';;
-		 d | D) option='if [ -d "{}" ]; then rsync -a --delete "{}" .; else cp "{}" .; fi';;
-		     *) echo "Nothing to do..." exit;;
+y | yes | Y | YES) option='if [ -d "{}" ]; then cp -r "{}" .; else cp "{}" .; fi' ;;
+"" | n | no | N | NO) option='if [ -d "{}" ]; then cp -nr "{}" .; else cp "{}" .; fi' ;;
+d | D) option='if [ -d "{}" ]; then rsync -a --delete "{}" .; else cp "{}" .; fi' ;;
+*) echo "Nothing to do..." exit ;;
 esac
 
-xargs -0 -I{} sh -c "$option" < "$selection" 
+if [ "$isroot" = y ] || [ "$isroot" = Y ]; then
+  sudo xargs -0 -I{} sh -c "$option" <"$selection"
+else
+  xargs -0 -I{} sh -c "$option" <"$selection"
+fi
 # Clear selection
-printf "-" > "$NNN_PIPE"
-
+printf "-" >"$NNN_PIPE"

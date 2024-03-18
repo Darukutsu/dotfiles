@@ -1,71 +1,74 @@
+#!/usr/bin/env sh
 if [ $(whoami) == "root" ]; then
   export NNN_COLORS='11111111'
-  #export NNN_COLORS='1234'
 fi
 
 #export NNN_TRASH=2
-#export NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip)$"
+export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip|zst)$"
 
+export NNN_OPTS='aAcdHrQU'
+#export NNN_ORDER='v:/foo'
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
-export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplaylist;d:diffs;m:nmount;p:cpoverwrite;h:http-server;f:fzcd;w:wallpaper;x:xdgdefault;t:preview-tui;z:zip;o:openall;e:togglex;c:.cbcp;Z:zfs-snapdir;g:gpge;G:gpgd;Y:suedit;'
+export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplaylist;d:diffs;m:nmount;p:cpoverwrite;h:http-server;f:fzcd;w:wallpaper;x:xdgdefault;t:preview-tui;z:zip;o:openall;e:togglex;c:.cbcp;Z:zfs-snapdir;g:gpge;G:gpgd;Y:suedit;O:fzdo;'
 
 #;r:removefromdisk
 #e:-!sudo-Envim$nnn*;
-#;j:autojump
+#;j:zoxide
 #;f:fzopen
-#;f:dragdrop
+#;D:dragdrop
 
 #not working under kitty xembed missing
 #v:preview-tabbed;'
 
 export NNN_BMS="d:/home/daru/Downloads/;n:/home/daru/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/media/;M:/mnt/;h:/home/daru/Templates/Guides;t:/home/daru/Public/GitTuke;b:$HOME/.config/nnn/bookmarks"
 
-nn () {
-    # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
+nn() {
+  # Block nesting of nnn in subshells
+  if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+    echo "nnn is already running"
+    return
+  fi
 
-    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # To cd on quit only on ^G, either remove the "export" as in:
-    #    NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
-    #    (or, to a custom path: NNN_TMPFILE=/tmp/.lastd)
-    # or, export NNN_TMPFILE after nnn invocation
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
+  # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+  # To cd on quit only on ^G, either remove the "export" as in:
+  #    NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
+  #    (or, to a custom path: NNN_TMPFILE=/tmp/.lastd)
+  # or, export NNN_TMPFILE after nnn invocation
+  export NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
 
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
+  # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+  # stty start undef
+  # stty stop undef
+  # stty lwrap undef
+  # stty lnext undef
 
+  nnn -T v -S "$@"
+  #nnn -aAcdHrQSU "$@"
+  #ble-detach && stty sane && nnn -aAcdHrQSU "$@" && ble-attach
+  #nnn -aAcdHrQSU "$@" -P v
 
-    nnn -aAcdHrQSU "$@"
-    #ble-detach && stty sane && nnn -aAcdHrQSU "$@" && ble-attach
-    #nnn -aAcdHrQSU "$@" -P v
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
+  if [ -f "$NNN_TMPFILE" ]; then
+    . "$NNN_TMPFILE"
+    rm -f "$NNN_TMPFILE" >/dev/null
+  fi
 }
 
-n () {
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
+n() {
+  if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+    echo "nnn is already running"
+    return
+  fi
 
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
+  export NNN_TMPFILE="${XDG_CONFIG_HOME:-/home/daru/.config}/nnn/.lastd"
 
-    nnn -aAcdHrQU
-    #ble-detach && stty sane && nnn -aAcdHrQU && ble-attach
+  nnn -T v
+  #nnn -aAcdHrQUT v
+  #ble-detach && stty sane && nnn -aAcdHrQU && ble-attach
 
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
+  if [ -f "$NNN_TMPFILE" ]; then
+    . "$NNN_TMPFILE"
+    rm -f "$NNN_TMPFILE" >/dev/null
+  fi
 }

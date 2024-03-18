@@ -13,8 +13,8 @@ shopt -u globstar
 #    echo "$EPOCHREALTIME ${ADVICE_WORDS[*]}" >> "$filename_debug_log"
 #  }
 #  ble/function#advice \
-  #    before ble-decode/.hook \
-  #    timestamp-args.advice
+#    before ble-decode/.hook \
+#    timestamp-args.advice
 #
 #  function timestamp-wrap.advice {
 #    echo "$EPOCHREALTIME ${ADVICE_WORDS[0]} start" >> "$filename_debug_log"
@@ -22,11 +22,11 @@ shopt -u globstar
 #    echo "$EPOCHREALTIME ${ADVICE_WORDS[0]} end" >> "$filename_debug_log"
 #  }
 #  ble/function#advice \
-  #    around ble/complete/progcomp/.compgen-helper-prog \
-  #    timestamp-wrap.advice
+#    around ble/complete/progcomp/.compgen-helper-prog \
+#    timestamp-wrap.advice
 #  ble/function#advice \
-  #    around ble/complete/progcomp/.compgen-helper-func \
-  #    timestamp-wrap.advice
+#    around ble/complete/progcomp/.compgen-helper-func \
+#    timestamp-wrap.advice
 #}
 #blehook/eval-after-load complete debug/complete-load-hook
 
@@ -35,16 +35,16 @@ shopt -u globstar
 ## OTHER VAR
 export MANPAGER="$PAGER -t man"
 
-h(){
-  help "$1" 2>/dev/null || \
-    $1 --help 2>/dev/null || \
-    $1 -h 2>/dev/null || \
-    $1 help || \
+h() {
+  help "$1" 2>/dev/null ||
+    $1 --help 2>/dev/null ||
+    $1 -h 2>/dev/null ||
+    $1 help ||
     echo "No help entry for $1"
 }
 
 # Alternatively, to pick a bit better `man` highlighting:
-man () {
+man() {
   if test $(/bin/man -w "${@:$#}"); then
     if [ $2 ]; then
       $PAGER man://"$2($1)"
@@ -58,7 +58,7 @@ man () {
 }
 
 #just keep both same for same output
-HISTSIZE=10000 #writes to memory
+HISTSIZE=10000     #writes to memory
 HISTFILESIZE=10000 #write to disk
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE='?:??:stty*'
@@ -88,7 +88,6 @@ eval "$(register-python-argcomplete pipx)"
 #shopt -s progcomp_alias
 complete -F _complete_alias SS
 complete -F _man man
-
 
 # Enhanced file path completion in bash - https://github.com/sio/bash-complete-partial-path
 #if [ -s "$XDG_CONFIG_HOME/bash-complete-partial-path/bash_completion" ]
@@ -125,12 +124,18 @@ fi
 
 ## NNN
 source "$XDG_CONFIG_HOME/bash/nnn"
-# n
+
+## Better cd
+eval "$(zoxide init bash)"
+
+## Terminal Coloring
+source "$XDG_CONFIG_HOME/zaje/zaje_functions.rc"
 
 if [[ ${BLE_VERSION-} ]]; then
   #bleopt canvas_winch_action=redraw-prev
 
   ble-import contrib/colorglass
+  ble-import -f integration/zoxide
   #bleopt term_true_colors=
   #bleopt colorglass_gamma=-50
   #bleopt colorglass_contrast=70
@@ -141,7 +146,7 @@ if [[ ${BLE_VERSION-} ]]; then
   bleopt history_share=1
   #bleopt complete_ambiguous=1
 
-  function ble/widget/daru/copy_readline(){
+  function ble/widget/daru/copy_readline() {
     ble/widget/vi-command/operator y
     ble/widget/vi-command/operator y
     ble/util/put "${_ble_edit_kill_ring[0]}" | xsel -bi
