@@ -45,6 +45,9 @@ local lsp_handlers = {
   --["pylyzer"] = function()
   --  require("plug/lsp/pylyzer")
   --end,
+  ["zls"] = function()
+    require("plug/lsp/zig")
+  end,
   ["jdtls"] = function()
     require("plug/lsp/jdtls")
   end,

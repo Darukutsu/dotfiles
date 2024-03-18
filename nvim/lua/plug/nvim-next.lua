@@ -1,3 +1,4 @@
+-- https://github.com/ghostbuster91/nvim-next
 local nvim_next_builtins = require("nvim-next.builtins")
 require("nvim-next").setup({
   default_mappings = {

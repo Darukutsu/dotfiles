@@ -27,9 +27,18 @@ return require('packer').startup(function(use)
   use 'ghostbuster91/nvim-next'             -- repeable movements ;, for all commands
   use 'folke/which-key.nvim'                -- key help floating while typing
   --use 'michaeljsmith/vim-indent-object'     -- python textobject
-  use 'chaoren/vim-wordmotion'              -- advanced wordmotion
-  use 'wellle/targets.vim'                  -- advanced textobjects
+  --use 'chaoren/vim-wordmotion'              -- advanced wordmotion
+  ---@format disable-next
+  use 'chrisgrieser/nvim-spider'            -- advanced wordmotion
+  ---@format disable-next
+  use 'chrisgrieser/nvim-various-textobjs'  -- advanced textobjects
+  ---@format disable-next
+  use 'wellle/targets.vim'                  -- advanced treesitter textobjects
+  ---@format disable-next
   use 'chentoast/marks.nvim'                -- mark hint on side
+  ---@format disable-next
+  use 'tpope/vim-sleuth'                    -- heuristic shiftwidth
+  ---@format disable-next
   use 'mfussenegger/nvim-jdtls'             -- java
   --use 'folke/trouble.nvim'                  -- diagnostics haven't tried yet
 
@@ -94,7 +103,7 @@ return require('packer').startup(function(use)
 
   use { -- debug ui
     'rcarriga/nvim-dap-ui',
-    requires = { 'mfussenegger/nvim-dap' },
+    requires = { { 'mfussenegger/nvim-dap' }, { 'nvim-neotest/nvim-nio' }, },
   }
 
   use { -- MASON, formatter/linter, debugger, lsp

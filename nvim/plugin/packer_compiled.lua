@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/diffview.nvim",
     url = "https://github.com/sindrets/diffview.nvim"
   },
+  fzf = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/fzf",
+    url = "https://github.com/junegunn/fzf"
+  },
   ["gitsigns.nvim"] = {
     config = { "\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0" },
     loaded = true,
@@ -166,15 +171,17 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/none-ls.nvim",
     url = "https://github.com/nvimtools/none-ls.nvim"
   },
-  ["nord.nvim"] = {
-    loaded = true,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nord.nvim",
-    url = "https://github.com/shaunsingh/nord.nvim"
-  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
+  },
+  ["nvim-bqf"] = {
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/opt/nvim-bqf",
+    url = "https://github.com/kevinhwang91/nvim-bqf"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -207,6 +214,16 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-next",
     url = "https://github.com/ghostbuster91/nvim-next"
   },
+  ["nvim-nio"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-nio",
+    url = "https://github.com/nvim-neotest/nvim-nio"
+  },
+  ["nvim-spider"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-spider",
+    url = "https://github.com/chrisgrieser/nvim-spider"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -221,6 +238,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
     url = "https://github.com/windwp/nvim-ts-autotag"
+  },
+  ["nvim-various-textobjs"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-various-textobjs",
+    url = "https://github.com/chrisgrieser/nvim-various-textobjs"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -277,10 +299,10 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
-  ["vim-wordmotion"] = {
+  ["vim-sleuth"] = {
     loaded = true,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/start/vim-wordmotion",
-    url = "https://github.com/chaoren/vim-wordmotion"
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/vim-sleuth",
+    url = "https://github.com/tpope/vim-sleuth"
   },
   vimtex = {
     loaded = true,
@@ -304,14 +326,21 @@ time([[Defining packer_plugins]], false)
 time([[Config for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 time([[Config for gitsigns.nvim]], false)
--- Config for: nvim-fFHighlight
-time([[Config for nvim-fFHighlight]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16fFHighlight\frequire\0", "config", "nvim-fFHighlight")
-time([[Config for nvim-fFHighlight]], false)
 -- Config for: nnn.nvim
 time([[Config for nnn.nvim]], true)
 try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bnnn\frequire\0", "config", "nnn.nvim")
 time([[Config for nnn.nvim]], false)
+-- Config for: nvim-fFHighlight
+time([[Config for nvim-fFHighlight]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16fFHighlight\frequire\0", "config", "nvim-fFHighlight")
+time([[Config for nvim-fFHighlight]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType qf ++once lua require("packer.load")({'nvim-bqf'}, { ft = "qf" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

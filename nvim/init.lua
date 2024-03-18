@@ -21,7 +21,7 @@ require('plug/nvim-lspconfig-ui')
 --require('plug/nvim-next')
 require('plug/neogit')
 require('plug/marks')
-require('plug/suppress-errors')
+--require('plug/suppress-errors')
 
 --vim.api.nvim_create_autocmd("BufWritePre", {
 --  callback = function()
@@ -75,6 +75,7 @@ vim.cmd([[
   set cursorline
   "set spell
   "set autoindent
+  "set smartindent
   set scrollback=100000
 
   " fixes man page bindings
