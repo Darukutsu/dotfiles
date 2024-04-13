@@ -8,6 +8,7 @@
 # Shell: POSIX compliant
 # Author: Darukutsu
 selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
+cp=cpg
 
 echo "paste as ROOT[y/N]: "
 read -r isroot
@@ -22,9 +23,9 @@ read -r option
 option=${option:-n}
 
 case $option in
-y | yes | Y | YES) option='if [ -d "{}" ]; then cp -r "{}" .; else cp "{}" .; fi' ;;
-"" | n | no | N | NO) option='if [ -d "{}" ]; then cp -nr "{}" .; else cp "{}" .; fi' ;;
-d | D) option='if [ -d "{}" ]; then rsync -a --delete "{}" .; else cp "{}" .; fi' ;;
+y | yes | Y | YES) option="if [ -d '{}' ]; then ${cp} -r '{}' .; else ${cp} '{}' .; fi" ;;
+"" | n | no | N | NO) option="if [ -d '{}' ]; then ${cp} -nr '{}' .; else ${cp} '{}' .; fi" ;;
+d | D) option="if [ -d '{}' ]; then rsync -a --delete '{}' .; else ${cp} '{}' .; fi" ;;
 *) echo "Nothing to do..." exit ;;
 esac
 

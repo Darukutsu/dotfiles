@@ -131,6 +131,7 @@ super + {t,s,f}
 
 # hide mode
 super + h
+        echo "mode_hide" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Hide mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_hide
         
@@ -181,8 +182,9 @@ super + {period,comma}
 	bspc node @/ -R {90,270}
 
 # rotates "switch" tree in focused node places new node
-super + {less,greater}
+super + alt + {period,comma}
     bspc node @/ -C {forward,backward}
+#super + {less,greater}
 
 # focus (or swap with alt) the node in the given direction
 super + {_,alt + }{m,n,e,i}
@@ -214,10 +216,12 @@ super + {j,k}
 	bspc node -f {next,prev}.local.!hidden.window
 
 super + o
+        echo "mode_focus" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_focus
 
 super + a
+        echo "mode_focus" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_focus
 
@@ -234,6 +238,7 @@ super + {1-9,0}
 #
 
 super + p
+        echo "mode_preselect" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Preselect mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_preselect
 
@@ -242,11 +247,13 @@ super + p
 #
 
 super + r
+        echo "mode_resize" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Resize mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_resize
 
 # move a floating window
 super + w
+        echo "mode_move" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Move mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_move
 
@@ -269,5 +276,6 @@ super + button9
 # DRAWING
 #
 super + d
+        echo "mode_draw" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Draw mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_draw

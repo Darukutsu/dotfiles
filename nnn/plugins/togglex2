@@ -1,0 +1,54 @@
+#!/usr/bin/env sh
+#set -x
+
+# Description: Toggles executable mode for selection - advanced
+#
+# Dependencies: chmod
+#
+# Note: Works _only_ with selection (nnn can toggle the mode for the hovered file)
+#
+# is able to go to directory and do it recursively for each file
+#
+# Shell: POSIX compliant
+# Author: Arun Prakash Jana, Darukutsu
+selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
+cmd='if [ -x "{}" ] ; then chmod -x "{}" ; else chmod +x "{}" ; fi'
+
+#echo "do as ROOT[y/N]: "
+#read -r isroot
+#isroot=${isroot:-n}
+
+echo "
+Do you wish to switch bit recursively? [y/N/d]
+d-recursive with directory bit switch
+input anything else to cancel operation ('q' for example): "
+
+read -r option
+option=${option:-n}
+
+case $option in
+#y | yes | Y | YES) option='find "./{}" -type f -exec echo "{}"\;' ;;
+#"" | n | no | N | NO) option='if [ -x "[]" ] ; then chmod -x "[]" ; else chmod +x "[]" ; fi' ;;
+#d | D) option="find [] -exec ${cmd}" ;;
+y | yes | Y | YES)
+  xargs -0 -I[] find "[]" -type f -exec sh -c "${cmd}" \; <"$selection"
+  ;;
+"" | n | no | N | NO)
+  xargs -0 -I{} sh -c "${cmd}" <"$selection"
+  ;;
+d | D)
+  # is this actually useless bullshit?
+  xargs -0 -I[] find "[]" -exec sh -c "${cmd}" \; <"$selection"
+  ;;
+*)
+  echo "Nothing to do..."
+  exit
+  ;;
+esac
+
+#"$2/$1"
+
+# Clear selection
+if [ -p "$NNN_PIPE" ]; then
+  printf "-" >"$NNN_PIPE"
+fi

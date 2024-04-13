@@ -6,23 +6,23 @@ fi
 #export NNN_TRASH=2
 export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip|zst)$"
 
+export NNN_SSHFS='sshfs -o reconnect,idmap=user,cache_timeout=3600'
 export NNN_OPTS='aAcdHrQU'
 #export NNN_ORDER='v:/foo'
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
-export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplaylist;d:diffs;m:nmount;p:cpoverwrite;h:http-server;f:fzcd;w:wallpaper;x:xdgdefault;t:preview-tui;z:zip;o:openall;e:togglex;c:.cbcp;Z:zfs-snapdir;g:gpge;G:gpgd;Y:suedit;O:fzdo;'
+export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplaylist;d:diffs;m:nmount;p:cpoverwrite;h:http-server;f:fzcd;w:wallpaper;x:xdgdefault;t:preview-tui;z:zip;o:openall;e:togglex2;c:.cbcp;Z:zfs-snapdir;g:gpge;G:gpgd;Y:suedit;O:fzdo;D:dragdrop'
 
 #;r:removefromdisk
 #e:-!sudo-Envim$nnn*;
 #;j:zoxide
 #;f:fzopen
-#;D:dragdrop
 
 #not working under kitty xembed missing
 #v:preview-tabbed;'
 
-export NNN_BMS="d:/home/daru/Downloads/;n:/home/daru/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/media/;M:/mnt/;h:/home/daru/Templates/Guides;t:/home/daru/Public/GitTuke;b:$HOME/.config/nnn/bookmarks"
+export NNN_BMS="d:/home/daru/Downloads/;n:/home/daru/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/media/;M:/mnt/;h:/home/daru/Templates/Guides;g:/home/daru/Public;t:/home/daru/Public/GitTuke/2LS;b:$HOME/.config/nnn/bookmarks"
 
 nn() {
   # Block nesting of nnn in subshells

@@ -1,5 +1,7 @@
 # return to original sxhkd
 Escape
+        printf "" >"$SXHKD_MODE_FILE"; \
+        killall zscroll 2>/dev/null; \
         killall sxhkd && sxhkd &
 
 # move focused window to prev-focused workspace
@@ -20,3 +22,11 @@ o
 
 {n,p}
 	bspc node -f {next,prev}.local.!hidden.window
+
+# move nodes from A to B desktop
+{1-9,0}
+        xdotool key Escape; \
+        bspc_desktop='^{1-9,10}' && \
+        bspc query -N -n .local.window | \
+        xargs -I[] bspc node [] -d $bspc_desktop && \
+        bspc desktop -f $bspc_desktop --follow

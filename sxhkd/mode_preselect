@@ -1,5 +1,7 @@
 # return to original sxhkd
 Escape
+        printf "" >"$SXHKD_MODE_FILE"; \
+        killall zscroll 2>/dev/null; \
         killall sxhkd && sxhkd &
 
 # preselect the direction
@@ -11,7 +13,7 @@ Escape
 	bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
-{n,space}
+{space}
 	bspc node -p cancel
 
 # cancel the preselection for the focused desktop
