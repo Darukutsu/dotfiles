@@ -141,3 +141,9 @@ vim.keymap.set({ "x", "o" }, "t", ":lua Motion_t()<cr>", rules)
 vim.keymap.set({ "x", "o" }, "f", ":lua Motion_f()<cr>", rules)
 vim.keymap.set({ "x", "o" }, "T", ":lua Motion_T()<cr>", rules)
 vim.keymap.set({ "x", "o" }, "F", ":lua Motion_F()<cr>", rules)
+
+-- behave like original OPERATION-MODE
+--vim.api.nvim_del_keymap("o", "t")
+--vim.api.nvim_del_keymap("o", "f")
+--vim.api.nvim_del_keymap("o", "T")
+--vim.api.nvim_del_keymap("o", "F")
