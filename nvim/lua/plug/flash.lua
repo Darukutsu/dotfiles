@@ -80,15 +80,11 @@ require("flash").setup(
         label = { before = true, after = true, style = "inline" },
       },
     },
-    -- options for remote operator pending mode
+    prompt = {
+      enabled = false,
+    },
     remote_op = {
-      -- restore window views and cursor position
-      -- after doing a remote operation
       restore = false,
-      -- For `jump.pos = "range"`, this setting is ignored.
-      -- `true`: always enter a new motion when doing a remote operation
-      -- `false`: use the window's cursor position and jump target
-      -- `nil`: act as `true` for remote windows, `false` for the current window
       motion = false,
     },
   }
