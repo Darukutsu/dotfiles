@@ -25,16 +25,32 @@ require 'marks'.setup {
   -- default virt_text is "".
   bookmark_0 = {
     sign = "⚑",
-    virt_text = "hello world",
+    virt_text = "bookmark0",
     -- explicitly prompt for a virtual line annotation when setting a bookmark from this group.
     -- defaults to false.
-    annotate = false,
+    annotate = true,
   },
   mappings = {
     toggle = "h,",
     preview = "h:",
-    --annotate = "h=",
     delete_buf = "dh<space>",
     delete_line = "dh-",
+    next = "h]",
+    prev = "h[",
+
+    annotate = "Ha",
+    set_bookmark0 = "H0",
+    set_bookmark1 = "H1",
+    set_bookmark2 = "H2",
+    set_bookmark3 = "H3",
+    set_bookmark4 = "H4",
+    set_bookmark5 = "H5",
+    set_bookmark6 = "H6",
+    set_bookmark7 = "H7",
+    set_bookmark8 = "H8",
+    set_bookmark9 = "H9",
+    delete_bookmark = "dH",
+    next_bookmark = "H]",
+    prev_bookmark = "H[",
   }
 }

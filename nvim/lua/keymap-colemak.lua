@@ -8,7 +8,8 @@ noremap m h
 noremap n j
 noremap e k
 noremap i l
-noremap H M
+noremap H <nop>
+"noremap H M
 noremap J E
 noremap K N
 noremap L I
@@ -16,12 +17,17 @@ noremap M H
 noremap N J
 noremap E K
 noremap I L
+"map H H
+
 " vim-wordmotion
 noremap W w
 xnoremap aW aw
 onoremap aW aw
 xnoremap iW iw
 onoremap iW iw
+
+" flash fF movement
+
 
 let mapleader = " "
 nnoremap <leader>; :noh<cr>
@@ -352,6 +358,9 @@ nnoremap <silent> <Left>  :call MoveAndFoldLeft()<cr>
 nnoremap <silent> m       :call MoveAndFoldLeft()<cr>
 nnoremap <silent> <Right> :call MoveAndFoldRight()<cr>
 nnoremap <silent> i       :call MoveAndFoldRight()<cr>
+
+" Count time values together HH:MM:SS
+vnoremap <leader><leader>C :'<,'>!xargs -I{} date +\%s --date '1970-1-1 {}' \| awk '{sum += ($1+3600)} END {printf "\%.2d:\%.2d:\%.2d", sum/3600, (sum\%3600)/60, sum\%60}'<cr>
 
 ]])
 require('plug/wordmotion')

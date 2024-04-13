@@ -39,6 +39,7 @@ vim.keymap.set({ "o", "x" }, "aw", "<cmd>lua require('various-textobjs').subword
 --vim.keymap.set({ "o", "x" }, "iW", "<cmd>lua require('various-textobjs').subword('inner')<CR>")
 --vim.keymap.set({ "o", "x" }, "lW", "<cmd>lua require('various-textobjs').subword('inner')<CR>")
 --vim.keymap.set({ "o", "x" }, "aW", "<cmd>lua require('various-textobjs').subword('outer')<CR>")
-vim.keymap.set({ "o", "x" }, "u", "<cmd>lua require('various-textobjs').url()<CR>")
+vim.keymap.set({ "o", "x" }, "au", "<cmd>lua require('various-textobjs').url()<CR>")
+vim.keymap.set({ "o", "x" }, "iu", "<cmd>lua require('various-textobjs').url()<CR>")
 
 -- for wellle/targets.vim

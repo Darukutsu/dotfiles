@@ -18,9 +18,12 @@ require('plug/ccc')
 --require('plug/firenvim')
 --require('plug/fcitx')
 require('plug/nvim-lspconfig-ui')
+require('plug/nvim-web-icons')
 --require('plug/nvim-next')
 require('plug/neogit')
 require('plug/marks')
+require('plug/flash')
+--require('plug/flit')
 --require('plug/suppress-errors')
 
 --vim.api.nvim_create_autocmd("BufWritePre", {

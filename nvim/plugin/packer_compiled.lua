@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/diffview.nvim",
     url = "https://github.com/sindrets/diffview.nvim"
   },
+  ["flash.nvim"] = {
+    loaded = true,
+    path = "/home/daru/.local/share/nvim/site/pack/packer/start/flash.nvim",
+    url = "https://github.com/folke/flash.nvim"
+  },
   fzf = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/fzf",
@@ -192,12 +197,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
     url = "https://github.com/rcarriga/nvim-dap-ui"
-  },
-  ["nvim-fFHighlight"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16fFHighlight\frequire\0" },
-    loaded = true,
-    path = "/home/daru/.local/share/nvim/site/pack/packer/start/nvim-fFHighlight",
-    url = "https://github.com/kevinhwang91/nvim-fFHighlight"
   },
   ["nvim-jdtls"] = {
     loaded = true,
@@ -322,18 +321,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
-time([[Config for gitsigns.nvim]], false)
 -- Config for: nnn.nvim
 time([[Config for nnn.nvim]], true)
 try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bnnn\frequire\0", "config", "nnn.nvim")
 time([[Config for nnn.nvim]], false)
--- Config for: nvim-fFHighlight
-time([[Config for nvim-fFHighlight]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16fFHighlight\frequire\0", "config", "nvim-fFHighlight")
-time([[Config for nvim-fFHighlight]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+time([[Config for gitsigns.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads

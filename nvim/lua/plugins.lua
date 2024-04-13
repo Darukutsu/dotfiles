@@ -41,6 +41,8 @@ return require('packer').startup(function(use)
   ---@format disable-next
   use 'mfussenegger/nvim-jdtls'             -- java
   --use 'folke/trouble.nvim'                  -- diagnostics haven't tried yet
+  ---@format disable-next
+  use 'folke/flash.nvim'                    --better fF
 
 
 
@@ -96,10 +98,15 @@ return require('packer').startup(function(use)
     config = function() require('gitsigns').setup() end
   }
 
-  use { -- highlight fF colors
-    'kevinhwang91/nvim-fFHighlight',
-    config = function() require('fFHighlight').setup() end
-  }
+  --use { -- highlight fF colors
+  --  'kevinhwang91/nvim-fFHighlight',
+  --  config = function() require('fFHighlight').setup() end
+  --}
+
+  --use { -- enhanced fF
+  --  'ggandor/flit.nvim',
+  --  requires = { { 'ggandor/leap.nvim' }, { 'tpope/vim-repeat' }, },
+  --}
 
   use { -- debug ui
     'rcarriga/nvim-dap-ui',

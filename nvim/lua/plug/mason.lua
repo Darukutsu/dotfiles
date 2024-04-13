@@ -54,6 +54,9 @@ local lsp_handlers = {
   ["clangd"] = function()
     require("plug/lsp/clangd")
   end,
+  ["ruff_lsp"] = function()
+    require("plug/lsp/ruff")
+  end,
   ["rust_analyzer"] = function()
     require("plug/lsp/rust-tools")
   end,
