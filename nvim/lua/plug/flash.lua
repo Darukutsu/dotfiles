@@ -9,8 +9,8 @@ require("flash").setup(
     jump = {},
     label = {
       rainbow = {
-        enabled = false,
-        shade = 5,
+        enabled = true,
+        shade = 1,
       },
       after = false,
       before = true,
@@ -47,8 +47,9 @@ require("flash").setup(
         end,
         autohide = true,
         jump_labels = true,
-        multi_line = true,
-        label = { exclude = "mneilardc" },
+        multi_line = false,
+        -- until issue #183 isn't merged uncomment next line
+        --label = { exclude = "yYpPdDiIaAsSrRcCxX" },
         --keys = { ["f"] = "H", ["F"] = "H", ["t"] = "H", ["T"] = "H", ";", "," },
         keys = { "f", "F", "t", "T", ";", "," },
         --keys = { ";", "," },
@@ -60,11 +61,11 @@ require("flash").setup(
             [motion:upper()] = "prev",
           }
         end,
-        search = { wrap = true },
+        search = { wrap = false },
         jump = { autojump = true },
       },
       treesitter = {
-        labels = "abcdefghijklmnopqrstuvwxyz",
+        labels = "abcdefghijklmnopqrstuvwxyz1234567890",
         jump = { pos = "range" },
         search = { incremental = false },
         label = { before = true, after = true, style = "inline" },
@@ -99,6 +100,12 @@ function Motion_f()
     jump = {
       inclusive = true,
     },
+    -- doesn't do anything for now disable this at top level
+    modes = {
+      char = {
+        multi_line = false,
+      },
+    },
   });
 end
 
@@ -110,6 +117,11 @@ function Motion_t()
     jump = {
       inclusive = false,
     },
+    modes = {
+      char = {
+        multi_line = false,
+      },
+    },
   });
 end
 
@@ -120,6 +132,11 @@ function Motion_F()
     },
     jump = {
       inclusive = true,
+    },
+    modes = {
+      char = {
+        multi_line = false,
+      },
     },
   });
 end
@@ -133,14 +150,19 @@ function Motion_T()
       inclusive = true,
       offset = 1,
     },
+    modes = {
+      char = {
+        multi_line = false,
+      },
+    },
   });
 end
 
 local rules = { silent = true, noremap = true }
-vim.keymap.set({ "x", "o" }, "t", ":lua Motion_t()<cr>", rules)
-vim.keymap.set({ "x", "o" }, "f", ":lua Motion_f()<cr>", rules)
-vim.keymap.set({ "x", "o" }, "T", ":lua Motion_T()<cr>", rules)
-vim.keymap.set({ "x", "o" }, "F", ":lua Motion_F()<cr>", rules)
+vim.keymap.set({ "o" }, "t", ":lua Motion_t()<cr>", rules)
+vim.keymap.set({ "o" }, "f", ":lua Motion_f()<cr>", rules)
+vim.keymap.set({ "o" }, "T", ":lua Motion_T()<cr>", rules)
+vim.keymap.set({ "o" }, "F", ":lua Motion_F()<cr>", rules)
 
 -- behave like original OPERATION-MODE
 --vim.api.nvim_del_keymap("o", "t")
