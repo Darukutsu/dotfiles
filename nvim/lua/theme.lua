@@ -132,7 +132,7 @@ require('lualine').setup {
 require("tokyonight").setup({
   style = "storm",
   light_style = "day",
-  transparent = true,
+  transparent = false,
   terminal_colors = true,
   styles = {
     -- Style to be applied to different syntax groups

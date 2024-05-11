@@ -43,6 +43,12 @@ return require('packer').startup(function(use)
   --use 'folke/trouble.nvim'                  -- diagnostics haven't tried yet
   ---@format disable-next
   use 'folke/flash.nvim'                    --better fF
+  ---@format disable-next
+  use 'karb94/neoscroll.nvim'               --smooth scrolling
+  ---@format disable-next
+  use 'gen740/SmoothCursor.nvim'            --cursor scroll animations
+  ---@format disable-next
+  use 'edluffy/specs.nvim'            --cursor animations
 
 
 

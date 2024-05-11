@@ -25,6 +25,7 @@ require('plug/marks')
 require('plug/flash')
 --require('plug/flit')
 --require('plug/suppress-errors')
+--require('plug/animations')
 
 --vim.api.nvim_create_autocmd("BufWritePre", {
 --  callback = function()
@@ -33,6 +34,10 @@ require('plug/flash')
 --})
 
 vim.cmd([[
+  let g:neovide_scroll_animation_length = 0
+  "let g:neovide_cursor_animate_command_line = v:false
+  "let g:neovide_cursor_trail_size = 0
+
   nnoremap <leader><leader>c :so $XDG_CONFIG_HOME/nvim/lua/keymap-colemak.lua<cr>
   nnoremap <leader><leader>q :so $XDG_CONFIG_HOME/nvim/lua/keymap.lua<cr>
 

@@ -19,6 +19,8 @@ noremap E K
 noremap I L
 "map H H
 
+tnoremap <C-S-h> <C-\><C-n>
+
 " vim-wordmotion
 noremap W w
 xnoremap aW aw
