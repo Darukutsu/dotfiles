@@ -10,7 +10,22 @@
 
 
 
-require("mason").setup();
+require("mason").setup({
+  ui = {
+    border = "none",
+    width = 1,
+    height = 1,
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    },
+
+    keymaps = {
+      apply_language_filter = "/",
+    },
+  },
+});
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local function autoformat_quit(client, bufnr)

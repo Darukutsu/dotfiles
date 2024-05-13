@@ -1,127 +1,215 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
-end
+return {
+  'lambdalisue/suda.vim', -- write sudo if not in sudo
+  'alx741/vinfo',         -- vim GNU info implementation <C-]> follow tag
+  --'HiPhish/info.vim'                    -- vim GNU info implementation
+  --{
+  --'linty-org/readline.nvim',             -- readline navigation for :, / or ?
+  --  config = function()
+  --require('plug/readline')
+  --  end,
+  --},
+  --{
+  --'mbbill/undotree',                     -- undo any history
+  --  config = function()
+  --require('plug/undotree')
+  --  end,
+  --},
+  --
+  --{
+  --'edluffy/hologram.nvim',               -- images in nvim
+  --  config = function()
+  --require('plug/hologram')
+  --  end,
+  --},
+  {
+    "luukvbaal/nnn.nvim",
+    config = function()
+      require("nnn").setup({
+        explorer = {
+          cmd = "nnn",
+          width = 30,
+        }
+      })
+    end,
+  },
+  {
+    'stevearc/overseer.nvim',
+    opts = {},
+    config = function()
+      require('plug/overseer')
+    end,
+  },
+  {
+    'uga-rosa/ccc.nvim', -- color picker with :CccPick
+    config = function()
+      require('plug/ccc')
+    end,
+  },
+  {
+    'folke/flash.nvim', --better fF
+    event = "VeryLazy",
+    config = function()
+      require('plug/flash')
+    end,
+  },
+  {
+    'rcarriga/nvim-notify',
+    config = function()
+      --require('plug/marks')
+    end,
+  },
+  {
+    'chentoast/marks.nvim', -- mark hint on side
+    config = function()
+      require('plug/marks')
+    end,
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('plug/harpoon')
+    end,
+  },
+  {
+    'gen740/SmoothCursor.nvim', --cursor scroll animations
+    dependencies = {
+      --'edluffy/specs.nvim',     --cursor animations
+      --'karb94/neoscroll.nvim',  --smooth scrolling
+    },
+    config = function()
+      require('plug/animations')
+    end,
+  },
+  {
+    'folke/which-key.nvim', -- key help floating while typing
+    config = function()
+      require('plug/which-key')
+    end,
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim', -- indent show
+    config = function()
+      require('plug/indent-blank')
+    end,
+  },
 
-local packer_bootstrap = ensure_packer()
+  'lervag/vimtex',             -- latex thingi...
+  {
+    'ghostbuster91/nvim-next', -- repeable movements ;, for all commands
+    config = function()
+      require('plug/nvim-next')
+    end,
+  },
+  --'michaeljsmith/vim-indent-object'     -- python textobject
+  --'chaoren/vim-wordmotion'              -- advanced wordmotion
+  {
+    'chrisgrieser/nvim-spider', -- advanced wordmotion
+    config = function()
+      require("spider").setup {
+        skipInsignificantPunctuation = true,
+        subwordMovement = true,
+        customPatterns = {}, -- check "Custom Movement Patterns" in the README for details
+      }
+    end,
+  },
 
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  ---@format disable-next
-  use 'lambdalisue/suda.vim'                -- write sudo if not in sudo
-  ---@format disable-next
-  use 'alx741/vinfo'                        -- vim GNU info implementation <C-]> follow tag
-  --use 'HiPhish/info.vim'                    -- vim GNU info implementation
-  --use 'linty-org/readline.nvim'             -- readline navigation for :, / or ?
-  --use 'mbbill/undotree'                     -- undo any history
-  --use 'edluffy/hologram.nvim'               -- images in nvim
-  use 'uga-rosa/ccc.nvim'                   -- color picker with :CccPick
-  use 'lervag/vimtex'                       -- latex thingi...
-  use 'lukas-reineke/indent-blankline.nvim' -- indent show
-  use 'ghostbuster91/nvim-next'             -- repeable movements ;, for all commands
-  use 'folke/which-key.nvim'                -- key help floating while typing
-  --use 'michaeljsmith/vim-indent-object'     -- python textobject
-  --use 'chaoren/vim-wordmotion'              -- advanced wordmotion
-  ---@format disable-next
-  use 'chrisgrieser/nvim-spider'            -- advanced wordmotion
-  ---@format disable-next
-  use 'chrisgrieser/nvim-various-textobjs'  -- advanced textobjects
-  ---@format disable-next
-  use 'wellle/targets.vim'                  -- advanced treesitter textobjects
-  ---@format disable-next
-  use 'chentoast/marks.nvim'                -- mark hint on side
-  ---@format disable-next
-  use 'tpope/vim-sleuth'                    -- heuristic shiftwidth
-  ---@format disable-next
-  use 'mfussenegger/nvim-jdtls'             -- java
-  --use 'folke/trouble.nvim'                  -- diagnostics haven't tried yet
-  ---@format disable-next
-  use 'folke/flash.nvim'                    --better fF
-  ---@format disable-next
-  use 'karb94/neoscroll.nvim'               --smooth scrolling
-  ---@format disable-next
-  use 'gen740/SmoothCursor.nvim'            --cursor scroll animations
-  ---@format disable-next
-  use 'edluffy/specs.nvim'            --cursor animations
+  'chrisgrieser/nvim-various-textobjs', -- advanced textobjects
+  {
+    'wellle/targets.vim',               -- advanced treesitter textobjects
+    config = function()
+      vim.cmd([[
+        " targets.vim
+        let g:targets_nl=['n', 'N']
+        " due to this i have to inoremap and nnoremap for colemak
+        " let g:targets_aiAI='alAL'
+        "let g:targets_mapped_aiAI='aiAI'
+        let g:targets_gracious = 1
+    ]])
+    end,
+  },
 
+  'tpope/vim-sleuth',          -- heuristic shiftwidth
+  {
+    'mfussenegger/nvim-jdtls', -- java
+    dependencies = {
+      { 'mfussenegger/nvim-dap' },
+    },
+  },
+  --'folke/trouble.nvim'                  -- diagnostics haven't tried yet
 
-
-
-  --use {
+  --{
   --  'glacambre/firenvim',
-  --  run = function() vim.fn['firenvim#install'](0) end
+  --  build = function() vim.fn['firenvim#install'](0) end,
+  --config = function()
+  --require('plug/firenvim')
+  --end,
   --}
 
-  --use 'ellisonleao/glow.nvim' -- highlight marker, markdown files etc
-  use {
+  --'ellisonleao/glow.nvim' -- highlight marker, markdown files etc
+  {
     'iamcco/markdown-preview.nvim',
-    run = function() vim.fn['mkdp#util#install']() end,
-  }
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn['mkdp#util#install']() end,
+  },
 
-  use { -- better quickfix window
-    'kevinhwang91/nvim-bqf', ft = 'qf',
-    requires = {
-      -- optional
-      use { 'junegunn/fzf', run = function()
-        vim.fn['fzf#install']()
-      end
-      }
-    }
-  }
+  --{ -- better quickfix window
+  --  'kevinhwang91/nvim-bqf',
+  --  ft = 'qf',
+  --  dependencies = {
+  --    -- optional
+  --    {
+  --      'junegunn/fzf',
+  --      build = function()
+  --        vim.fn['fzf#install']()
+  --      end
+  --    }
+  --  }
+  --},
 
   --use{
   --  'anuvyklack/pretty-fold.nvim',
   --  config = function() require('pretty-fold').setup() end
   --}
 
-  --use { -- colorize depending on color code
+  --{ -- colorize depending on color code
   --  'norcalli/nvim-colorizer.lua',
   --  config = function() require('colorizer').setup() end
   --}
 
-  use {
-    'luukvbaal/nnn.nvim',
-    config = function() require('nnn').setup() end
-  }
-  use { -- git integration
-    'NeogitOrg/neogit',
-    requires = {
+  {
+    'NeogitOrg/neogit',          -- git integration
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- git time stamps
       'nvim-lua/plenary.nvim',
       'sindrets/diffview.nvim',
       'nvim-tree/nvim-web-devicons'
-    }
-  }
+    },
+    config = function()
+      require('plug/neogit')
+      require('gitsigns').setup()
+    end,
+  },
 
-  use { -- git time stamps
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('gitsigns').setup() end
-  }
-
-  --use { -- highlight fF colors
-  --  'kevinhwang91/nvim-fFHighlight',
-  --  config = function() require('fFHighlight').setup() end
-  --}
-
-  --use { -- enhanced fF
-  --  'ggandor/flit.nvim',
-  --  requires = { { 'ggandor/leap.nvim' }, { 'tpope/vim-repeat' }, },
-  --}
-
-  use { -- debug ui
+  { -- debug ui
     'rcarriga/nvim-dap-ui',
-    requires = { { 'mfussenegger/nvim-dap' }, { 'nvim-neotest/nvim-nio' }, },
-  }
+    dependencies = { { 'folke/neodev.nvim' }, { 'mfussenegger/nvim-dap' }, { 'nvim-neotest/nvim-nio' }, },
+    config = function()
+      require('plug/dapui')
+      require("neodev").setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
+    end,
+  },
 
-  use { -- MASON, formatter/linter, debugger, lsp
+  { -- MASON, formatter/linter, debugger, lsp
     'williamboman/mason.nvim',
-    requires = {
+    dependencies = {
       { 'nvimtools/none-ls.nvim' },
       --{ 'jose-elias-alvarez/null-ls.nvim' },
       { 'jay-babu/mason-null-ls.nvim' },
@@ -135,109 +223,82 @@ return require('packer').startup(function(use)
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason-lspconfig.nvim' },
     },
-  }
+    config = function()
+      require('plug/mason')
+      require('plug/nvim-lspconfig-ui')
+    end,
+  },
 
   -- Clang config start
-  use 'p00f/clangd_extensions.nvim'
+  'p00f/clangd_extensions.nvim',
   -- Clang config end
 
   -- Rust config start
-  use {
+  {
     'simrat39/rust-tools.nvim',
-    requires = {
+    dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'neovim/nvim-lspconfig' },
     },
-  }
+  },
   -- Rust config end
 
-  use { -- COQ
-    'windwp/nvim-autopairs',
-    requires = {
+  { -- COQ
+    --'windwp/nvim-autopairs',
+    'ms-jpq/coq_nvim',
+    branch = 'coq',
+    dependencies = {
       { 'windwp/nvim-ts-autotag' },
-      { 'ms-jpq/coq_nvim',       branch = 'coq' },
       { 'ms-jpq/coq.artifacts' },
       { 'ms-jpq/coq.thirdparty' },
-      run = ':COQdeps',
+      build = ':COQdeps',
     },
-  }
+    config = function()
+      require('plug/coq')
+    end,
+  },
 
-  use {
+  {
     'nvim-telescope/telescope.nvim',
-    requires = {
+    dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'debugloop/telescope-undo.nvim' },
       { 'nvim-telescope/telescope-dap.nvim' },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
     },
-  }
+    config = function()
+      require('plug/telescope')
+    end,
+  },
 
-  use { -- fancy line
+  { -- fancy line
     'nvim-lualine/lualine.nvim',
-    requires = {
-      { 'nvim-tree/nvim-web-devicons', opt = true },
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons' },
       { 'folke/tokyonight.nvim' },
       --{ 'shaunsingh/nord.nvim' },
     },
-  }
-
-  use { -- fancy startup screen. Telescope >> fancy fuzzyfinder
-    'startup-nvim/startup.nvim',
-    requires = {
-      'nvim-telescope/telescope.nvim',
-      'nvim-lua/plenary.nvim'
-    },
-  }
-
-  use { -- highlight code
-    'nvim-treesitter/nvim-treesitter', requires = { 'nvim-treesitter/nvim-treesitter-textobjects',
+    config = function()
+      require('theme')
+      require('plug/nvim-web-icons')
+    end,
   },
-    run = ':TSUpdate',
-  }
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+  --{ -- fancy startup screen. Telescope >> fancy fuzzyfinder
+  --  'startup-nvim/startup.nvim',
+  --  dependencies = {
+  --    'nvim-telescope/telescope.nvim',
+  --    'nvim-lua/plenary.nvim'
+  --  },
+  --},
 
-
--- https://github.com/wbthomason/packer.nvim#requirements for config
--- :PackerSync
-
---use {
---  'myusername/example',        -- The plugin location string
---
---  -- The following keys are all optional
---  disable = boolean,           -- Mark a plugin as inactive
---  as = string,                 -- Specifies an alias under which to install the plugin
---  installer = function,        -- Specifies custom installer. See "custom installers" below.
---  updater = function,          -- Specifies custom updater. See "custom installers" below.
---  after = string or list,      -- Specifies plugins to load before this plugin. See "sequencing" below
---  rtp = string,                -- Specifies a subdirectory of the plugin to add to runtimepath.
---  opt = boolean,               -- Manually marks a plugin as optional.
---  bufread = boolean,           -- Manually specifying if a plugin needs BufRead after being loaded
---  branch = string,             -- Specifies a git branch to use
---  tag = string,                -- Specifies a git tag to use. Supports '*' for "latest tag"
---  commit = string,             -- Specifies a git commit to use
---  lock = boolean,              -- Skip updating this plugin in updates/syncs. Still cleans.
---  run = string, function, or table, -- Post-update/install hook. See "update/install hooks".
---  requires = string or list,   -- Specifies plugin dependencies. See "dependencies".
---  rocks = string or list,      -- Specifies Luarocks dependencies for the plugin
---  config = string or function, -- Specifies code to run after this plugin is loaded.
---  -- The setup key implies opt = true
---  setup = string or function,  -- Specifies code to run before this plugin is loaded. The code is ran even if
---                               -- the plugin is waiting for other conditions (ft, cond...) to be met.
---
---  -- The following keys all imply lazy-loading and imply opt = true
---  cmd = string or list,        -- Specifies commands which load this plugin. Can be an autocmd pattern.
---  ft = string or list,         -- Specifies filetypes which load this plugin.
---  keys = string or list,       -- Specifies maps which load this plugin. See "Keybindings".
---  event = string or list,      -- Specifies autocommand events which load this plugin.
---  fn = string or list          -- Specifies functions which load this plugin.
---  cond = string, function, or list of strings/functions,   -- Specifies a conditional test to load this plugin
---  module = string or list      -- Specifies Lua module names for require. When requiring a string which starts
---                               -- with one of these module names, the plugin will be loaded.
---  module_pattern = string/list -- Specifies Lua pattern of Lua module names for require. When
---                               -- requiring a string which matches one of these patterns, the plugin will be loaded.
---}
+  {
+    'nvim-treesitter/nvim-treesitter', -- highlight code
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ':TSUpdate',
+    config = function()
+      require('plug/treesitter')
+    end,
+  },
+}

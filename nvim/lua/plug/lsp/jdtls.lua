@@ -1,23 +1,38 @@
 local home = vim.fn.getenv("HOME")
-local root_dir_path = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' })
+local root_dir_path = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew', '.idea', '.settings' })
 local project_name = vim.fn.fnamemodify(root_dir_path, ":p:h:t")
 --local project_name = vim.fn.fnamemodify(root_dir_path, ":p:h")
 local workspace_dir = home .. '/.cache/jdtls-workspace/' .. project_name
 --local workspace_dir = project_name .. '/.workspace'
+--
+local bundles = {
+  vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin-*.jar")
+}
 
+vim.list_extend(bundles,
+  vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/com.microsoft.java.test.plugin*.jar"), "\n"))
+
+--require("jdtls").start_or_attach({
 require("lspconfig").jdtls.setup {
   --looks like it's automaticaly solved
   --require('coq').lsp_ensure_capabilities({}),
   cmd = {
+    -- Will search in where is Mason bin
     'jdtls',
-    --home .. '/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar',
-    --'-configuration', home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
+
+    -- Not Needed for lspconfig
+    --'-jar', vim.fn.glob(home .. '.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher_*.jar'),
+
+    '-configuration', home .. '/.local/share/nvim/mason/share/jdtls/config/config_ini',
+
     '-data', workspace_dir,
   },
-  --root_dir = require('jdtls.setup').find_root({ '.git' }),
+
+  root_dir = function() return root_dir_path end,
 
   init_options = {
-    workspace = workspace_dir,
+    bundles = bundles,
+    --workspace = workspace_dir,
   },
 
   settings = {

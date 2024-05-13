@@ -1,6 +1,3 @@
-package.path = package.path .. ";/home/daru/.config/nvim/init.lua"
-require('init')
-
 if vim.wo.scrolloff > 999 or vim.wo.scrolloff < 0 then
   vim.g.page_scrolloff_backup = 0
 else

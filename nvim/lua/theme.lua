@@ -72,7 +72,7 @@ local function modified()
 end
 
 require('lualine').setup {
-  extensions = { 'quickfix', 'mason', 'nvim-dap-ui', 'man' },
+  extensions = { 'quickfix', 'mason', 'nvim-dap-ui', 'man', 'overseer' },
   options = {
     section_separators = { left = '', right = '' },
   },
@@ -114,7 +114,7 @@ require('lualine').setup {
       },
     },
     lualine_b = { '%l:%c', '%p%% %L' },
-    lualine_x = {},
+    lualine_x = { 'overseer' },
     lualine_y = { 'filetype', search_result },
     lualine_z = {
       'encoding',
@@ -163,39 +163,43 @@ require("tokyonight").setup({
   --on_highlights = function(highlights, colors) end,
 
   -- Borderless Telescope
-  on_highlights = function(hl, c)
-    local prompt = "#2d3149"
-    hl.TelescopeNormal = {
-      bg = c.bg_dark,
-      fg = c.fg_dark,
-    }
-    hl.TelescopeBorder = {
-      bg = c.bg_dark,
-      fg = c.bg_dark,
-    }
-    hl.TelescopePromptNormal = {
-      bg = prompt,
-    }
-    hl.TelescopePromptBorder = {
-      bg = prompt,
-      fg = prompt,
-    }
-    hl.TelescopePromptTitle = {
-      bg = prompt,
-      fg = prompt,
-    }
-    hl.TelescopePreviewTitle = {
-      bg = c.bg_dark,
-      fg = c.bg_dark,
-    }
-    hl.TelescopeResultsTitle = {
-      bg = c.bg_dark,
-      fg = c.bg_dark,
-    }
-  end,
+  --on_highlights = function(hl, c)
+  --  local prompt = "#2d3149"
+  --  hl.TelescopeNormal = {
+  --    bg = c.bg_dark,
+  --    fg = c.fg_dark,
+  --  }
+  --  hl.TelescopeBorder = {
+  --    bg = c.bg_dark,
+  --    fg = c.bg_dark,
+  --  }
+  --  hl.TelescopePromptNormal = {
+  --    bg = prompt,
+  --  }
+  --  hl.TelescopePromptBorder = {
+  --    bg = prompt,
+  --    fg = prompt,
+  --  }
+  --  hl.TelescopePromptTitle = {
+  --    bg = prompt,
+  --    fg = prompt,
+  --  }
+  --  hl.TelescopePreviewTitle = {
+  --    bg = c.bg_dark,
+  --    fg = c.bg_dark,
+  --  }
+  --  hl.TelescopeResultsTitle = {
+  --    bg = c.bg_dark,
+  --    fg = c.bg_dark,
+  --  }
+  --end,
 })
 
---vim.cmd[[colorscheme tokyonight-night]]
-vim.cmd [[colorscheme tokyonight-storm]]
---vim.cmd [[colorscheme tokyonight-day]]
---vim.cmd[[colorscheme nord]]
+vim.opt.termguicolors = true
+
+vim.cmd([[
+"colorscheme tokyonight-night
+colorscheme tokyonight-storm
+"colorscheme tokyonight-day
+"colorscheme nord
+]])
