@@ -1,0 +1,227 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 22,
+    "spacing": 8,
+    "modules-left": [
+        "river/tags",
+        //"river/window",
+        "river/layout",
+        "custom/updates-pacman-aurhelper",
+        "custom/github",
+        "tray"
+    ],
+    "modules-center": [
+        "river/mode",
+        "clock",
+        "privacy"
+    ],
+    "modules-right": [
+        //"custom/media"
+        //"mpd",
+        //"idle_inhibitor",
+        "pulseaudio",
+        "memory",
+        "cpu",
+        "network",
+        "custom/protonvpn",
+        "backlight",
+        "bluetooth",
+        "battery"
+        //"battery#bat2",
+    ],
+    // Modules configuration
+    "river/tags": {
+         "num-tags": 10,
+         "tag-labels": [
+            "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"
+         ]
+    },
+    "river/layout": {
+        "format": "<span style=\"italic\">{}</span>",
+        "max-length": 14,
+        "min-length": 1,
+        "align": 0,
+        "on-click": "",
+        "on-click-right": ""
+    },
+    "river/mode": {
+        "format": "<span style=\"italic\">{}</span>",
+        "max-length": 15,
+        "min-length": 1,
+        "align": 0,
+        "on-click": "",
+        "on-click-right": "",
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10,
+    },
+    "clock": {
+        "format": "{:%A, %Y-%m-%d %H:%M}",
+        "format-alt": "{:%H:%M:%S}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+                    "mode"          : "year",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "format": {
+                              "months":     "<span color='#ffead3'><b>{}</b></span>",
+                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-click-forward": "tz_up",
+                    "on-click-backward": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    },
+    "cpu": {
+        "format": " {usage}%",
+    },
+    "memory": {
+        "format": "  {used}GiB/{total}GiB",
+        "tooltip": false
+    },
+    //"backlight": {
+    //    // "device": "acpi_video1",
+    //    "format": "{percent}% {icon}",
+    //    "format-icons": ["", "", "", "", "", "", "", "", ""]
+    //},
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-alt": "{time} {icon}",
+        "format-full": "",
+        "format-charging": " {capacity}% ",
+        //"format-plugged": "{capacity}% ",
+        //"format-icons": ["", "", "", "", ""]
+    },
+    //"battery#bat2": {
+    //    "bat": "BAT2"
+    //},
+    //"power-profiles-daemon": {
+    //  "format": "{icon}",
+    //  "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    //  "tooltip": true,
+    //  "format-icons": {
+    //    "default": "",
+    //    "performance": "",
+    //    "balanced": "",
+    //    "power-saver": ""
+    //  }
+    //},
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        //"format": "{volume}% {icon} {format_source}",
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pulseaudio-control togmute",
+        "on-click-right": "exec kitty --class kitty-float pulsemixer &",
+    },
+    "custom/github": {
+      "format": " {}",
+      //"format": "{} ",
+      "return-type": "json",
+      "interval": 60,
+      "exec": "$HOME/.config/waybar/scripts/github.sh",
+      "on-click": "xdg-open https://github.com/notifications"
+    },
+   // "custom/scratchpad-indicator": {
+   //     "interval": 3,
+   //     "return-type": "json",
+   //     "exec": "swaymsg -t get_tree | jq --unbuffered --compact-output '(recurse(.nodes[]) | select(.name == \"__i3_scratch\") | .focus) as $scratch_ids | [..  | (.nodes? + .floating_nodes?) // empty | .[] | select(.id |IN($scratch_ids[]))] as $scratch_nodes | if ($scratch_nodes|length) > 0 then { text: \"\\($scratch_nodes | length)\", tooltip: $scratch_nodes | map(\"\\(.app_id // .window_properties.class) (\\(.id)): \\(.name)\") | join(\"\\n\") } else empty end'",
+   //     "format": "{} 🗗",
+   //     "on-click": "exec swaymsg 'scratchpad show'",
+   //     "on-click-right": "exec swaymsg 'move scratchpad'"
+   // }
+    "custom/kdeconnect": {
+      "exec": "~/.config/polybar/scripts/polybar-kdeconnect.sh -d",
+      "interval": 60
+    },
+    "custom/protonvpn": {
+      "exec": "~/.config/polybar/scripts/polybar-protonvpn.sh -o",
+      "interval": 60
+    },
+    "custom/updates-pacman-aurhelper": {
+      "exec": "~/.config/polybar/scripts/updates-pacman-aurhelper.sh",
+      "interval": 300
+    }
+    //"custom/media": {
+    //    "format": "{icon} {}",
+    //    "return-type": "json",
+    //    "max-length": 40,
+    //    "format-icons": {
+    //        "spotify": "",
+    //        "default": "🎜"
+    //    },
+    //    "escape": true,
+    //    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    //    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    //}
+}

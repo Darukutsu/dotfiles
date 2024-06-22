@@ -196,7 +196,7 @@
     enable_recursive_icon_lookup = true
 
     # Set icon theme (only used for recursive icon lookup)
-    icon_theme = Adwaita
+    icon_theme = Papirus-Dark
     # You can also set multiple icon themes, with the leftmost one being used first.
     # icon_theme = "Adwaita, breeze"
 
@@ -206,7 +206,7 @@
     # Scale small icons up to this size, set to 0 to disable. Helpful
     # for e.g. small files or high-dpi screens. In case of conflict,
     # max_icon_size takes precedence over this.
-    min_icon_size = 32
+    min_icon_size = 16
 
     # Scale larger icons down to this size, set to 0 to disable
     max_icon_size = 128
@@ -261,7 +261,7 @@
     # layer = top
 
     # Set this to true to use X11 output on Wayland.
-    force_xwayland = false
+    force_xwayland = true
 
     ### Legacy
 
@@ -293,6 +293,8 @@
     mouse_left_click = close_current
     mouse_middle_click = do_action, close_current
     mouse_right_click = close_all
+    #background = "#24283B"
+    #foreground = "#ffffff"
 
 # Experimental features that may or may not work correctly. Do not expect them
 # to have a consistent behaviour across releases.
@@ -306,28 +308,29 @@
 
 
 [urgency_low]
-    # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
-    foreground = "#888888"
-    timeout = 10
-    # Icon for notifications with low urgency, uncomment to enable
-    #default_icon = /path/to/icon
+    background = "#1f2335"
+    foreground = "#c0caf5"
+    #frame_color = "#c0caf5"
 
 [urgency_normal]
-    background = "#24283B"
-    foreground = "#ffffff"
-    timeout = 10
-    # Icon for notifications with normal urgency, uncomment to enable
-    #default_icon = /path/to/icon
+    background = "#24283b"
+    foreground = "#c0caf5"
+    #frame_color = "#c0caf5"
 
 [urgency_critical]
-    background = "#900000"
-    foreground = "#ffffff"
-    frame_color = "#ff0000"
+    background = "#292e42"
+    foreground = "#db4b4b"
+    frame_color = "#db4b4b"
     timeout = 0
-    # Icon for notifications with critical urgency, uncomment to enable
-    #default_icon = /path/to/icon
+
+#[urgency_critical]
+#    #background = "#900000"
+#    background = "#74283B"
+#    foreground = "#ffffff"
+#    frame_color = "#ff0000"
+#    timeout = 0
+#    # Icon for notifications with critical urgency, uncomment to enable
+#    #default_icon = /path/to/icon
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -o pipefail
 
-## Author  : Darukutsu
-## Github  : @Darukutsu
+## Author  : Aditya Shakya (adi1090x)
+## Github  : @adi1090x
 #
 ## Applets : Screenshot
 
@@ -13,13 +13,13 @@ if [ "$1" ]; then
 fi
 
 prompt='Screenshot'
-mesg="DIR: `xdg-user-dir PICTURES`/Screenshots"
+mesg="DIR: $(xdg-user-dir PICTURES)/Screenshots"
 
 list_col='1'
 list_row='5'
 
 # Options
-layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
+layout=$(cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2)
 if [[ "$layout" == 'NO' ]]; then
   option_1=" Capture Desktop"
   option_2=" Capture Area"
@@ -32,14 +32,18 @@ else
   option_1=""
   option_2=""
   option_3=""
-  option_4=""
-  option_5=""
+  #option_4=""
+  #option_5=""
+  #option_4=""
+  #option_5=""
+  option_4=""
+  option_5=""
 fi
 
 # Rofi CMD
 rofi_cmd() {
   #rofi -theme-str "window {width: $win_width;}" \
-    rofi -theme-str "listview {columns: $list_col; lines: $list_row;}" \
+  rofi -theme-str "listview {columns: $list_col; lines: $list_row;}" \
     -theme-str 'textbox-prompt-colon {str: "";}' \
     -dmenu \
     -p "$prompt" \
@@ -55,12 +59,11 @@ run_rofi() {
 }
 
 # Screenshot
-time=`date +%Y%m%d_%H%M%S`
-dir="`xdg-user-dir PICTURES`/Screenshots"
-#geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
-#file="Screenshot_${time}_${geometry}.png"
-ft=png
-file="Screenshot_${time}.${ft}"
+time=$(date +%Y%m%d_%H%M%S)
+#time=`date +%Y-%m-%d-%H-%M-%S`
+geometry=$(xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current')
+dir="$(xdg-user-dir PICTURES)/Screenshots"
+file="Screenshot_${time}_${geometry}.png"
 
 if [[ ! -d "$dir" ]]; then
   mkdir -p "$dir"
@@ -79,32 +82,32 @@ notify_view() {
 }
 
 # Copy screenshot to clipboard
-copy_shot () {
-  tee "$file" | xclip -selection clipboard -t image/$ft
+copy_shot() {
+  if [ $XDG_SESSION_TYPE = x11 ]; then
+    tee "$file" | xclip -selection clipboard -t image/png
+  else
+    tee "$file" | wl-copy -t image/png
+  fi
 }
 
 # countdown
-countdown () {
-  for sec in `seq $1 -1 1`; do
+countdown() {
+  for sec in $(seq $1 -1 1); do
     dunstify -t 1000 --replace=699 "Taking shot in : $sec"
     sleep 1
   done
 }
 
-# take shots of whole monitor (optionaly can resize)
-shotnow () {
-  cd ${dir} && menyoki -q capture --root --select png save "-" | copy_shot && notify_view
+# take shots
+shotnow() {
+  if [ $XDG_SESSION_TYPE = x11 ]; then
+    cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot && notify_view
+  else
+    cd ${dir} && sleep 0.5 && grim | copy_shot && notify_view
+  fi
 }
 
-shotarea () {
-  cd ${dir} && menyoki -q capture --root --select -s 300x100 png save "-" | copy_shot && notify_view
-}
-
-shotwin () {
-  cd ${dir} && menyoki -q capture -f --select png save "-" | copy_shot && notify_view
-}
-
-recordmon () {
+recordmon() {
   #prompt='Recording'
   #ft=gif
   #file="Record_${time}.${ft}"
@@ -112,12 +115,28 @@ recordmon () {
   obs --startrecording --scene MonitorCapture
 }
 
-recordwin () {
+recordwin() {
   obs --startrecording --scene WindowCapture
   #prompt='Recording'
   #ft=gif
   #file="Record_${time}.${ft}"
   #cd ${dir} && menyoki -q record -f --select gif save "-" | copy_shot && notify_view
+}
+
+shotwin() {
+  cd ${dir} && menyoki -q capture -f --select png save "-" | copy_shot && notify_view
+}
+#shotwin () {
+#  cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot && notify_view
+#}
+
+# with mouse
+shotarea() {
+  if [ $XDG_SESSION_TYPE = x11 ]; then
+    cd ${dir} && maim -u -f png -s -D -b 2 -c 0.35,0.55,0.85,0.25 | copy_shot && notify_view
+  else
+    cd ${dir} && sleep 0.5 && slurp | grim -g - | copy_shot && notify_view
+  fi
 }
 
 # Execute Command
@@ -138,19 +157,19 @@ run_cmd() {
 # Actions
 chosen="$(run_rofi)"
 case ${chosen} in
-  $option_1)
-    run_cmd --opt1
-    ;;
-  $option_2)
-    run_cmd --opt2
-    ;;
-  $option_3)
-    run_cmd --opt3
-    ;;
-  $option_4)
-    run_cmd --opt4
-    ;;
-  $option_5)
-    run_cmd --opt5
-    ;;
+$option_1)
+  run_cmd --opt1
+  ;;
+$option_2)
+  run_cmd --opt2
+  ;;
+$option_3)
+  run_cmd --opt3
+  ;;
+$option_4)
+  run_cmd --opt4
+  ;;
+$option_5)
+  run_cmd --opt5
+  ;;
 esac

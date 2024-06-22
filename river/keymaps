@@ -1,0 +1,315 @@
+#!/bin/sh
+
+# Declare a passthrough mode. This mode has only a single mapping to return to
+# normal mode. This makes it useful for testing a nested wayland compositor
+# NOTE: normal & locked namespaces are already taken
+riverctl declare-mode passthrough
+riverctl declare-mode resize
+riverctl declare-mode move
+riverctl declare-mode hide
+riverctl declare-mode switch
+riverctl declare-mode draw
+
+#
+# NOTE: WM INDEPENDENT HOTKEYS
+#
+
+# Print keybind help
+riverctl map normal Super+Shift slash spawn \
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh sxhkd_help'
+
+# Terminal launcher
+riverctl map normal Super Return spawn kitty
+
+# Browser launcher
+riverctl map normal Super G spawn qutebrowser
+
+# Qutebrowser session
+riverctl map normal Super+Shift G spawn \
+  '"$XDG_CONFIG_HOME"/qutebrowser/userscripts/container-open'
+
+# Screenshot menu
+riverctl map normal None Print spawn \
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh screenshot'
+
+# Exit river emergency
+riverctl map normal Super+Shift+Control Space exit
+
+# Poweroff menu
+riverctl map normal Super+Shift Space spawn \
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh powermenu'
+
+# Program launcher
+riverctl map normal Super Space spawn \
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh combi'
+
+# Program switcher
+riverctl map normal Alt Tab spawn \
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh window'
+
+# bitwarden
+riverctl map normal Super Apostrophe spawn \
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh bitwarden'
+
+# clipboard menu
+riverctl map normal Super V spawn \
+  clipcat-menu
+#'"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard'
+
+# Notification close
+riverctl map normal Super X spawn \
+  'dunstctl close-all'
+
+# TODO:
+# Notification history control-panel
+#super + c
+#        echo "mode_control_panel" >"$SXHKD_MODE_FILE"; \
+#        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_control_panel
+#        #notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+
+# Media keys work everywhere
+for mode in normal locked resize move hide switch draw; do
+  # Eject the optical drive (well if you still have one that is)
+  #riverctl map $mode None XF86Eject spawn 'eject -T'
+
+  riverctl map $mode None XF86AudioRaiseVolume spawn \
+    'pamixer -i 5 ; "$XDG_CONFIG_HOME"/sxhkd/volume_notify.sh'
+  riverctl map $mode None XF86AudioLowerVolume spawn \
+    'pamixer -d 5 ; "$XDG_CONFIG_HOME"/sxhkd/volume_notify.sh'
+  riverctl map $mode None XF86AudioMute spawn 'pamixer --toggle-mute'
+
+  #riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
+  riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
+  riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
+  riverctl map $mode None XF86AudioNext spawn 'playerctl next'
+
+  riverctl map $mode None XF86MonBrightnessUp spawn \
+    'ddcutil -d 1 --sleep-multiplier 2.0 setvcp 10 + 20'
+  riverctl map $mode None XF86MonBrightnessDown spawn \
+    'ddcutil -d 1 --sleep-multiplier 2.0 setvcp 10 - 20'
+  #riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
+  #riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+done
+
+#
+# NOTE: RIVER HOTKEYS
+#
+
+# Close the focused view
+riverctl map normal Control+Shift Q close
+
+# Reload river keys kinda
+# TODO: maybe should implement something like vim key for this binding
+riverctl map normal Super Escape \
+  'notify-send --hint int:transient:1 "River" "Reloading keys";
+  "$XDG_CONFIG_HOME"/river/keymaps'
+
+# Focus the next/previous view in the layout stack
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+#
+# Swap next/prev
+riverctl map normal Super+Alt J swap next
+riverctl map normal Super+Alt K swap previous
+
+# focus windows
+riverctl map normal Super M focus-view left
+riverctl map normal Super N focus-view down
+riverctl map normal Super E focus-view up
+riverctl map normal Super I focus-view right
+
+# Swap windows
+riverctl map normal Super+Alt M swap left
+riverctl map normal Super+Alt N swap down
+riverctl map normal Super+Alt E swap up
+riverctl map normal Super+Alt I swap right
+
+# bump the focused view to the top of the layout stack(switch with biggest)
+riverctl map normal Super B zoom
+
+# focus the next/previous output(monitor=output)
+#riverctl map normal Super Period focus-output next
+#riverctl map normal Super Comma focus-output previous
+
+# send the focused view to the next/previous output
+#riverctl map normal Super+Shift Period send-to-output next
+#riverctl map normal Super+Shift Comma send-to-output previous
+
+for i in $(seq 1 10); do
+  tags=$((1 << ($i - 1)))
+
+  if [ $i -eq 10 ]; then
+    i=0
+  fi
+  # WARNING: if your shell weak, doesn't support expansion uncomment above
+  #for i in {0..9}; do
+  #  tags=$((1 << $i))
+
+  # focus tag [0-9]
+  riverctl map normal Super $i set-focused-tags $tags
+
+  # send focused window to tag [0-9] & follow
+  riverctl map normal Super+Alt $i spawn \
+    "riverctl set-view-tags $tags && riverctl set-focused-tags $tags"
+done
+
+riverctl map normal Super Bracketright spawn '"$XDG_CONFIG_HOME"/river/nextprev.sh next'
+riverctl map normal Super Bracketleft spawn '"$XDG_CONFIG_HOME"/river/nextprev.sh prev'
+
+# toggle node state
+riverctl map normal Super F toggle-fullscreen
+riverctl map normal Super T toggle-float
+
+#
+# SCRATCHPADS
+#
+## Set spawn tagmask to ensure new windows don't have the scratchpad tag unless
+# explicitly set.
+# NO IDEA WHAT THIS DOES
+riverctl spawn-tagmask $((((1 << 32) - 1) ^ $RIVER_SCRATCH_TAG1))
+riverctl spawn-tagmask $((((1 << 32) - 1) ^ $RIVER_SCRATCH_TAG2))
+#riverctl spawn-tagmask $((((1 << 32) - 1) ^ $RIVER_SCRATCH_TAG3))
+
+riverctl map normal None F11 spawn \
+  "riverctl toggle-focused-tags $RIVER_SCRATCH_TAG1"
+riverctl map normal None F12 spawn \
+  "riverctl toggle-focused-tags $RIVER_SCRATCH_TAG2"
+# combo scratchpad :D
+# Fuck XF86 keys canot remap under wayland
+riverctl map normal None XF86AudioMicMute spawn \
+  "riverctl toggle-focused-tags $RIVER_SCRATCH_TAG3"
+
+# layout orientation/rotate tree
+riverctl map normal Super Period spawn '
+if [ $(cat "$XDG_CONFIG_HOME"/river/.current_layout) = top ] ; then
+    echo right > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location right"
+  elif [ $(cat "$XDG_CONFIG_HOME"/river/.current_layout) = right ]; then
+    echo bottom > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location bottom"
+  elif [ $(cat "$XDG_CONFIG_HOME"/river/.current_layout) = bottom ]; then
+    echo left > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location left"
+  else
+    echo top > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location top"
+  fi'
+
+riverctl map normal Super Comma spawn '
+if [ $(cat "$XDG_CONFIG_HOME"/river/.current_layout) = top ] ; then
+    echo left > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location left"
+  elif [ $(cat "$XDG_CONFIG_HOME"/river/.current_layout) = right ]; then
+    echo top > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location top"
+  elif [ $(cat "$XDG_CONFIG_HOME"/river/.current_layout) = bottom ]; then
+    echo right > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location right"
+  else
+    echo bottom > "$XDG_CONFIG_HOME"/river/.current_layout
+    riverctl send-layout-cmd rivertile "main-location bottom"
+  fi'
+
+#
+# NOTE: MAP MODES
+#
+riverctl map normal Super C spawn 'riverctl enter-mode notification; notify-send --hint int:transient:1 "river" "Notification mode enabled";'
+riverctl map normal Super H spawn 'riverctl enter-mode hide; notify-send --hint int:transient:1 "river" "Hide mode enabled";'
+riverctl map normal Super S spawn 'riverctl enter-mode snap; notify-send --hint int:transient:1 "river" "Switch/Snap mode enabled";'
+#riverctl map normal Super A spawn 'riverctl enter-mode snap; notify-send --hint int:transient:1 "river" "Notification mode enabled";'
+riverctl map normal Super R spawn 'riverctl enter-mode resize; notify-send --hint int:transient:1 "river" "Resize mode enabled";'
+riverctl map normal Super W spawn 'riverctl enter-mode move; notify-send --hint int:transient:1 "river" "Move mode enabled";'
+riverctl map normal Super D spawn 'riverctl enter-mode draw; notify-send --hint int:transient:1 "river" "Draw mode enabled";'
+
+riverctl map normal Super P spawn 'riverctl enter-mode passthrough; notify-send --hint int:transient:1 "river" "Passthrough mode enabled";'
+#riverctl map passthrough None Escape enter-mode normal
+riverctl map passthrough Super F12 enter-mode normal
+
+# NOTE: MODE DRAW
+# resize views
+riverctl map draw None Escape enter-mode normal
+riverctl map draw None C spawn 'gromit-mpx --clear'
+riverctl map draw None T spawn 'gromit-mpx --toggle'
+riverctl map draw None V spawn 'gromit-mpx --visibility'
+riverctl map draw None A spawn 'gromit-mpx --redo'
+riverctl map draw None X spawn 'gromit-mpx --redo'
+riverctl map draw None Z spawn 'gromit-mpx --undo'
+
+# NOTE: MODE MOVE
+# move floating window/views around
+riverctl map move None Escape enter-mode normal
+riverctl map move None M move left 100
+riverctl map move None N move down 100
+riverctl map move None E move up 100
+riverctl map move None I move right 100
+
+# NOTE: MODE SWITCH
+riverctl map switch None Escape enter-mode normal
+riverctl map switch None M snap left
+riverctl map switch None N snap down
+riverctl map switch None E snap up
+riverctl map switch None I snap right
+
+for i in $(seq 1 10); do
+  tags=$((1 << ($i - 1)))
+
+  if [ $i -eq 10 ]; then
+    i=0
+  fi
+  #for i in {0..9}; do
+  #  tags=$((1 << $i))
+
+  # send focused window to tag [0-9]
+  riverctl map switch None $i set-view-tags $tags
+done
+
+# NOTE: MODE HIDE
+riverctl map hide None Escape enter-mode normal
+# merge all workspaces
+#riverctl map hide Super M set-focused-tags $((0x1ff))
+#riverctl map hide Super+Alt M toggle-focused-tags $((0x1ff ^ 1))
+# focused window on all workspaces
+#riverctl map hide Super A set-view-tags $((0x1ff))
+#riverctl map hide Super+Alt A toggle-focused-tags $((0x1ff ^ 1))
+# TODO: unhide all views
+#riverctl map hide None A
+# TODO: unhide view (pick from rofi)
+#riverctl map hide None U spawn \
+#  '&& riverctl enter-mode normal'
+# hide window for first 9 tags (all)(0xffffffff)
+riverctl map hide None H set-view-tags $((0x1ff))
+for i in $(seq 1 10); do
+  tags=$((1 << ($i - 1)))
+
+  if [ $i -eq 10 ]; then
+    i=0
+  fi
+
+  # toggle focus of tag [0-9] (merges workspaces)
+  riverctl map hide None $i toggle-focused-tags $tags
+  # toggle tag [0-9] of focused view (makes window visible on multiple workspaces)
+  riverctl map hide Super $i toggle-view-tags $tags
+done
+
+# NOTE: MODE RESIZE
+# resize views
+riverctl map resize None Escape enter-mode normal
+riverctl map resize None L send-layout-cmd rivertile 'main-ratio +0.1'
+riverctl map resize None H send-layout-cmd rivertile 'main-ratio -0.1'
+riverctl map resize None M resize horizontal -100
+riverctl map resize None N resize vertical -100
+riverctl map resize None E resize vertical 100
+riverctl map resize None I resize horizontal 100
+riverctl map resize None Equal send-layout-cmd rivertile 'main-ratio 0.5'
+
+#
+# NOTE: Mouse
+#
+# Super + Ieft Mouse Button to move views
+riverctl map-pointer normal Super BTN_LEFT move-view
+
+# Super + Right Mouse Button to resize views
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+
+# Super + Middle Mouse Button to toggle float
+riverctl map-pointer normal Super BTN_MIDDIE toggle-float

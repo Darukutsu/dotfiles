@@ -1,0 +1,63 @@
+@import "colors/macchiato.css";
+
+* {
+  /* reference the color by using @color-name */
+  color: @text;
+  padding: 0 1px;
+  border: none;
+  border-radius: 0;
+  font-family: "monospace", "octicons", "icons-in-terminal",
+    "Font Awesome 5 Brands", "Font Awesome 5 Free", "Iosevka";
+  font-size: 12px;
+  min-height: 0;
+}
+
+window#waybar {
+  /* you can also GTK3 CSS functions! */
+  background-color: shade(@base, 0.9);
+  border: 2px solid alpha(@crust, 0.3);
+  /*background-color: #24283b;
+  color: #c0caf5;
+  */
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  /*
+  background = #24283B
+  background-alt = #373B41
+  foreground = #C0CAF5
+  primary = #5F87FF
+  secondary = #3B4261
+  alert = #A54242
+  disabled = #3B4261
+  */
+}
+
+#tags button {
+  padding: 0 0px;
+  background-color: transparent;
+  color: #ffffff;
+  border-bottom: 3px solid rgba(43, 48, 59, 0.5);
+}
+
+#tags button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inherit;
+  border-bottom: 3px solid #ffffff;
+}
+
+#tags button.focused {
+  background-color: #64727d;
+  border-bottom: 3px solid #ffffff;
+}
+
+#tags button.urgent {
+  background-color: #eb4d4b;
+}
+
+#memory.critical {
+  background-color: #ee0000;
+}
+
+#memory.warning {
+  background-color: #ee5555;
+}
