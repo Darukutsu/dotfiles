@@ -86,7 +86,19 @@ super + apostrophe
 
 # clipmenu/clipboard
 super + v
-        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard
+        clipcat-menu
+        #"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard
+
+# Notification close
+super + x
+        dunstctl close-all
+
+# Notification history control-panel
+super + c
+        echo "mode_control_panel" >"$SXHKD_MODE_FILE"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_control_panel
+        #notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+
 
 #
 # BSPWM HOTKEYS

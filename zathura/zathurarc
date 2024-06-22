@@ -1,21 +1,58 @@
-set default-bg "#24283B"
-set default-fg "#7AA2F7"
-set statusbar-bg "#24283B"
-set statusbar-fg "#7AA2F7"
-set inputbar-bg "#24283B"
-set inputbar-fg "#7AA2F7"
-set index-bg "#24283B"
-set index-fg "#7AA2F7"
-set index-active-bg "#7AA2F7"
-set index-active-fg "#000000"
-set tabbar-bg "#24283B"
-set tabbar-fg "#7AA2F7"
-set tabbar-focus-bg "#7AA2F7"
-set tabbar-focus-fg "#000000"
-set completion-bg "#24283B"
-set completion-fg "#7AA2F7"
-set completion-group-bg "#24283B"
-set completion-group-fg "#7AA2F7"
-set completion-highlight-bg "#7AA2F7"
-set completion-highlight-fg "#000000"
+# Theme
+#set default-bg "#24283B"
+#set default-fg "#7AA2F7"
+#set statusbar-bg "#24283B"
+#set statusbar-fg "#7AA2F7"
+#set inputbar-bg "#24283B"
+#set inputbar-fg "#7AA2F7"
+#set index-bg "#24283B"
+#set index-fg "#7AA2F7"
+#set index-active-bg "#7AA2F7"
+#set index-active-fg "#000000"
+##set tabbar-bg "#24283B"
+##set tabbar-fg "#7AA2F7"
+##set tabbar-focus-bg "#7AA2F7"
+##set tabbar-focus-fg "#000000"
+#set completion-bg "#24283B"
+#set completion-fg "#7AA2F7"
+#set completion-group-bg "#24283B"
+#set completion-group-fg "#7AA2F7"
+#set completion-highlight-bg "#7AA2F7"
+#set completion-highlight-fg "#000000"
+include tokyonight_storm.zathurarc
+#include tokyonight_day.zathurarc
+
+# Configs
 set font monospace Book 11
+set selection-clipboard clipboard
+set scroll-page-aware true
+set show-hidden true
+#set toggle_statusbar false
+
+# ColemakDH bindings
+map m scroll left
+map n scroll down
+map e scroll up
+map i scroll right
+
+map N scroll half-down
+map E scroll half-up
+map h mark_add
+
+map k search forward
+map K search backward
+
+map p snap_to_page
+map w adjust_window width
+map t recolor
+map b toggle_statusbar
+
+# For TOC navigation
+map [index] o toggle_index
+
+map [index] n navigate_index down
+map [index] e navigate_index up
+map [index] m navigate_index collapse
+map [index] i navigate_index expand
+map [index] M navigate_index collapse-all
+map [index] I navigate_index expand-all

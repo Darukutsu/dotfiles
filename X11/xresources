@@ -27,30 +27,25 @@ Nsxiv.bar.font: monospace:size=11:style=Book
 ! 6 Cyan      14 Cyan
 ! 7 White     15 White
 
-! Black colours
-*.color0:        #1A1B26
-*.color8:        #4E5173
-! Red colours
-*.color1:        #F7768E
-*.color9:        #E06C75
-! Yellow colours
-*.color2:        #E0AF68
-*.color10:       #D19A66
-! Green colours
-*.color3:        #9ECE6A
-*.color11:       #98C379
-! Blue colours
-*.color4:        #7AA2F7
-*.color12:       #61AFEF
-! Magenta (pink, !green) colours
-*.color5:        #9A7ECC
-*.color13:       #C678DD
-! Cyan (blue + green)
-*.color6:        #4ABAAF
-*.color14:       #56B6C2
-! White colours
-*.color7:        #ACB0D0
-*.color15:       #ABB2BF
+!Tokyo night
+*color0: #1d202f
+*color1: #f7768e
+*color2: #9ece6a
+*color3: #e0af68
+*color4: #7aa2f7
+*color5: #bb9af7
+*color6: #7dcfff
+*color7: #a9b1d6
+
+*color8: #414868
+*color9: #f7768e
+*color10: #9ece6a
+*color11: #e0af68
+*color12: #7aa2f7
+*color13: #bb9af7
+*color14: #7dcfff
+*color15: #c0caf5
+ 
 
 ! xterm.vt100.faceName:           Terminus:style=Regular:size=10
 ! xterm.vt100.faceNameDoublesize: Cyberbit:style=Regular:size=10

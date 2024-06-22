@@ -163,7 +163,7 @@ if [[ ${BLE_VERSION-} ]]; then
   ble-bind -m vi_cmap -c 'C-]' 'exit'
   ble-bind -m vi_omap -c 'C-]' 'exit'
   ble-bind -m menu_complete -f '__default__' menu_complete/cancel
-  source "$XDG_CONFIG_HOME/bash/colemak"
+  #source "$XDG_CONFIG_HOME/bash/colemak"
 
   #ble-bind -x C-r _fzf_history_for_blesh
   #_fzf_history_for_blesh() {

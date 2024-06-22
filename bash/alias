@@ -1,8 +1,11 @@
-alias a='adl -r'
+#!/bin/sh
+alias a='ani-cli'
+#alias a='adl -r'
 alias alsa='pulsemixer'
 alias cnet="netstat -lantp | grep ESTABLISHED |awk '{print $5}' | awk -F: '{print $1}' | sort -u"
 #alias c='printf "\033c"'
 alias c='tput reset'
+alias cpic='wl-color-picker'
 alias emacs='emacs -nw'
 alias firefox='firefox-developer-edition'
 alias fr='firefox-developer-edition'
@@ -23,7 +26,13 @@ alias page='$PAGER'
 alias pingg='ping google.com'
 alias pc='pacseek -u'
 alias shazam='$XDG_CONFIG_HOME/bash/songrec-fix.sh'
-alias sk='screenkey -t 1.5 --vis-shift -g 30%x60%+68%-4%'
+alias sk='
+if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+  screenkey -t 1.5 --vis-shift -g 30%x60%+68%-4%
+else
+  wshowkeys -t 1.5 -a bottom
+fi'
+
 alias snv='sudo nvim'
 #alias songrec='songrec listen -d default'
 alias Ss='sudo su'
@@ -31,7 +40,7 @@ alias SS='sudo systemctl'
 alias SU='systemctl --user'
 alias yayr='yay -Rns'
 alias yays='yay -Sc'
-alias yayi='yay --ignore linux,linux-headers'
+alias yayi='yay --ignore linux,linux-headers,zfs-linux'
 #alias yayz='sudo pacman -Syu --nodeps'
 alias yayz='yay --nodeps'
 alias xdgn='xdg-ninja --skip-ok --skip-unsupported'
