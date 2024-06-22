@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# probably unneeded
+#dbus-update-activation-environment --all
+#killall "polkit-dumb-agent"
+#polkit-dumb-agent &
+killall "rofi-polkit-agent"
+rofi-polkit-agent &
+
+# for protonvpn
+killall "nm-applet"
+nm-applet &
+
+killall "clipcatd"
+rm -rf /run/user/1000/clipcat /run/user/1000/clipcatd.pid
+clipcatd --no-daemon --replace &
+#killall "gpaste-daemon"
+#gpaste-client start &
+#killall "clipmenu"
+#clipmenud &
+#
+killall "gromit-mpx"
+gromit-mpx &
+
+#"$XDG_DATA_HOME"/gnome-shell/extensions/gsconnect@andyholmes.github.io/service/daemon.js &
+#ibus-daemon -xrd
+killall "kdeconnect-indicator"
+kdeconnect-indicator &
+
+killall "udiskie"
+udiskie &
+
+killall "$XDG_CONFIG_HOME"/wireplumber/hdmi-audio-reconnect.sh
+"$XDG_CONFIG_HOME"/wireplumber/hdmi-audio-reconnect.sh &
+
+#conky --config="$XDG_CONFIG_HOME/conky/conky.conf" -d
+
+fcitx5 -rd --keep
+
+#systemctl --user restart opentabletdriver
+killall "otd-daemon"
+otd-daemon &
+
+killall "dunst"
+dunst &

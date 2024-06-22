@@ -1,0 +1,129 @@
+#!/bin/sh
+#set -x
+
+#sxhkd=/usr/local/bin/sxhkd
+#bspc=/usr/local/bin/bspc
+
+#pgrep -x sxhkd  -c /etc/X11/bspwm/sxhkdrc> /dev/null || sxhkd -c /etc/X11/bspwm/sxhkdrc &
+#sxhkd -c /etc/X11/bspwm/sxhkdrc &
+export CM_LAUNCHER=rofi-script
+export XDG_CURRENT_DESKTOP=bspwm
+export OPACITY_VALUE=1.0
+export _JAVA_AWT_WM_NONREPARENTING=1
+export SXHKD_MODE_FILE="$HOME/.config/sxhkd/zscroll-polybar"
+
+if [ $(bspc query -M --names | wc -l) -gt 1 ]; then
+  #bspc monitor DP-1 -d I II III IV V VI VII VIII IX X
+  #bspc monitor HDMI-1 -d I II III IV V VI VII VIII IX X
+  #bspc monitor DP-1 -d   II III IV V VI     
+  #bspc monitor DP-1 -d  II III IV V VI VII   
+  bspc monitor eDP-1 -r
+  xrandr --output eDP-1 --off
+  bspc remove_unplugged_monitors
+  bspc remove_disabled_monitors
+fi
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+killall kitty
+
+# SETUP LAYOUT
+bsp-layout set tall I -- --master-size 0.5
+#bsp-layout set grid III
+#bsp-layout set monocle X
+
+xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
+feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
+
+#killall "compfy"
+#compfy &
+#killall "picom"
+#picom &
+xmodmap "$XDG_CONFIG_HOME/bspwm/Xmodmap"
+killall "sxhkd"
+sxhkd &
+killall "$XDG_CONFIG_HOME"/bspwm/floating_dialogs
+"$XDG_CONFIG_HOME"/bspwm/floating_dialogs &
+killall "polybar"
+polybar &
+
+. "$XDG_CONFIG_HOME"/bspwm/services
+
+xinput set-prop 'Logitech M705' 'libinput Accel Speed' -0.7
+
+xset b off
+xset s off
+xset s noblank
+#xset s 1200 30
+#xss-lock -n "$XDG_CONFIG_HOME/bslock/dim-screen.sh" -- bslock &
+
+# sets polybar to lower level
+#while ! [ $(xdotool search --classname "Polybar") ]; do :; done
+sleep 2
+xdo lower $(xdotool search --classname "Polybar")
+
+bspc config border_width 3
+bspc config focused_border_color "#6181FF"
+#bspc config normal_border_color        "#FFFFFF"
+#
+#outdated in 0.9.1 and up
+#bspc config urgent_border_color        "#ff0000#"
+#
+#killall -r border_color.sh
+#"$XDG_CONFIG_HOME/bspwm/border_color.sh" &
+
+bspc config window_gap 12
+
+bspc config split_ratio 0.5
+bspc config borderless_monocle false
+bspc config gapless_monocle false
+bspc config ignore_ewmh_focus true
+bspc config external_rules_command "$XDG_CONFIG_HOME/bspwm/external_rules"
+bspc config removal_adjustment true
+#bspc config automatic_scheme            spiral
+#bspc config initial_polarity            first_child
+#bspc config directional_focus_tightness high
+
+# mouse actions
+# works by default
+#bspc config pointer_modifier super
+#bspc config pointer_action1 move
+#bspc config pointer_action2 resize_side
+#bspc config pointer_action3 resize_corner
+#bspc config click_to_focus true
+
+bspc rule -r "*"
+#bspc rule -a "kitty-drop" state=floating layer=above center=on desktop=focused
+#bspc rule -a "kitty-filepicker" state=floating layer=above center=on desktop=focused
+#bspc rule -a "kitty-float" state=floating layer=above center=on desktop=focused
+bspc rule -a "Rofi" state=floating layer=above focus=on
+#bspc rule -a "*" rectangle=900x550+0+0 center=on follow=on
+bspc rule -a "mpv" state=floating layer=above center=off sticky=on rectangle=550x350+1340+660
+# because of bug in firefox
+bspc rule -a "firefoxdeveloperedition" desktop=focused
+bspc rule -a "Zathura" state=tiled
+#docks are not managed by bspwm so polybar don't take rules
+#bspc rule -a "polybar" layer=below
+bspc rule -a "Show Me The Key" manage=off
+bspc rule -a "fcitx" layer=above
+bspc rule -a "Yad" manage=off
+#bspc rule -a Screenkey manage=off
+
+# workspace/desktop assigment
+bspc rule -a "kdenlive" desktop='^4'
+bspc rule -a "Gimp" desktop='^5'
+bspc rule -a "lmms" desktop='^6'
+bspc rule -a "Carla2" desktop='^7'
+bspc rule -a "Guitarix" desktop='^8'
+bspc rule -a "obs" desktop='^9' focus=off
+tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
+bspc rule -a "$tlminecraft" desktop='^10' focus=off
+bspc rule -a "pyrogenesis" desktop='^10' focus=off
+bspc rule -a "veloren-voxygen" desktop='^10' focus=off
+bspc rule -a "RLCraft" desktop='^10' focus=off
+bspc rule -a "portal" desktop='^10' focus=off manage=off
+bspc rule -a "richardburnsrally.exe" desktop='^10' focus=off manage=off
+bspc rule -a "pylote.pyw" manage=off
+#bspc rule -a kitty:* desktop='^10' state=floating rectangle=100x50+0+0 focus=on
+
+killall -r unmap-kitty.sh
+"$XDG_CONFIG_HOME/sxhkd/dropdown.sh"

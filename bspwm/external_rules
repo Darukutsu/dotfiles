@@ -1,0 +1,96 @@
+#!/bin/bash
+# for better explanation
+# https://www.reddit.com/r/bspwm/comments/jvsjsl/scripts_internal_rules_and_external_rules/
+#
+# basically rules are added before node is displayed/added
+#
+# wid=window id
+# class
+# instance = WM_NAME
+# consequences = already applied rules
+
+wid=$1
+class=$2
+instance=$3
+consequences=$4
+
+# Meaning : Nodes spawned on X desktop
+#desktop_id=$(bspc subscribe -c 1 node_add|cut -d" " -f3)
+
+#case insensitive
+shopt -s nocasematch
+
+if bspc query --nodes -n .fullscreen; then
+  focus="focus=off"
+  follow="follow=off"
+else
+  focus="focus=on"
+  follow="follow=on"
+fi
+
+
+if ! [[ "$class" =~ mpv ]] && ! [[ "$class" =~ yad ]] && ! [[ "$class" =~ rofi ]]; then
+  echo rectangle=900x550+0+0
+  echo center=on
+  if ! [[ "$consequences" =~ .*focus=off.* ]]; then
+    echo $focus
+    echo $follow
+  fi
+fi
+
+# drop-down terminal set _NET_WM_WINDOW_TYPE
+if [[ "$class" =~ kitty\-.* ]]; then
+  echo state=floating
+  echo layer=above
+  echo center=on
+  echo desktop=focused
+
+  xprop -id "$wid" \
+    -f _NET_WM_WINDOW_TYPE 32a \
+    -set _NET_WM_WINDOW_TYPE _NET_WM_WINDOW_TYPE_DROPDOWN_MENU
+fi
+
+# rofi set _NET_WM_WINDOW_TYPE
+# bspwm doesn't manage these windows because rofi doesn't override redirrect by default
+if [[ "$class" =~ .*rofi.* ]]; then
+  #echo "manage=off" #this will break rofi don't use this
+  #echo "layer=above"
+  #echo "focus=on"
+  #echo "state=floating"
+  xprop -id "$wid" \
+    -f _NET_WM_WINDOW_TYPE 32a \
+    -set _NET_WM_WINDOW_TYPE _NET_WM_WINDOW_TYPE_POPUP_MENU
+fi
+
+## GAMING
+if [[ "$class" =~ .*prism.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+fi
+
+if [[ "$class$instance" =~ .*[mM]inecraft.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+  echo "state=fullscreen"
+fi
+
+if [[ "$class$instance" =~ .*[sS]team.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+  echo "managed=off"
+fi
+
+if [[ "$class" =~ .*cs2.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+fi
+
+if [[ "$class" =~ .*csgo.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+fi
+
+#if [[ $(bspc query -D --desktop "$desktop_id" --names) == "X" ]]; then
+#if [[ $(bspc query -D --node "$wid" --names) == "X" ]]; then
+#  echo manage=off
+#fi

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+bspc subscribe node_add |
+while IFS=' ' read -r _ _ d _ n; do
+  #bspc query -T -n "$n"
+  if [ "$d" = "$(bspc query -D -d .focused)" ]; then
+    bspc node -f "$n"
+  fi
+done
+#done |
+#jq --unbuffered -r '
+#    [
+#        .id,
+#        (
+#            .client.layer |
+#            if . == "normal"
+#                then "above"
+#                else "normal"
+#            end,
+#            .
+#        )
+#    ] |
+#    @sh "bspc node \(.[0]).focused.floating -l \(.[1]) -l \(.[2])"
+#' | sh
