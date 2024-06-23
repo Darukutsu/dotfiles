@@ -1,10 +1,14 @@
 #!/bin/sh
 # See the river(1), riverctl(1), and rivertile(1) man pages for complete documentation.
 
-export CM_LAUNCHER=rofi-script
+# TODO: source this to environment
 export XDG_CURRENT_DESKTOP=river
+export XDG_CURRENT_SESSION=wayland
 export OPACITY_VALUE=1.0
 export _JAVA_AWT_WM_NONREPARENTING=1
+export MOZ_ENABLE_WAYLAND=1
+export QT_QPA_PLATFORM=wayland
+export SDL_VIDEODRIVER=wayland
 export SXHKD_MODE_FILE="$HOME/.config/sxhkd/zscroll-polybar"
 #export WINIT_UNIX_BACKEND=x11
 
@@ -21,8 +25,9 @@ xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
 
 # Monitor config
 #if [ $( | wc -l) -gt 1 ]; then
-riverctl rule-add -app-id '*' output DP-4
-wlr-randr --output eDP-1 --off
+kanshi &
+#riverctl rule-add -app-id '*' output DP-4
+#wlr-randr --output eDP-1 --off
 #fi
 
 # Set background and border color
@@ -35,15 +40,24 @@ swww img "$wallpaper" &
 killall "waybar"
 waybar &
 
+#
+# NOTE: keymaps
+#
 # fuck wayland keybinds are awful
 #killall "swhks"
 #swhks &
 #killall "swhkd"
 #pkexec swhkd &
 . "$XDG_CONFIG_HOME"/river/keymaps
-# Set keyboard repeat rate
-riverctl set-repeat 30 300
 
+#
+# NOTE: Rules
+#
+. "$XDG_CONFIG_HOME"/river/rules
+
+#
+# NOTE: Services
+#
 . "$XDG_CONFIG_HOME"/bspwm/services
 
 riverctl border-width 3
@@ -52,52 +66,7 @@ riverctl border-color-unfocused 0x586e75
 riverctl set-cursor-warp on-focus-change
 riverctl hide-cursor timeout 2000
 riverctl hide-cursor when-typing enabled
-#
-# NOTE: Rules
-#
-#riverctl rule-del -app-id '*' float no-float ssd csd tags output position dimensions fullscreen no-fullscreen
-riverctl rule-add -app-id '*' dimensions 900 550
-riverctl rule-add -app-id '*' ssd
-riverctl rule-add -app-id 'float*' float
-riverctl rule-add -app-id 'float-kitty1' tags $RIVER_SCRATCH_TAG1
-riverctl rule-add -app-id 'float-kitty2' tags $RIVER_SCRATCH_TAG2
-riverctl rule-add -app-id 'combo-kitty1' tags $RIVER_SCRATCH_TAG3
-riverctl rule-add -app-id 'combo-kitty2' tags $RIVER_SCRATCH_TAG3
-riverctl rule-add -app-id 'combo-kitty3' tags $RIVER_SCRATCH_TAG3
-riverctl rule-add -app-id 'combo-kitty4' tags $RIVER_SCRATCH_TAG3
-
-riverctl rule-add -app-id 'mpv' ssd
-riverctl rule-add -app-id 'mpv' float
-riverctl rule-add -app-id 'mpv' dimensions 550 350
-riverctl rule-add -app-id 'mpv' position 1340 660
-# will be visible on every workspace
-riverctl rule-add -app-id 'mpv' tags $((0x1ff))
-riverctl rule-add -app-id 'Rofi*' float
-riverctl rule-add -app-id 'fcitx' csd
-#riverctl rule-add -app-id 'Show Me The Key' ssd
-riverctl rule-add -app-id 'kitty' ssd
-riverctl rule-add -app-id 'firefox*' ssd
-
-tlminecraft="ru-turikhay-tlauncher-bootstrap-Bootstrap"
-riverctl rule-add -app-id "kdenlive" tags 4
-riverctl rule-add -app-id "Gimp" tags 5
-riverctl rule-add -app-id "lmms" tags 6
-riverctl rule-add -app-id "Carla2" tags 7
-riverctl rule-add -app-id "Guitarix" tags 8
-riverctl rule-add -app-id "obs" tags 9
-riverctl rule-add -app-id "$tlminecraft" tags 10
-riverctl rule-add -app-id "pyrogenesis" tags 10
-riverctl rule-add -app-id "veloren-voxygen" tags 10
-riverctl rule-add -app-id "veloren-voxygen" csd
-riverctl rule-add -app-id "RLCraft" tags 10
-riverctl rule-add -app-id "portal" tags 10
-riverctl rule-add -app-id "*prism*" tags 10
-riverctl rule-add -app-id "minecraft" tags 10 fullscreen
-riverctl rule-add -app-id "steam" tags 10
-riverctl rule-add -app-id "*cs2*" tags 10
-riverctl rule-add -app-id "*csgo*" tags 10
-riverctl rule-add -app-id "richardburnsrally.exe" tags 10
-#riverctl rule-add "pylote.pyw"
+riverctl set-repeat 30 300
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.

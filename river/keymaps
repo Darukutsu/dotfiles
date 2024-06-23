@@ -153,6 +153,7 @@ for i in $(seq 1 10); do
     "riverctl set-view-tags $tags && riverctl set-focused-tags $tags"
 done
 
+# TODO: fix incorrect tag id, start from 1 end with 0
 riverctl map normal Super Bracketright spawn '"$XDG_CONFIG_HOME"/river/nextprev.sh next'
 riverctl map normal Super Bracketleft spawn '"$XDG_CONFIG_HOME"/river/nextprev.sh prev'
 

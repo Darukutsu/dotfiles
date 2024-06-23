@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#riverctl rule-del -app-id '*' float no-float ssd csd tags output position dimensions fullscreen no-fullscreen
+riverctl rule-add -app-id '*' dimensions 900 550
+riverctl rule-add -app-id '*' ssd
+riverctl rule-add -app-id 'float*' float
+riverctl rule-add -app-id 'float-kitty1' tags $RIVER_SCRATCH_TAG1
+riverctl rule-add -app-id 'float-kitty2' tags $RIVER_SCRATCH_TAG2
+riverctl rule-add -app-id 'combo-kitty1' tags $RIVER_SCRATCH_TAG3
+riverctl rule-add -app-id 'combo-kitty2' tags $RIVER_SCRATCH_TAG3
+riverctl rule-add -app-id 'combo-kitty3' tags $RIVER_SCRATCH_TAG3
+riverctl rule-add -app-id 'combo-kitty4' tags $RIVER_SCRATCH_TAG3
+
+riverctl rule-add -app-id 'mpv' ssd
+riverctl rule-add -app-id 'mpv' float
+riverctl rule-add -app-id 'mpv' dimensions 550 350
+riverctl rule-add -app-id 'mpv' position 1340 660
+# will be visible on every workspace
+riverctl rule-add -app-id 'mpv' tags $((0x1ff))
+riverctl rule-add -app-id 'kitty' ssd
+riverctl rule-add -app-id 'firefox*' ssd
+
+riverctl rule-add -app-id "kdenlive" tags 4
+riverctl rule-add -app-id "Gimp" tags 5
+riverctl rule-add -app-id "lmms" tags 6
+riverctl rule-add -app-id "Carla2" tags 7
+riverctl rule-add -app-id "Guitarix" tags 8
+riverctl rule-add -app-id "obs" tags 9
+
+# Special windows
+riverctl rule-add -app-id 'Rofi*' float
+riverctl rule-add -app-id 'Show*' tags $((0x1ff))
+riverctl rule-add -app-id 'Show*' float
+riverctl rule-del -app-id 'Show*' dimensions
+riverctl rule-del -app-id 'Show*' ssd
+riverctl rule-del -app-id 'wshowkeys' dimensions
+riverctl rule-del -app-id 'wshowkeys' ssd
+riverctl rule-del -app-id 'fcitx*' dimensions
+riverctl rule-del -app-id 'fcitx*' ssd
+
+# Games rules
+games=("ru-turikhay-tlauncher-bootstrap-Bootstrap" "pyrogenesis" "veloren-voxygen" "RLCraft" "portal" "*prism*" "minecraft" "steam" "*cs2*" "*csgo*" "richardburnsrally.exe")
+
+for game in "${games[@]}"; do
+  riverctl rule-del -app-id "$game" ssd
+  riverctl rule-del -app-id "$game" dimensions
+  riverctl rule-add -app-id "$game" tags 10 fullscreen
+done
+#riverctl rule-add "pylote.pyw"
