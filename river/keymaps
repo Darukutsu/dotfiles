@@ -53,8 +53,15 @@ riverctl map normal Super Apostrophe spawn \
 
 # clipboard menu
 riverctl map normal Super V spawn \
-  clipcat-menu
-#'"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard'
+  '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard'
+
+# obs stop recording
+riverctl map normal Control Alt R spawn \
+  'obs --stoprecording'
+
+# emoji picker (because fcitx picker doesn't work)
+riverctl map normal Alt E spawn \
+  rofimoji
 
 # Notification close
 riverctl map normal Super X spawn \

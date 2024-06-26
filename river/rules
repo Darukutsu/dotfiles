@@ -20,19 +20,21 @@ riverctl rule-add -app-id 'mpv' tags $((0x1ff))
 riverctl rule-add -app-id 'kitty' ssd
 riverctl rule-add -app-id 'firefox*' ssd
 
-riverctl rule-add -app-id "kdenlive" tags 4
-riverctl rule-add -app-id "Gimp" tags 5
-riverctl rule-add -app-id "lmms" tags 6
-riverctl rule-add -app-id "Carla2" tags 7
-riverctl rule-add -app-id "Guitarix" tags 8
-riverctl rule-add -app-id "obs" tags 9
+riverctl rule-add -app-id "kdenlive" tags $((1 << 3))
+riverctl rule-add -app-id "Gimp" tags $((1 << 4))
+riverctl rule-add -app-id "lmms" tags $((1 << 5))
+riverctl rule-add -app-id "Carla2" tags $((1 << 6))
+riverctl rule-add -app-id "guitarix" tags $((1 << 7))
+riverctl rule-add -app-id "obs" tags $((1 << 8))
 
 # Special windows
 riverctl rule-add -app-id 'Rofi*' float
-riverctl rule-add -app-id 'Show*' tags $((0x1ff))
-riverctl rule-add -app-id 'Show*' float
-riverctl rule-del -app-id 'Show*' dimensions
-riverctl rule-del -app-id 'Show*' ssd
+riverctl rule-add -app-id 'showmethekey-gtk' tags $((0x1ff))
+riverctl rule-add -app-id 'showmethekey-gtk' float
+#riverctl rule-del -app-id 'showmethekey-gtk' dimensions
+riverctl rule-add -app-id 'showmethekey-gtk' dimensions 860 120
+riverctl rule-add -app-id 'showmethekey-gtk' position 1035 910
+riverctl rule-del -app-id 'showmethekey-gtk' ssd
 riverctl rule-del -app-id 'wshowkeys' dimensions
 riverctl rule-del -app-id 'wshowkeys' ssd
 riverctl rule-del -app-id 'fcitx*' dimensions
@@ -44,6 +46,7 @@ games=("ru-turikhay-tlauncher-bootstrap-Bootstrap" "pyrogenesis" "veloren-voxyge
 for game in "${games[@]}"; do
   riverctl rule-del -app-id "$game" ssd
   riverctl rule-del -app-id "$game" dimensions
-  riverctl rule-add -app-id "$game" tags 10 fullscreen
+  riverctl rule-add -app-id "$game" tags $((1 << 9))
+  riverctl rule-add -app-id "$game" fullscreen
 done
 #riverctl rule-add "pylote.pyw"

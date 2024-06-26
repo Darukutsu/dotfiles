@@ -86,8 +86,7 @@ super + apostrophe
 
 # clipmenu/clipboard
 super + v
-        clipcat-menu
-        #"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard
+        "$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard
 
 # Notification close
 super + x

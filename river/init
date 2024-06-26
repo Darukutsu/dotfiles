@@ -67,6 +67,8 @@ riverctl set-cursor-warp on-focus-change
 riverctl hide-cursor timeout 2000
 riverctl hide-cursor when-typing enabled
 riverctl set-repeat 30 300
+riverctl input pointer-1133-16493-Logitech_M705 scroll-factor 0.8
+riverctl input pointer-1133-16493-Logitech_M705 pointer-accell -0.1
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
