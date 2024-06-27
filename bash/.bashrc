@@ -149,7 +149,11 @@ if [[ ${BLE_VERSION-} ]]; then
   function ble/widget/daru/copy_readline() {
     ble/widget/vi-command/operator y
     ble/widget/vi-command/operator y
-    ble/util/put "${_ble_edit_kill_ring[0]}" | xsel -bi
+    if [ $XDG_SESSION_TYPE = x11 ]; then
+      ble/util/put "${_ble_edit_kill_ring[0]}" | xsel -bi
+    else
+      ble/util/put "${_ble_edit_kill_ring[0]}" | wl-copy
+    fi
   }
 
   ble-bind -m vi_nmap -f Y daru/copy_readline

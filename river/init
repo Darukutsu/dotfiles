@@ -40,6 +40,8 @@ swww img "$wallpaper" &
 killall "waybar"
 waybar &
 
+wl-paste --watch cliphist store &
+
 #
 # NOTE: keymaps
 #

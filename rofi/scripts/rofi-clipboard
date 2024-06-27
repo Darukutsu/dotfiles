@@ -1,17 +1,23 @@
 #!/bin/bash
 
-clip_text_id=$(
-  cb hs |
-    jq -c '.[].content | if type=="array" then .[].path else if type=="object" then .path else . end end' |
-    while read -r entry; do
-      removed_quotes=$(echo $entry | sed 's/^"\(.*\)"$/\1/')
-      if [ -f "$removed_quotes" ]; then
-        echo -e "$removed_quotes\x00icon\x1f$removed_quotes"
-      else
-        echo "$removed_quotes"
-      fi
-    done |
-    rofi -dmenu -format i -p "Clipboard:" -i
-)
+#clip_text_id=$(
+#  cb hs |
+#    jq -c '.[].content | if type=="array" then .[].path else if type=="object" then .path else . end end' |
+#    while read -r entry; do
+#      removed_quotes=$(echo $entry | sed 's/^"\(.*\)"$/\1/')
+#      if [ -f "$removed_quotes" ]; then
+#        echo -e "$removed_quotes\x00icon\x1f$removed_quotes"
+#      else
+#        echo "$removed_quotes"
+#      fi
+#    done |
+#    rofi -dmenu -format i -p "Clipboard:" -i
+#)
+#
+#cb hs $clip_text_id
 
-cb hs $clip_text_id
+if [ $XDG_SESSION_TYPE = x11 ]; then
+  rofi-gpaste
+else
+  rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons
+fi

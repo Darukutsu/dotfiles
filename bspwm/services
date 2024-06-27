@@ -11,11 +11,15 @@ rofi-polkit-agent &
 killall "nm-applet"
 nm-applet &
 
-killall "clipcatd"
-rm -rf /run/user/1000/clipcat /run/user/1000/clipcatd.pid
-clipcatd --no-daemon --replace &
+cb ignore '^.{0,4}$'
+#---
+#killall "clipcatd"
+#rm -rf /run/user/1000/clipcat /run/user/1000/clipcatd.pid
+#clipcatd --no-daemon --replace &
+#---
 #killall "gpaste-daemon"
 #gpaste-client start &
+#---
 #killall "clipmenu"
 #clipmenud &
 #

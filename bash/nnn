@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-if [ $(whoami) == "root" ]; then
+if [ $(whoami) = "root" ]; then
   export NNN_COLORS='11111111'
 fi
 
@@ -22,7 +22,7 @@ export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplay
 #not working under kitty xembed missing
 #v:preview-tabbed;'
 
-export NNN_BMS="d:/home/daru/Downloads/;n:/home/daru/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/run/media/;M:/mnt/;h:/home/daru/Templates/Guides;g:/home/daru/Public;t:/home/daru/Public/GitTuke/2LS;b:$HOME/.config/nnn/bookmarks"
+export NNN_BMS="d:$HOME/Downloads/;n:$HOME/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/run/media/;M:/mnt/;h:$HOME/Templates/Guides;g:$HOME/Public;t:$HOME/Public/GitTuke/2LS;b:$HOME/.config/nnn/bookmarks;p:$HOME/Pictures"
 
 nn() {
   # Block nesting of nnn in subshells

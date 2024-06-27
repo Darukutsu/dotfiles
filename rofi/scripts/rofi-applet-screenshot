@@ -103,7 +103,7 @@ shotnow() {
   if [ $XDG_SESSION_TYPE = x11 ]; then
     cd ${dir} && sleep 0.5 && maim -u -f png | copy_shot && notify_view
   else
-    cd ${dir} && sleep 0.5 && grim | copy_shot && notify_view
+    cd ${dir} && sleep 0.5 && grim - | copy_shot && notify_view
   fi
 }
 
@@ -135,7 +135,7 @@ shotarea() {
   if [ $XDG_SESSION_TYPE = x11 ]; then
     cd ${dir} && maim -u -f png -s -D -b 2 -c 0.35,0.55,0.85,0.25 | copy_shot && notify_view
   else
-    cd ${dir} && sleep 0.5 && slurp | grim -g - | copy_shot && notify_view
+    cd ${dir} && sleep 0.5 && slurp | grim -g - - | copy_shot && notify_view
   fi
 }
 
