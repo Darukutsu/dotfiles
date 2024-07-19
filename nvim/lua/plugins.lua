@@ -22,6 +22,24 @@ return {
   --  end,
   --},
   {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    config = function()
+      --require('plug/noice')
+    end,
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    }
+  },
+  {
     "luukvbaal/nnn.nvim",
     config = function()
       require("nnn").setup({
@@ -55,7 +73,7 @@ return {
   {
     'rcarriga/nvim-notify',
     config = function()
-      --require('plug/marks')
+      --require('plug/notify')
     end,
   },
   {
@@ -87,9 +105,6 @@ return {
   },
   {
     'folke/which-key.nvim', -- key help floating while typing
-    config = function()
-      require('plug/which-key')
-    end,
   },
   {
     'lukas-reineke/indent-blankline.nvim', -- indent show
@@ -261,6 +276,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
+      { 'MunifTanjim/nui.nvim' },
       { 'nvim-lua/plenary.nvim' },
       { 'debugloop/telescope-undo.nvim' },
       { 'nvim-telescope/telescope-dap.nvim' },
