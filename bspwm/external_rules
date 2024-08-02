@@ -28,7 +28,6 @@ else
   follow="follow=on"
 fi
 
-
 if ! [[ "$class" =~ mpv ]] && ! [[ "$class" =~ yad ]] && ! [[ "$class" =~ rofi ]]; then
   echo rectangle=900x550+0+0
   echo center=on

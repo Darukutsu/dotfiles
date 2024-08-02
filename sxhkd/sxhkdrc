@@ -96,7 +96,7 @@ super + x
 super + c
         echo "mode_control_panel" >"$SXHKD_MODE_FILE"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_control_panel
-        #notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+        #notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled";
 
 
 #
@@ -110,7 +110,7 @@ super + c
 # make sxhkd reload its configuration files:
 super + Escape
         notify-send --hint int:transient:1 "sxhkd" "Restarting sxhkd"; \
-	killall "sxhkd"; sxhkd &
+	killall "sxhkd"; xmodmap "$XDG_CONFIG_HOME/bspwm/Xmodmap"; sxhkd &
 
 # quit/restart bspwm
 super + shift + Escape
@@ -200,6 +200,11 @@ super + alt + {period,comma}
 # focus (or swap with alt) the node in the given direction
 super + {_,alt + }{m,n,e,i}
 	bspc node -{f,s} {west,south,north,east}
+
+# swap the node and it's descendants in the given direction
+super + ctrl + {m,n,e,i}
+	bspc node first_ancestor -s {west,south,north,east} && \
+        bspc node -f
 
 # focus the node for the given path jump
 #       super + {p,b,comma,period}

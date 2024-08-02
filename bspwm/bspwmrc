@@ -45,6 +45,8 @@ killall "$XDG_CONFIG_HOME"/bspwm/floating_dialogs
 "$XDG_CONFIG_HOME"/bspwm/floating_dialogs &
 killall "polybar"
 polybar &
+killall "gpaste-daemon"
+gpaste-client start &
 
 . "$XDG_CONFIG_HOME"/bspwm/services
 

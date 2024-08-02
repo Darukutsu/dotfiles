@@ -17,9 +17,6 @@ cb ignore '^.{0,4}$'
 #rm -rf /run/user/1000/clipcat /run/user/1000/clipcatd.pid
 #clipcatd --no-daemon --replace &
 #---
-#killall "gpaste-daemon"
-#gpaste-client start &
-#---
 #killall "clipmenu"
 #clipmenud &
 #
