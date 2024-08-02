@@ -12,7 +12,30 @@ export NNN_OPTS='aAcdHrQU'
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
-export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplaylist;d:diffs;m:nmount;p:cpoverwrite;h:http-server;f:fzcd;w:wallpaper;x:xdgdefault;t:preview-tui;z:zip;o:openall;e:togglex2;c:.cbcp;Z:zfs-snapdir;g:gpge;G:gpgd;Y:suedit;O:fzdo;D:dragdrop'
+export NNN_PLUG='a:mtpmount;
+u:getplugs;
+s:upload;
+i:imgur;
+k:kdeconnect;
+P:addtoplaylist;
+d:diffs;
+m:nmount;
+p:cpoverwrite;
+h:http-server;
+f:fzcd;
+w:wallpaper;
+x:xdgdefault;
+t:preview-tui;
+z:zip;
+o:openall;
+e:togglex2;
+c:.cbcp;
+Z:zfs-snapdir;
+g:gpge;
+G:gpgd;
+Y:suedit;
+O:fzdo;
+D:dragdrop'
 
 #;r:removefromdisk
 #e:-!sudo-Envim$nnn*;
@@ -22,7 +45,18 @@ export NNN_PLUG='a:mtpmount;u:getplugs;s:upload;i:imgur;k:kdeconnect;P:addtoplay
 #not working under kitty xembed missing
 #v:preview-tabbed;'
 
-export NNN_BMS="d:$HOME/Downloads/;n:$HOME/.config/nnn/;a:/run/user/$UID/gvfs;E:/mnt/SAM500/;m:/run/media/;M:/mnt/;h:$HOME/Templates/Guides;g:$HOME/Public;t:$HOME/Public/GitTuke/2LS;b:$HOME/.config/nnn/bookmarks;p:$HOME/Pictures"
+export NNN_BMS="d:$HOME/Downloads/;
+n:$HOME/.config/nnn/;
+a:/run/user/$UID/gvfs;
+E:/run/media/SAM500/;
+m:/run/media/;
+M:/mnt/;
+h:$HOME/Templates/Guides;
+g:$HOME/Public;
+t:$HOME/Public/GitTuke/3ZS;
+b:$HOME/.config/nnn/bookmarks;
+p:$HOME/Pictures/;
+v:$HOME/Videos/"
 
 nn() {
   # Block nesting of nnn in subshells

@@ -33,6 +33,31 @@ shopt -u globstar
 [[ $- != *i* ]] && return
 
 ## OTHER VAR
+if [ -z "$XDG_CONFIG_HOME" ]; then
+  export XDG_DATA_HOME=${HOME}/.local/share
+  export XDG_CONFIG_HOME=${HOME}/.config
+  export XDG_STATE_HOME=${HOME}/.local/state
+  export XDG_CACHE_HOME=${HOME}/.cache
+  export XDG_DOWNLOAD_DIR=${HOME}/Downloads
+fi
+
+# REMOTE KITTY SHELL
+if [ -n "$KITTY_REMOTE_SHELL" ]; then
+  export REMOTE_HOME=~/.ssh_daru
+  export EDITOR=nvim
+  export XDG_DATA_HOME=${REMOTE_HOME}/.local/share
+  export XDG_CONFIG_HOME=${REMOTE_HOME}/.config
+  export XDG_STATE_HOME=${REMOTE_HOME}/.local/state
+  export XDG_CACHE_HOME=${REMOTE_HOME}/.cache
+  export XDG_DOWNLOAD_DIR=${REMOTE_HOME}/Downloads
+
+  #curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh > install_zaje.sh
+  #chmod +x install_zaje.sh
+  #./install_zaje.sh
+
+  echo "files were sourced successfully"
+fi
+
 export MANPAGER="$PAGER -t man"
 
 h() {
@@ -46,10 +71,14 @@ h() {
 # Alternatively, to pick a bit better `man` highlighting:
 man() {
   if test $(/bin/man -w "${@:$#}"); then
-    if [ $2 ]; then
-      $PAGER man://"$2($1)"
-    elif [ $1 ]; then
-      $PAGER man://"$1"
+    if [[ "$PAGER" =~ page.* ]]; then
+      if [ $2 ]; then
+        $PAGER man://"$2($1)"
+      elif [ $1 ]; then
+        $PAGER man://"$1"
+      fi
+    else
+      /usr/bin/man "$2" "$1"
     fi
   else
     h "$1"
@@ -82,12 +111,17 @@ source "$XDG_CONFIG_HOME/bash/newt_colors"
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
 ## COMPLETION
-source /usr/share/bash-completion/bash_completion
-source /usr/share/bash-complete-alias/complete_alias
-eval "$(register-python-argcomplete pipx)"
+if [ -n "$KITTY_REMOTE_SHELL" ]; then
+  source "$XDG_DATA_HOME"/bash-completion/bash_completion
+  source "$XDG_DATA_HOME"/bash-complete-alias/complete_alias
+else
+  source /usr/share/bash-completion/bash_completion
+  source /usr/share/bash-complete-alias/complete_alias
+  eval "$(register-python-argcomplete pipx)"
+fi
 #shopt -s progcomp_alias
 complete -F _complete_alias SS
-complete -F _man man
+#complete -F _man man
 
 # Enhanced file path completion in bash - https://github.com/sio/bash-complete-partial-path
 #if [ -s "$XDG_CONFIG_HOME/bash-complete-partial-path/bash_completion" ]
@@ -106,7 +140,8 @@ source "$XDG_CONFIG_HOME/bash/powerline"
 ## for echo -e $oct_bell ...
 #source /usr/share/icons-in-terminal/icons_bash.sh
 
-source /usr/share/wikiman/widgets/widget.bash
+# this is used to launch using Ctrl-F
+#source /usr/share/wikiman/widgets/widget.bash
 
 ##KITTY_INTEGRATION
 source "$XDG_CONFIG_HOME/bash/kitty"
@@ -118,6 +153,8 @@ source "$XDG_CONFIG_HOME/bash/xdg-base-dir"
 ## PYTHON venv
 #source "$HOME/.local/bin/bin/activate"
 
+# SHLVL holds number of sessions running on top of shell
+# basically print only in first shell
 if [ $SHLVL -eq 1 ]; then
   cat /home/daru/Templates/Guides/0usefull-commands-I-always-forget
 fi

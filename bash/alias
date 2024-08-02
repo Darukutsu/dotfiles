@@ -25,6 +25,7 @@ alias mov='mov-cli -s films'
 alias page='$PAGER'
 alias pingg='ping google.com'
 alias pc='pacseek -u'
+alias rollback='downgrade'
 alias shazam='$XDG_CONFIG_HOME/bash/songrec-fix.sh'
 alias sk='
 if [ "$XDG_SESSION_TYPE" = "x11" ]; then
@@ -33,6 +34,7 @@ else
   wshowkeys -t 1.5 -a bottom
 fi'
 
+alias s='kitten ssh'
 alias snv='sudo nvim'
 #alias songrec='songrec listen -d default'
 alias Ss='sudo su'
@@ -47,7 +49,8 @@ alias xdgn='xdg-ninja --skip-ok --skip-unsupported'
 alias sddm-greeter='sddm-greeter --theme /usr/share/sddm/themes/sober --test-mode'
 #adb connect 192.168.0.128:38345
 alias scr='scrcpy -Sf'
-alias winreboot='sudo grub-reboot osprober-efi-388F-7355 && reboot'
+#alias winreboot='sudo grub-reboot osprober-efi-388F-7355 && reboot'
+alias winreboot='systemctl reboot --boot-loader-entry=win.conf'
 alias sshk='kitty +kitten ssh'
 alias https='simple-http-server --ip $(iploc) -p 50500'
 alias xclip='xclip -selection clipboard'
