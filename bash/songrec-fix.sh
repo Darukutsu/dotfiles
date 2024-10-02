@@ -6,28 +6,16 @@
 # therefore songrec must run before 'pactl source-outputs' command
 #
 
-songrec recognize -d default > /tmp/songname.txt &
-
-#wait until songrec initialized
-sleep 1
-
-client=$(pactl list short clients | grep "songrec" | cut -d$'\t' -f1)
-
-# pick songrec id
-source_output_id=$(pactl list short source-outputs | grep "$client" | cut -d$'\t' -f1)
-
-# list sources and then pick one (type number)
-pactl list short sources
-printf "\nSelect Microphone ID: "
-read new_source_id
+# list sources and then pick one
+device=$(pactl list short sources | cut -f2 | fzf --header="Pick device:")
 
 # set songrec to desired input
-pactl move-source-output "$source_output_id" "$new_source_id"
+songrec recognize -d "$device" >/tmp/songname.txt &
 
 while [ -z "$(cat /tmp/songname.txt)" ]; do :; done
 notify-send "$(cat /tmp/songname.txt)"
 cat /tmp/songname.txt
 
-if [ -e songname.txt ];then
+if [ -e songname.txt ]; then
   rm /tmp/songname.txt
 fi
