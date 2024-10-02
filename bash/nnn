@@ -12,30 +12,32 @@ export NNN_OPTS='aAcdHrQU'
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
-export NNN_PLUG='a:mtpmount;
-u:getplugs;
-s:upload;
-i:imgur;
-k:kdeconnect;
-P:addtoplaylist;
-d:diffs;
-m:nmount;
-p:cpoverwrite;
-h:http-server;
-f:fzcd;
-w:wallpaper;
-x:xdgdefault;
-t:preview-tui;
-z:zip;
-o:openall;
-e:togglex2;
+
+export NNN_PLUG='?:help;
+a:mtpmount;
 c:.cbcp;
-Z:zfs-snapdir;
+d:diffs;
+D:dragdrop;
+e:togglex2;
+f:fzcd;
+F:fzdo;
 g:gpge;
 G:gpgd;
+h:http-server;
+i:imgur;
+k:kdeconnect;
+m:nmount;
+o:openall;
+p:cpoverwrite;
+P:addtoplaylist;
+s:upload;
+t:preview-tui;
+u:getplugs;
+w:wallpaper;
+x:xdgdefault;
 Y:suedit;
-O:fzdo;
-D:dragdrop'
+z:zip;
+Z:zfs-snapdir'
 
 #;r:removefromdisk
 #e:-!sudo-Envim$nnn*;
