@@ -5,7 +5,9 @@ c.hints.chars = "arstgmneio"
 c.hints.selectors["code"] = [
     # Selects all code tags whose direct parent is not a pre tag
     ":not(pre) > code",
+    # "code",
     "pre",
+    "blockquote",
 ]
 
 config.set(
@@ -53,6 +55,7 @@ config.unbind("ga")
 config.unbind("gd")
 config.unbind("r")
 config.unbind("T")
+# config.unbind("Ctrl-N")
 # config.unbind('co') # 'u' to undo all tabs
 
 # config.bind("'", 'mode-enter jump_mark')
@@ -98,12 +101,15 @@ config.bind(";e", "hint inputs")
 config.bind(";s", "hint scrollable")
 config.bind(";v", "hint code userscript code_highlight.py")
 
+# config.bind(",d", "jseval --file ~/.config/qutebrowser/userscripts/darkmode.js")
+config.bind(",d", "config-cycle colors.webpage.darkmode.enabled")
 config.bind(",bb", "spawn --userscript qute-bitwarden")
 config.bind(",bu", "spawn --userscript qute-bitwarden --username-only")
 config.bind(",bp", "spawn --userscript qute-bitwarden --password-only")
 config.bind(",h", "cmd-set-text -s :back")
 config.bind(",l", "cmd-set-text -s :forward")
 config.bind(",m", "tab-mute")
+config.bind(",M", "spawn --userscript view_in_mpv")
 config.bind(",p", "print")
 config.bind(",r", "spawn --userscript readability-js")
 config.bind(",s", "cmd-set-text -s :screenshot")
@@ -114,6 +120,10 @@ config.bind(",y", "spawn --userscript highlight_text_to_link.py")
 for mode in ["normal", "caret"]:
     config.bind("gs", "spawn --userscript yomichad", mode=mode)
     config.bind("gS", "spawn --userscript yomichad --prefix-search", mode=mode)
+
+config.bind(",R", "spawn --userscript rss")
+config.bind("gr", "spawn --userscript rss")
+config.bind("gR", "spawn --userscript rss add")
 
 
 config.bind("A", "cmd-set-text -s :bookmark-add -t {url}")
@@ -166,28 +176,38 @@ config.bind("l", "mode-enter insert")
 # config.bind('d', 'tab-close')
 # config.bind('f', 'hint')
 
+# config.bind("aa", "spawn --userscript downloadAll")
+config.bind("aa", "cmd-set-text -s :spawn --userscript downloadAll")
 config.bind("ad", "hint links download")
 config.bind("ai", "hint images download")
 config.bind("ay", "hint links spawn kitty --directory=~/Downloads/ yt-dlp {hint-url}")
+config.bind("aY", "spawn kitty --directory=~/Downloads/ yt-dlp {url}")
+config.bind("ap", "cmd-set-text -s :print --pdf")
+config.bind(
+    "ag", "jseval -f ~/.config/qutebrowser/userscripts/download-protected-pdf.js"
+)
 config.bind("ac", "download-cancel")
 config.bind("a!", "download-clear")
-config.bind("Dd", "download")
-config.bind("Dp", "cmd-set-text -s :print --pdf")
-# bind_chained('Dg', 'jseval -f ~/.c/qutebrowser/userscripts/download-protected-pdf.js',
-#                   'spawn --userscript convert-to-pdf')
-config.bind("Dg", "jseval -f ~/.c/qutebrowser/userscripts/download-protected-pdf.js")
-config.bind("Dy", "spawn kitty --directory=~/Downloads/ yt-dlp {url}")
-config.bind("Dc", "download-cancel")
-config.bind("D!", "download-clear")
+
+config.bind("D", "tab-close ;; tab-prev")
+
+# config.bind("Dd", "download")
+## bind_chained('Dg', 'jseval -f ~/.c/qutebrowser/userscripts/download-protected-pdf.js',
+##                   'spawn --userscript convert-to-pdf')
+# config.bind("Dg", "jseval -f ~/.c/qutebrowser/userscripts/download-protected-pdf.js")
+# config.bind("Dy", "spawn kitty --directory=~/Downloads/ yt-dlp {url}")
+# config.bind("Dc", "download-cancel")
+# config.bind("D!", "download-clear")
 
 # Container/Session
-config.bind("cg", "spawn --userscript container-open google")
-config.bind("cv", "spawn --userscript container-open skola")
-# config.bind("cw", "spawn --userscript container-open work")
-config.bind("cs", "spawn --userscript container-open shop")
-config.bind("cb", "spawn --userscript container-open bank")
+# config.bind("cg", "spawn --userscript container-open google")
+# config.bind("cv", "spawn --userscript container-open skola")
+## config.bind("cw", "spawn --userscript container-open work")
+# config.bind("cs", "spawn --userscript container-open shop")
+# config.bind("cb", "spawn --userscript container-open bank")
 config.bind("ca", "cmd-set-text -s :spawn --userscript container-add")
 config.bind("cr", "cmd-set-text -s :spawn --userscript container-rm")
+config.bind("cs", "cmd-set-text -s :spawn --userscript container-send")
 config.bind("cl", "spawn --userscript container-ls")
 
 config.bind("g$", "tab-focus -1")
@@ -271,6 +291,7 @@ config.bind("Ss", "set -t")
 # config.bind('wIw', 'devtools window')
 config.bind("wIs", "view-source")
 
+config.bind("ww", "tab-give")
 config.bind("wt", "cmd-set-text -s :tab-give")
 config.bind("wT", "cmd-set-text -s :tab-take")
 # bind_chained('wbb', 'cmd-set-text -s :tab-select', 'tab-give')
@@ -287,12 +308,12 @@ config.bind("wT", "cmd-set-text -s :tab-take")
 config.bind("Xi", "hint images spawn nsxiv-url {hint-url}")
 config.bind("Xd", "hint links spawn kitty --directory=~/Downloads/ yt-dlp {hint-url}")
 config.bind("Xm", "hint links spawn mpv {hint-url}")
-config.bind("Xm", "hint links spawn mpv {hint-url}")
 config.bind("Xp", "hint links spawn zathura {hint-url}")
 config.bind("xi", "hint images spawn nsxiv-url {hint-url}")
 config.bind("xd", "hint links spawn kitty --directory=~/Downloads/ yt-dlp {hint-url}")
 config.bind("xm", "hint links spawn mpv {hint-url}")
-config.bind("xy", "spawn mpv {url}")
+config.bind("xy", "hint links spawn mpv {hint-url}")
+config.bind("xY", "spawn mpv {url}")
 config.bind("xp", "hint links spawn zathura {hint-url}")
 config.bind("xx", "stop")
 

@@ -13,15 +13,40 @@
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
 config.load_autoconfig(False)
-config.source('keys.py')
-config.source('permissions.py')
-config.source('style.py')
+# config.source("keys.py")
+config.source("keys-colemak.py")
+config.source("permissions.py")
+config.source("style.py")
 
 ## Aliases for commands. The keys of the given dictionary are the
 ## aliases, while the values are the commands they map to.
 ## Type: Dict
-#c.aliases = {'w': 'spawn --userscript tab-manager.py save', 'wo': 'spawn --userscript tab-manager.py save -f', 'e': 'spawn --userscript tab-manager.py open', 'w!': 'session-delete', 'h': 'help', 's': 'set', 'q': 'spawn --userscript tab-manager.py save;;close', 'qa': 'quit', 'wq': 'quit --save', 'wqa': 'quit --save'}
-c.aliases = {'w': 'session-save', 'wo': 'session-save -o', 'e': 'session-load', 'w!': 'session-delete', 'h': 'help', 's': 'set', 'q': 'close', 'qa': 'quit', 'wq': 'quit --save', 'wqa': 'quit --save'}
+# c.aliases = {'w': 'spawn --userscript tab-manager.py save', 'wo': 'spawn --userscript tab-manager.py save -f', 'e': 'spawn --userscript tab-manager.py open', 'w!': 'session-delete', 'h': 'help', 's': 'set', 'q': 'spawn --userscript tab-manager.py save;;close', 'qa': 'quit', 'wq': 'quit --save', 'wqa': 'quit --save'}
+c.aliases = {
+    "w": "session-save",
+    "wo": "session-save -o",
+    "e": "session-load",
+    "w!": "session-delete",
+    "h": "help",
+    "s": "set",
+    "q": "close",
+    "qa": "quit",
+    "wq": "quit --save",
+    "wqa": "quit --save",
+    # supports multiple session windows https://github.com/s-praveen-kumar/qute-containers
+    "ssa": "spawn --userscript container-add",
+    "ssr": "spawn --userscript container-rm",
+    "ssl": "spawn --userscript container-ls",
+    "sso": "spawn --userscript container-open",
+    "sss": "spawn --userscript container-send",
+    "sesb": "spawn --userscript container-backup",
+    "sesadd": "spawn --userscript container-add",
+    "sesrm": "spawn --userscript container-rm",
+    "sesls": "spawn --userscript container-ls",
+    "sesopen": "spawn --userscript container-open",
+    "sessend": "spawn --userscript container-send",
+    "sesbak": "spawn --userscript container-backup",
+}
 
 ## Time interval (in milliseconds) between auto-saves of
 ## config/cookies/etc.
@@ -175,11 +200,11 @@ c.auto_save.session = True
 ##   - multiple-tabs: Show a confirmation if multiple tabs are opened.
 ##   - downloads: Show a confirmation if downloads are running
 ##   - never: Never show a confirmation.
-c.confirm_quit = ['downloads']
+c.confirm_quit = ["downloads"]
 
 ## Automatically start playing `<video>` elements.
 ## Type: Bool
-# c.content.autoplay = True
+c.content.autoplay = False
 
 ## List of URLs to ABP-style adblocking rulesets.  Only used when Brave's
 ## ABP-style adblocker is used (see `content.blocking.method`).  You can
@@ -190,7 +215,25 @@ c.confirm_quit = ['downloads']
 ## extracting it from the `location` parameter of the subscribe URL and
 ## URL-decoding it).
 ## Type: List of Url
-c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt', 'https://easylist.to/easylist/easyprivacy.txt', "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt", "https://secure.fanboy.co.nz/fanboy-annoyance.txt","https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badlists.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt","https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/lan-block.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/legacy.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/quick-fixes.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/resource-abuse.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/ubol-filters.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/unbreak.txt", "https://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts", "https://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts"]
+c.content.blocking.adblock.lists = [
+    "https://easylist.to/easylist/easylist.txt",
+    "https://easylist.to/easylist/easyprivacy.txt",
+    "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
+    "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badlists.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/lan-block.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/legacy.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/quick-fixes.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/resource-abuse.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/ubol-filters.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/unbreak.txt",
+    "https://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts",
+    "https://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts",
+]
 
 ## Enable the ad/host blocker
 ## Type: Bool
@@ -200,7 +243,7 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 ## blocked but should be allowed, consider using
 ## `content.blocking.whitelist` instead.
 ## Type: Bool
-# c.content.blocking.hosts.block_subdomains = True
+c.content.blocking.hosts.block_subdomains = False
 
 ## List of URLs to host blocklists for the host blocker.  Only used when
 ## the simple host-blocker is used (see `content.blocking.method`).  The
@@ -236,7 +279,11 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 ## given page, use the `content.blocking.enabled` setting with a URL
 ## pattern instead.
 ## Type: List of UrlPattern
-# c.content.blocking.whitelist = []
+c.content.blocking.whitelist = [
+    "https://crdroid.net/*",
+    "https://monkeytype.com/*",
+    "https://samfw.com/*",
+]
 
 ## Enable support for the HTML 5 web application cache feature. An
 ## application cache acts like an HTTP cache in some sense. For documents
@@ -296,7 +343,7 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 ## Default encoding to use for websites. The encoding must be a string
 ## describing an encoding such as _utf-8_, _iso-8859-1_, etc.
 ## Type: String
-c.content.default_encoding = 'utf-8'
+c.content.default_encoding = "utf-8"
 
 ## Allow websites to share screen content.
 ## Type: BoolAsk
@@ -392,7 +439,7 @@ c.content.default_encoding = 'utf-8'
 ## QtWebEngine, writing the clipboard as response to a user interaction
 ## is always allowed.
 ## Type: Bool
-# c.content.javascript.can_access_clipboard = False
+c.content.javascript.clipboard = "access"
 
 ## Allow JavaScript to close tabs.
 ## Type: Bool
@@ -619,7 +666,9 @@ c.content.default_encoding = 'utf-8'
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-# c.content.user_stylesheets = []
+# c.content.user_stylesheets = [
+#    "user.css",
+# ]
 
 ## Enable WebGL.
 ## Type: Bool
@@ -645,12 +694,12 @@ c.content.default_encoding = 'utf-8'
 ## Directory to save downloads to. If unset, a sensible OS-specific
 ## default is used.
 ## Type: Directory
-c.downloads.location.directory = '~/Downloads/'
+c.downloads.location.directory = "~/Downloads/"
 
 ## Prompt the user for the download location. If set to false,
 ## `downloads.location.directory` will be used.
 ## Type: Bool
-# c.downloads.location.prompt = True
+c.downloads.location.prompt = True
 
 ## Remember the last used download directory.
 ## Type: Bool
@@ -662,7 +711,7 @@ c.downloads.location.directory = '~/Downloads/'
 ##   - path: Show only the download path.
 ##   - filename: Show only download filename.
 ##   - both: Show download path and filename.
-c.downloads.location.suggestion = 'both'
+c.downloads.location.suggestion = "both"
 
 ## Default program used to open downloads. If null, the default internal
 ## handler is used. Any `{}` in the string will be expanded to the
@@ -696,7 +745,7 @@ c.downloads.location.suggestion = 'both'
 ## `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 ## Same as `{column}`, but starting from index 0.
 ## Type: ShellCommand
-c.editor.command = ['kitty', 'nvim', '{file}', '-c', 'normal {line}G{column0}l']
+c.editor.command = ["kitty", "nvim", "{file}", "-c", "normal {line}G{column0}l"]
 
 ## Encoding to use for the editor.
 ## Type: Encoding
@@ -713,7 +762,21 @@ c.editor.command = ['kitty', 'nvim', '{file}', '-c', 'normal {line}G{column0}l']
 ## argument, the   standard output of the command is read instead.
 ## Type: ShellCommand
 # c.fileselect.folder.command = ['xterm', '-e', 'ranger', '--choosefiles={}']
-c.fileselect.folder.command = ['kitty', '--class', 'kitty-filepicker', 'nnn', '-aAcdHrQU' , '-p', '{}']
+c.fileselect.folder.command = [
+    "kitty",
+    "--class",
+    "kitty-filepicker",
+    "bash",
+    "-c",
+    "source /home/daru/.config/bash/nnn ; nnn -p {}",
+    # "source",
+    # "/home/daru/.config/bash/nnn",
+    # ";",
+    # "nnn",
+    ## "-aAcdHrQU",
+    # "-p",
+    # "{}",
+]
 
 ## Handler for selecting file(s) in forms. If `external`, then the
 ## commands specified by `fileselect.single_file.command` and
@@ -723,7 +786,7 @@ c.fileselect.folder.command = ['kitty', '--class', 'kitty-filepicker', 'nnn', '-
 ## Valid values:
 ##   - default: Use the default file selector.
 ##   - external: Use an external command.
-c.fileselect.handler = 'external'
+c.fileselect.handler = "external"
 
 ## Command (and arguments) to use for selecting multiple files in forms.
 ## The command should write the selected file paths to the specified file
@@ -733,7 +796,21 @@ c.fileselect.handler = 'external'
 ## read instead.
 ## Type: ShellCommand
 # c.fileselect.multiple_files.command = ['xterm', '-e', 'ranger', '--choosefiles={}']
-c.fileselect.multiple_files.command = ['kitty', '--class', 'kitty-filepicker', 'nnn', '-aAcdHrQU' , '-p', '{}']
+c.fileselect.multiple_files.command = [
+    "kitty",
+    "--class",
+    "kitty-filepicker",
+    "bash",
+    "-c",
+    "source /home/daru/.config/bash/nnn ; nnn -p {}",
+    # "source",
+    # "/home/daru/.config/bash/nnn",
+    # ";",
+    # "nnn",
+    ## "-aAcdHrQU",
+    # "-p",
+    # "{}",
+]
 
 ## Command (and arguments) to use for selecting a single file in forms.
 ## The command should write the selected file path to the specified file
@@ -742,7 +819,21 @@ c.fileselect.multiple_files.command = ['kitty', '--class', 'kitty-filepicker', '
 ## standard output of the command is read instead.
 ## Type: ShellCommand
 # c.fileselect.single_file.command = ['xterm', '-e', 'ranger', '--choosefile={}']
-c.fileselect.single_file.command = ['kitty', '--class', 'kitty-filepicker', 'nnn', '-aAcdHrQU' , '-p', '{}']
+c.fileselect.single_file.command = [
+    "kitty",
+    "--class",
+    "kitty-filepicker",
+    "bash",
+    "-c",
+    "source /home/daru/.config/bash/nnn ; nnn -p {}",
+    # "source",
+    # "/home/daru/.config/bash/nnn",
+    # ";",
+    # "nnn",
+    ## "-aAcdHrQU",
+    # "-p",
+    # "{}",
+]
 
 ## Font used in the completion categories.
 ## Type: Font
@@ -1070,7 +1161,7 @@ c.input.media_keys = True
 ## Duration (in milliseconds) to show messages in the statusbar for. Set
 ## to 0 to never clear messages.
 ## Type: Int
-c.messages.timeout = 4000
+c.messages.timeout = 3000
 
 ## How to open links in an existing instance if a new one is launched.
 ## This happens when e.g. opening a link from a terminal. See
@@ -1084,7 +1175,7 @@ c.messages.timeout = 4000
 ##   - tab-bg-silent: Open a new background tab in the existing window without activating the window.
 ##   - window: Open in a new window.
 ##   - private-window: Open in a new private window.
-c.new_instance_open_target = 'tab-silent'
+c.new_instance_open_target = "tab-silent"
 
 ## Which window to choose when opening links as new tabs. When
 ## `new_instance_open_target` is set to `window`, this is ignored.
@@ -1215,7 +1306,7 @@ c.new_instance_open_target = 'tab-silent'
 ##   - never: Never show the scrollbar.
 ##   - when-searching: Show the scrollbar when searching for text in the webpage. With the QtWebKit backend, this is equal to `never`.
 ##   - overlay: Show an overlay scrollbar. On macOS, this is unavailable and equal to `when-searching`; with the QtWebKit backend, this is equal to `never`. Enabling/disabling overlay scrollbars requires a restart.
-# c.scrolling.bar = 'overlay'
+c.scrolling.bar = "overlay"
 
 ## Enable smooth scrolling for web pages. Note smooth scrolling does not
 ## work with the `:scroll-px` command.
@@ -1297,7 +1388,7 @@ c.search.incremental = False
 ##   - tr-TR: Turkish (Turkey)
 ##   - uk-UA: Ukrainian (Ukraine)
 ##   - vi-VN: Vietnamese (Viet Nam)
-c.spellcheck.languages = ['en-US', 'sk-SK']
+c.spellcheck.languages = ["en-US", "sk-SK"]
 
 ## Padding (in pixels) for the statusbar.
 ## Type: Padding
@@ -1463,7 +1554,7 @@ c.spellcheck.languages = ['en-US', 'sk-SK']
 ##   - bottom
 ##   - left
 ##   - right
-c.tabs.position = 'bottom'
+c.tabs.position = "bottom"
 
 ## Which tab to select when the focused tab is removed.
 ## Type: SelectOnRemove
@@ -1588,7 +1679,7 @@ c.tabs.show_switching_delay = 2000
 ## the search engine name to the search term, e.g. `:open google
 ## qutebrowser`.
 ## Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://search.brave.com/search?q={}'}
+c.url.searchengines = {"DEFAULT": "https://search.brave.com/search?q={}"}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl

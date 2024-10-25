@@ -12,12 +12,12 @@
 //    window.location.replace("http://yahoo.com")
 //}
 
-(function() {
+(function () {
   var url = location.href;
 
   // Old Reddit Redirect
   if (/(?:new|www)\.reddit\.com\//.test(url)) {
-    location.href = url.replace(/(?:new|www)\./, 'old.');
+    location.href = url.replace(/(?:new|www)\./, "old.");
     return;
   }
 
@@ -26,17 +26,16 @@
   //  location.href = url.replace(/www\.reddit\.com/, 'teddit.net.');
   //  return;
   //}
-  
+
   // Delete the cookie message
-  var x = document.getElementsByClassName("infobar-toaster-container");
-  for (var y of x) {
-    y.remove();
-  }
+  //var x = document.getElementsByClassName("infobar-toaster-container");
+  //for (var y of x) {
+  //  y.remove();
+  //}
 
   //Quora Redirect
-  if (/www\.quora\.com\//.test(url)) {
-    location.href = url.replace(/www\.quora\.com/, 'quetre.iket.me');
-    return;
-  }
-
+  //if (/www\.quora\.com\//.test(url)) {
+  //  location.href = url.replace(/www\.quora\.com/, 'quetre.iket.me');
+  //  return;
+  //}
 })();

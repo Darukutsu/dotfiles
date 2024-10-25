@@ -11,11 +11,12 @@
 with config.pattern("meet.element.io") as mel:
     mel.content.desktop_capture = True
     mel.content.media.audio_capture = True
-    # mel.content.media.audio_video_capture = True
-    # mel.content.media.video_capture = True
+    mel.content.media.audio_video_capture = True
+    mel.content.media.video_capture = True
 
-with config.pattern("element.io") as el:
+with config.pattern("app.element.io") as el:
     el.content.notifications.enabled = True
+    el.content.media.audio_capture = True
 
 with config.pattern("mail.proton.me") as pm:
     pm.content.register_protocol_handler = True
