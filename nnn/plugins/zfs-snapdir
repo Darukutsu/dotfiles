@@ -6,14 +6,18 @@
 # Shell: POSIX compliant
 # Author: Darukutsu
 #
-header=$(zfs get snapdir|head -n1|xargs -d"\n" printf "NTH %s")
+header=$(zfs get snapdir | head -n1 | xargs -d"\n" printf "NTH %s")
 
-choice=$(zfs get -H snapdir -t filesystem|awk -F'\t' '{printf("%-3d %-20s%-10s%-9s%-10s\n", NR, $1,$2,$3,$4)}'|fzf --tac --header="$header")
+choice=$(zfs get -H -t filesystem snapdir | awk -F'\t' '{
+width = 50;
+printf("%-3d %-*s %-10s %-10s\n",
+NR, width, $1, $3, $4)}' | fzf --tac --header="$header")
 
-path_to_dataset=$(echo "$choice"|tr -s " "|cut -d" " -f2)
-snapdir_value=$(echo "$choice"|tr -s " "|cut -d" " -f4)
+# TODO: according to liking maybe come up with variable width or max width
+#width = (length($1) > 25) ? 50 : 25;
 
-
+path_to_dataset=$(echo "$choice" | tr -s " " | cut -d" " -f2)
+snapdir_value=$(echo "$choice" | tr -s " " | cut -d" " -f4)
 
 if [ "$snapdir_value" = hidden ]; then
   snapdir_value=visible
