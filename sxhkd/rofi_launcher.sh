@@ -6,7 +6,7 @@ theme_applet="$XDG_CONFIG_HOME/rofi/applet.rasi"
 ## Run
 if [ "$1" = "combi" ]; then
   #rofi -modi "combi,emoji,calc" -show "combi"  -emoji-file "$path" -normal-window
-  rofi -modi "combi,calc" -show "combi" -combi-modes run -normal-window
+  rofi -modi "combi,calc" -show "combi" -combi-modes run,drun -normal-window
 elif [ "$1" = "window" ]; then
   rofi -show window -normal-window
 elif [ "$1" = "hidden-window" ]; then
