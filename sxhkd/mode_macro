@@ -31,7 +31,7 @@ p
 r
 	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
-        keystrokes -r; \
+        keystrokes -r
 
 # delete macro
 R
