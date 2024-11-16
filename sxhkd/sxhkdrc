@@ -98,6 +98,18 @@ super + c
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_control_panel
         #notify-send --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled";
 
+# doesn't work
+#
+ctrl + alt + e
+        rofimoji -f emojis kaomoji
+
+#
+# MACRO MODE
+#
+super + q
+        echo "mode_macro" >"$SXHKD_MODE_FILE"; \
+        notify-send --hint int:transient:1 "sxhkd" "Macro mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_macro
 
 #
 # BSPWM HOTKEYS
@@ -119,8 +131,8 @@ super + shift + Escape
 #	bspc {quit,wm -r}
 
 # close and kill
-alt + q
-	bspc node -c
+#alt + q
+#	bspc node -c
 ctrl + shift + q
 	bspc node -c
 
@@ -253,10 +265,19 @@ super + {1-9,0}
 # PRESELECT
 #
 
+# mark node
+super + shift + m
+	bspc node -g marked=on
+
 super + p
         echo "mode_preselect" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Preselect mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_preselect
+
+super + shift + p
+        echo "mode_passthrough" >"$SXHKD_MODE_FILE"; \
+        notify-send --hint int:transient:1 "sxhkd" "Passthrough mode enabled"; \
+        killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_passthrough
 
 #
 # MOVE/RESIZE

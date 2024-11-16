@@ -1,0 +1,43 @@
+# return to original sxhkd
+Escape
+        printf "" >"$SXHKD_MODE_FILE"; \
+        killall zscroll 2>/dev/null; \
+        killall sxhkd && sxhkd &
+
+# play macro with delayed keystrokes
+d
+        xdotool key Escape; \
+        delay=$(rofi -dmenu -p "Enter delay between keystrokes in ms: "); \
+        notify-send --hint int:transient:1 "sxhkd" "Playing macro"; \       
+        keystrokes -d $delay -p; \
+        notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
+
+# play macro n times 
+n
+        xdotool key Escape; \
+        times=$(rofi -dmenu -p "Enter repeat count: "); \
+        notify-send --hint int:transient:1 "sxhkd" "Playing macro $times times"; \       
+        keystrokes -n $times -p; \
+        notify-send --hint int:transient:1 "sxhkd" "Recording macro finished"
+
+# play macro
+p
+	xdotool key Escape; \
+        notify-send --hint int:transient:1 "sxhkd" "Playing macro"; \       
+        keystrokes -p; \
+        notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
+       
+# record macro
+r
+        notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
+        keystrokes -r; \
+
+# delete macro
+R
+	xdotool key Escape; \
+        keystrokes -R
+
+# forcestop macro recording
+s
+        keystrokes -s && \
+        notify-send --hint int:transient:1 "sxhkd" "Recording macro finished"
