@@ -29,6 +29,7 @@ p
        
 # record macro
 r
+	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
         keystrokes -r; \
 
@@ -36,8 +37,3 @@ r
 R
 	xdotool key Escape; \
         keystrokes -R
-
-# forcestop macro recording
-s
-        keystrokes -s && \
-        notify-send --hint int:transient:1 "sxhkd" "Recording macro finished"

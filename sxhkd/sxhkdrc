@@ -111,6 +111,10 @@ super + q
         notify-send --hint int:transient:1 "sxhkd" "Macro mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_macro
 
+super + control + q
+        keystrokes -s && \
+        notify-send --hint int:transient:1 "sxhkd" "Macro forcestopped"
+
 #
 # BSPWM HOTKEYS
 #
