@@ -20,6 +20,13 @@ n
         keystrokes -n $times -p; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro finished"
 
+# play mirrored macro
+m
+	xdotool key Escape; \
+        notify-send --hint int:transient:1 "sxhkd" "Playing mirrored macro"; \       
+        keystrokes -m -p; \
+        notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
+
 # play macro
 p
 	xdotool key Escape; \
@@ -31,7 +38,7 @@ p
 r
 	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
-        keystrokes -r
+        keystrokes -D "Corne Keyboard" -r
 
 # delete macro
 R
