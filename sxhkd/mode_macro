@@ -9,7 +9,7 @@ d
         xdotool key Escape; \
         delay=$(rofi -dmenu -p "Enter delay between keystrokes in ms: "); \
         notify-send --hint int:transient:1 "sxhkd" "Playing macro"; \       
-        keystrokes -d $delay -p; \
+        pkexec keystrokes -d $delay -p -x; \
         notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
 
 # play macro n times 
@@ -17,30 +17,30 @@ n
         xdotool key Escape; \
         times=$(rofi -dmenu -p "Enter repeat count: "); \
         notify-send --hint int:transient:1 "sxhkd" "Playing macro $times times"; \       
-        keystrokes -n $times -p; \
+        pkexec keystrokes -n $times -p -x; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro finished"
 
 # play mirrored macro
 m
 	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Playing mirrored macro"; \       
-        keystrokes -m -p; \
+        pkexec keystrokes -m -p -x; \
         notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
 
 # play macro
 p
 	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Playing macro"; \       
-        keystrokes -p; \
+        pkexec keystrokes -p -x; \
         notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
        
 # record macro
 r
 	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
-        keystrokes -D "Corne Keyboard" -r
+        pkexec keystrokes -D "Corne Keyboard" -r
 
 # delete macro
 R
 	xdotool key Escape; \
-        keystrokes -R
+        pkexec keystrokes -R

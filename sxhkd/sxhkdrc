@@ -112,7 +112,7 @@ super + q
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_macro
 
 super + control + q
-        keystrokes -s && \
+        pkexec keystrokes -s && \
         notify-send --hint int:transient:1 "sxhkd" "Macro forcestopped"
 
 #
