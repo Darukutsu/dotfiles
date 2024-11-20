@@ -106,6 +106,7 @@ ctrl + alt + e
 #
 # MACRO MODE
 #
+
 super + q
         echo "mode_macro" >"$SXHKD_MODE_FILE"; \
         notify-send --hint int:transient:1 "sxhkd" "Macro mode enabled"; \
