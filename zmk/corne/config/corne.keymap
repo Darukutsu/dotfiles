@@ -158,8 +158,6 @@ https://github.com/mh4x0f/zmkBATx
    &kp ESC   &kp A &kp R &kp S &kp T &kp G   &kp M &kp N  &kp E  &kp I   &kp O    &kp SQT
    &shift_caps &mt LGUI Z &kp X &kp C &kp D &kp V   &kp K &kp H  &kp COMMA &kp DOT &mt LGUI FSLH &mt RSHIFT RET
              &mod_sl LGUI SVK &lt VIM LBKT &mt LALT SPACE   &td_cmeh &lt PROG RBKT &key_repeat
-             //&td_gui &lt VIM LBKT &mt LALT SPACE   &td_cmeh &lt PROG RBKT &key_repeat
-             //&lm_sk SVK RALT
                         >;
                 };
 
@@ -174,14 +172,6 @@ https://github.com/mh4x0f/zmkBATx
                      &trans &trans &trans    &trans &trans &trans
                         >;
                 };
-//                colemak_qwertz_layer {
-//                        bindings = <
-//   &kp TAB   &kp Q &kp W &kp F &kp P &kp B   &kp J &kp L  &kp U  &kp Z   &kp SEMI &bspc_del
-//   &kp ESC   &kp A &kp R &kp S &kp T &kp G   &kp M &kp N  &kp E  &kp I   &kp O    &kp SQT
-//   &shift_caps &mt LGUI Y &kp X &kp C &kp D &kp V   &kp K &kp H  &kp COMMA &kp DOT &mt LGUI FSLH &mt RSHIFT RET
-//             &td_gui &lt VIM LBKT &mt LALT SPACE   &td_cmeh &lt PROG RBKT &key_repeat
-//                        >;
-//                };
 
 
 
@@ -216,7 +206,6 @@ https://github.com/mh4x0f/zmkBATx
                 };
                 gaming3_layer {
                         bindings = <
-   //&tog GAMING3 &kp Y &kp U  &kp I &kp O &kp P &kp SQT    &trans &trans &trans &trans &trans &trans
    &tog GAMING3 &kp Y &kp U  &kp I &kp O &kp P    &trans &trans &trans &trans &trans &trans
    &trans       &kp H &kp J  &kp K &kp L &kp SEMI         &trans &trans &trans &trans &trans &trans
    &trans       &kp N &kp M  &kp COMMA &kp DOT &kp FSLH   &trans &trans &trans &trans &trans &trans
@@ -241,14 +230,12 @@ https://github.com/mh4x0f/zmkBATx
    &kp ESC &kp INS &kp PSCRN &none &kp PG_DN &kp PG_UP    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp HOME &kp END
    &shift_caps &kp C_PP &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp PG_UP    &none &kp C_NEXT &kp C_PREV &kp C_BRI_UP &kp C_BRI_DN &none
                     	     &trans &none &trans    &trans &tog MOUSE &sl SETTINGS
-//&mod_sl LALT SETTINGS
                         >;
                 };
 
 
 
 
-//impl dynamic macro
                 programming_layer {
                         bindings = <
    &kp GRAVE &kp N1 &kp N2 &kp N3 &kp N4 &kp N5    &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS
