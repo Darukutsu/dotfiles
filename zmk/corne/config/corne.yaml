@@ -1,4 +1,4 @@
-layout: {qmk_keyboard: corne_rotated, qmk_layout: LAYOUT_split_3x6_3}
+layout: {qmk_keyboard: corne_rotated, layout_name: LAYOUT_split_3x6_3}
 layers:
   default:
   - TAB
@@ -37,7 +37,7 @@ layers:
   - .
   - {t: /, h: LGUI}
   - {t: RET, h: RSHIFT}
-  - '&td_gui'
+  - {t: slovak, h: LGUI}
   - {t: '[', h: vim}
   - {t: SPACE, h: LALT}
   - '&td_cmeh'
@@ -165,15 +165,15 @@ layers:
   - ','
   - .
   - /
-  - {t: RET, h: RSHIFT}
-  - ESC
-  - {t: LALT, h: gaming2}
+  - RET
+  - LALT
+  - {t: ESC, h: gaming2}
   - SPACE
   - {t: '[', h: vim}
   - {t: ']', h: programming}
   - RALT
   gaming2:
-  - {t: ▽, type: trans}
+  - {t: gaming3, h: toggle}
   - '1'
   - {t: ▽, type: trans}
   - '2'
@@ -185,7 +185,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: gaming4, h: toggle}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -197,12 +197,12 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - ESC
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - '='
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -211,6 +211,92 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  gaming3:
+  - {t: gaming3, h: toggle}
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - H
+  - J
+  - K
+  - L
+  - ;
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - N
+  - M
+  - ','
+  - .
+  - /
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  gaming4:
+  - {t: ▽, type: trans}
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: gaming4, h: toggle}
+  - ^
+  - '&'
+  - KP MULTIPLY
+  - (
+  - )
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - '='
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -305,6 +391,28 @@ layers:
   - {t: mouse, h: toggle}
   - ''
   - ''
+  - '&mmv MOVE_UP'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ESC
+  - ''
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - ''
+  - '&msc SCRL_LEFT'
+  - '&msc SCRL_DOWN'
+  - '&msc SCRL_UP'
+  - '&msc SCRL_RIGHT'
+  - ''
+  - ''
+  - LCTRL
   - ''
   - ''
   - ''
@@ -315,34 +423,12 @@ layers:
   - ''
   - ''
   - ''
+  - {t: RET, h: RSHIFT}
   - ''
   - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - '&mkp MB1'
+  - '&mkp MB2'
+  - '&mkp MB3'
   - ''
   slovak:
   - {t: ▽, type: trans}
@@ -352,6 +438,51 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: '&sk_lc_lower', s: '&sk_lc_upper'}
+  - {t: '&sk_ua_lower', s: '&sk_ua_upper'}
+  - {t: '&sk_ya_lower', s: '&sk_ya_upper'}
+  - {t: '&sk_ad_lower', s: '&sk_ad_upper'}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: '&sk_aa_lower', s: '&sk_aa_upper'}
+  - {t: '&sk_ra_lower', s: '&sk_ra_upper'}
+  - {t: '&sk_sc_lower', s: '&sk_sc_upper'}
+  - {t: '&sk_tc_lower', s: '&sk_tc_upper'}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: '&sk_nc_lower', s: '&sk_nc_upper'}
+  - {t: '&sk_ea_lower', s: '&sk_ea_upper'}
+  - {t: '&sk_ia_lower', s: '&sk_ia_upper'}
+  - {t: '&sk_oa_lower', s: '&sk_oa_upper'}
+  - {t: '&sk_ox_lower', s: '&sk_ox_upper'}
+  - {t: ▽, type: trans}
+  - {t: '&sk_zc_lower', s: '&sk_zc_upper'}
+  - {t: ▽, type: trans}
+  - {t: '&sk_cc_lower', s: '&sk_cc_upper'}
+  - {t: '&sk_dc_lower', s: '&sk_dc_upper'}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  numpad:
+  - {t: numpad, h: toggle}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LNLCK
+  - KP 7
+  - KP 8
+  - KP 9
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -361,6 +492,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - KP 4
+  - KP 5
+  - KP 6
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -370,27 +504,22 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - KP 1
+  - KP 2
+  - KP 3
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - KP 0
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   settings:
   - ''
   - ''
-  - ''
+  - {t: numpad, h: toggle}
   - {t: qwerty, h: toggle}
   - {t: gaming, h: toggle}
   - {t: colemak_qwertz, h: toggle}
@@ -423,7 +552,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - '&soft_off'
   - ''
   - {type: held}
   - ''

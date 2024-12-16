@@ -8,14 +8,19 @@
 to visualize keymap:
 https://nickcoutsos.github.io/keymap-editor/
 https://github.com/caksoylar/keymap-drawer
+to visualize battery without need of display
+https://github.com/mh4x0f/zmkBATx
 */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
 //#include <dt-bindings/zmk/ext_power.h>
+
+//#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // default: 600
+//#define ZMK_POINTING_DEFAULT_SCRL_VAL 20    // default: 10
+#include <dt-bindings/zmk/pointing.h>
 
 #define HOST_OS 1
 #include "zmk-helpers/helper.h"
@@ -211,7 +216,8 @@ https://github.com/caksoylar/keymap-drawer
                 };
                 gaming3_layer {
                         bindings = <
-   &tog GAMING3 &kp Y &kp U  &kp I &kp O &kp P &kp SQT    &trans &trans &trans &trans &trans &trans
+   //&tog GAMING3 &kp Y &kp U  &kp I &kp O &kp P &kp SQT    &trans &trans &trans &trans &trans &trans
+   &tog GAMING3 &kp Y &kp U  &kp I &kp O &kp P    &trans &trans &trans &trans &trans &trans
    &trans       &kp H &kp J  &kp K &kp L &kp SEMI         &trans &trans &trans &trans &trans &trans
    &trans       &kp N &kp M  &kp COMMA &kp DOT &kp FSLH   &trans &trans &trans &trans &trans &trans
                      &trans &trans &trans    &trans &trans &trans
@@ -257,10 +263,10 @@ https://github.com/caksoylar/keymap-drawer
 
                 mouse_layer {
                         bindings = <
-   &tog MOUSE &none &none &none &none &none    &none &none &none &none &none &none
-   &none &none &none &none &none &none    &none &none &none &none &none &none
-   &none &none &none &none &none &none    &none &none &none &none &none &none
-                     &none &none &none    &none &none &none
+   &tog MOUSE &none &none &mmv MOVE_UP &none &none    &none &none &none &none &none &none
+   &kp ESC &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none    &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT &none &none
+   &kp LCTRL  &none &none &none &none &none    &none &none &none &none &none &mt RSHIFT RET
+                     &none &none &mkp MB1    &mkp MB2 &mkp MB3 &none
                         >;
                 };
 

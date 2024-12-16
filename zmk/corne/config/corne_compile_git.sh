@@ -34,3 +34,12 @@ west build -p -b nice_nano_v2 -d build/left -- -DSHIELD="$ldshield" -DZMK_CONFIG
 
 west build -p -b nice_nano_v2 -d build/right -- -DSHIELD="$rdshield" -DZMK_CONFIG="$HOME/.config/zmk/corne/config" &&
   cp -f "$HOME"/.config/zmk/zmk/app/build/right/zephyr/zmk.uf2 zmk_right.uf2
+
+# generate using keymap-drawer layout svg
+keymap_drawer_conf=~/.config/zmk/corne/config/keymap_drawer_conf.yaml
+keymap_conf=~/.config/zmk/corne/config/corne.keymap
+keymap_yaml=~/.config/zmk/corne/config/corne.yaml
+svg_out=~/.config/zmk/corne/config/corne.keymap.svg
+
+keymap -c "$keymap_drawer_conf" parse -z "$keymap_conf" -o "$keymap_yaml"
+keymap -c "$keymap_drawer_conf" draw -o "$svg_out" "$keymap_yaml"
