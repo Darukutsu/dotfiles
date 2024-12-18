@@ -42,5 +42,9 @@ fcitx5 -rd --keep
 killall "otd-daemon"
 otd-daemon &
 
-killall "dunst"
-dunst &
+systemctl --user start dunst
+#killall "dunst"
+#dunst &
+
+killall "zmkbatx"
+zmkbatx &

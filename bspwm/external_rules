@@ -9,10 +9,11 @@
 # instance = WM_NAME
 # consequences = already applied rules
 
-wid=$1
-class=$2
-instance=$3
-consequences=$4
+wid="$1"
+class="$2"
+instance="$3" # it isn't what you'd think
+#instance=$(xprop -id $wid | grep WM_NAME)
+consequences="$4"
 
 # Meaning : Nodes spawned on X desktop
 #desktop_id=$(bspc subscribe -c 1 node_add|cut -d" " -f3)
@@ -36,6 +37,15 @@ if ! [[ "$class" =~ mpv ]] && ! [[ "$class" =~ yad ]] && ! [[ "$class" =~ rofi ]
     echo $follow
   fi
 fi
+
+#if [[ "$instance" == "Show Me The Key" ]]; then
+#  echo hidden=on
+#fi
+#
+#if [[ "$instance" == "Floating Show Me The Key" ]]; then
+#  echo floating=on
+#  echo rectangle=600x400+0+0
+#fi
 
 # drop-down terminal set _NET_WM_WINDOW_TYPE
 if [[ "$class" =~ kitty\-.* ]]; then
@@ -62,6 +72,11 @@ if [[ "$class" =~ .*rofi.* ]]; then
 fi
 
 ## GAMING
+if [[ "$class" =~ .*moonlight.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+fi
+
 if [[ "$class" =~ .*prism.* ]]; then
   echo "desktop=^10"
   echo "focus=off"
@@ -82,6 +97,12 @@ fi
 if [[ "$class" =~ .*cs2.* ]]; then
   echo "desktop=^10"
   echo "focus=off"
+fi
+
+if [[ "$class" =~ .*[wW]ar.* ]]; then
+  echo "desktop=^10"
+  echo "focus=off"
+  echo "managed=off"
 fi
 
 if [[ "$class" =~ .*csgo.* ]]; then
