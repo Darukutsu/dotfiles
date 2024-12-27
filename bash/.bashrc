@@ -54,8 +54,18 @@ if [ -n "$KITTY_REMOTE_SHELL" ]; then
   #curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh > install_zaje.sh
   #chmod +x install_zaje.sh
   #./install_zaje.sh
+  # rm ./install_zaje.sh
 
   echo "files were sourced successfully"
+fi
+
+export SYSTEMD_PAGERSECURE=true
+if command -v page >/dev/null; then
+  export PAGER="page -wWC -q 90000 -z 90000"
+  export SYSTEMD_PAGER="$PAGER"
+else
+  export PAGER="nvim -R -c BaleiaColorize"
+  export SYSTEMD_PAGER="$PAGER"
 fi
 
 export MANPAGER="$PAGER -t man"
@@ -78,6 +88,7 @@ man() {
         $PAGER man://"$1"
       fi
     else
+      export MANPAGER="nvim +Man!"
       /usr/bin/man "$2" "$1"
     fi
   else
@@ -91,7 +102,6 @@ HISTSIZE=10000     #writes to memory
 HISTFILESIZE=10000 #write to disk
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE='?:??:stty*'
-source /usr/share/blesh/ble.sh --norc
 # When the shell exits, append to the history file instead of overwriting it
 #shopt -s histappend
 # After each command, append to the history file and reread it
@@ -169,6 +179,10 @@ eval "$(zoxide init bash)"
 source "$XDG_CONFIG_HOME/zaje/zaje_functions.rc"
 
 if [[ ${BLE_VERSION-} ]]; then
+  #ble/debug/profiler/start a
+  #source /usr/share/blesh/ble.sh --norc
+  #source "$_ble_base/lib/vim-surround.sh"
+
   #bleopt canvas_winch_action=redraw-prev
 
   ble-import contrib/colorglass
@@ -177,6 +191,22 @@ if [[ ${BLE_VERSION-} ]]; then
   #bleopt colorglass_gamma=-50
   #bleopt colorglass_contrast=70
   #bleopt colorglass_brightness=-10
+
+  #bleopt line_limit_type=editor
+  #bleopt line_limit_length=1000
+  #bleopt history_limit_length=1000
+  bleopt exec_elapsed_enabled='usr+sys'
+  #bleopt history_default_point=preserve
+  # SPEED Enhancers these are defaults if commented
+  bleopt history_erasedups_limit=100
+  bleopt highlight_timeout_async=3000
+  #bleopt highlight_timeout_sync=50
+  #bleopt highlight_eval_word_limit=200
+  #bleopt complete_limit_auto=2000
+  #bleopt complete_limit_auto_menu=100
+  bleopt complete_timeout_auto=3000
+  #bleopt complete_timeout_compvar=200
+  #bleopt complete_polling_cycle=50
 
   # turn off history completion till ble.sh isn't fixed
   bleopt complete_auto_history=
@@ -193,8 +223,29 @@ if [[ ${BLE_VERSION-} ]]; then
     fi
   }
 
-  ble-bind -m vi_nmap -f Y daru/copy_readline
-  #ble-bind -m vi_nmap -x Y _copy_readline
+  function ble/widget/daru/copy_readline_end() {
+    #ble/widget/vi-command/operator C-v
+    ble/widget/vi_nmap/blockwise-visual-mode
+    ble/widget/vi-command/forward-eol
+    ble/widget/vi-command/operator y
+    if [ $XDG_SESSION_TYPE = x11 ]; then
+      ble/util/put "${_ble_edit_kill_ring[0]}" | xsel -bi
+    else
+      ble/util/put "${_ble_edit_kill_ring[0]}" | wl-copy
+    fi
+  }
+
+  ble-bind -m vi_nmap -f Y daru/copy_readline_end
+  ble-bind -m vi_nmap -f y daru/copy_readline
+  ble-bind -m vi_imap -f C-e edit-and-execute-command
+
+  ble-bind -m vi_nmap -f 'g g' vi-command/first-nol
+  ble-bind -m vi_omap -f 'g g' vi-command/first-nol
+  ble-bind -m vi_xmap -f 'g g' vi-command/first-nol
+  ble-bind -m vi_nmap -f 'G' vi-command/last-line
+  ble-bind -m vi_omap -f 'G' vi-command/last-line
+  ble-bind -m vi_xmap -f 'G' vi-command/last-line
+
   ble-bind -m vi_nmap -c 'g s' 'git status'
   ble-bind -m vi_nmap -c '; n' 'nn'
   #ble-bind -m vi_nmap -c '; h' 'h'
@@ -215,4 +266,5 @@ if [[ ${BLE_VERSION-} ]]; then
   #
 
   ble-attach
+  #ble/debug/profiler/stop
 fi
