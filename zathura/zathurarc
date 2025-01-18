@@ -23,7 +23,7 @@ include tokyonight_storm.zathurarc
 #include tokyonight_day.zathurarc
 
 # Configs
-set font monospace Book 11
+#set font monospace Book 11 # wrong set of options
 set selection-clipboard clipboard
 set scroll-page-aware true
 set show-hidden true

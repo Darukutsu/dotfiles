@@ -38,7 +38,7 @@ XF86Audio{Raise,Lower}Volume
 
 # Audio mute
 XF86AudioMute
-	pamixer -t
+	pamixer -t && "$XDG_CONFIG_HOME"/sxhkd/volume_notify.sh
 
 # Media controls
 XF86Audio{Play,Next,Prev}
@@ -101,7 +101,7 @@ super + c
 # doesn't work
 #
 ctrl + alt + e
-        rofimoji -f emojis kaomoji
+        rofimoji -f emoji kaomoji
 
 ## warpd
 super + x

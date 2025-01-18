@@ -69,9 +69,6 @@ local lsp_handlers = {
   ["clangd"] = function()
     require("plug/lsp/clangd")
   end,
-  ["ruff_lsp"] = function()
-    require("plug/lsp/ruff")
-  end,
   ["rust_analyzer"] = function()
     require("plug/lsp/rust-tools")
   end,
@@ -84,6 +81,11 @@ local lsp_handlers = {
 }
 
 require("mason-lspconfig").setup({
+  ensure_installed = {
+    "lua_ls",
+    "yamlls",
+    "bashls",
+  },
   --handlers = {
   --  lsp_zero.default_setup,
   --  jdtls = lsp_zero.noop,
@@ -130,7 +132,9 @@ require("mason-nvim-dap").setup({
 
 local mason_null = require("mason-null-ls")
 mason_null.setup({
-  ensure_installed = nil,
+  ensure_installed = {
+    "shfmt",
+  },
   --automatic_installation = true,
   automatic_setup = true,
   --methods = {

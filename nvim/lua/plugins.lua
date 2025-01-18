@@ -1,6 +1,7 @@
 return {
   'lambdalisue/suda.vim', -- write sudo if not in sudo
   'alx741/vinfo',         -- vim GNU info implementation <C-]> follow tag
+  --'lambdalisue/vim-pastefix', -- block CTRL-V paste
   --'HiPhish/info.vim'                    -- vim GNU info implementation
   --{
   --'linty-org/readline.nvim',             -- readline navigation for :, / or ?
@@ -38,6 +39,45 @@ return {
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
+  },
+  --{
+  --  'mikesmithgh/kitty-scrollback.nvim',
+  --  config = function()
+  --    require('kitty-scrollback').setup({
+  --      myconfig = {
+  --        kitty_get_text = {
+  --          ansi = false,
+  --        },
+  --      }
+  --    })
+  --  end,
+  --},
+  --'powerman/vim-plugin-AnsiEsc', -- escape ansi properly
+  {
+    "m00qek/baleia.nvim",
+    version = "*",
+    config = function()
+      vim.g.baleia = require("baleia").setup({
+        -- TODO: try again when fixed and displays properly
+        --strip_ansi_codes = true,
+        --colors = NR_256,
+      })
+
+      -- Command to colorize the current buffer
+      vim.api.nvim_create_user_command("BaleiaColorize", function()
+        vim.g.baleia.once(vim.api.nvim_get_current_buf())
+      end, { bang = true })
+
+      -- Command to show logs
+      vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
+
+      --vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+      --  pattern = "*",
+      --  callback = function()
+      --    vim.g.baleia.automatically(vim.api.nvim_get_current_buf())
+      --  end,
+      --})
+    end,
   },
   {
     "luukvbaal/nnn.nvim",
@@ -198,7 +238,8 @@ return {
   --}
 
   {
-    'NeogitOrg/neogit',          -- git integration
+    'NeogitOrg/neogit', -- git integration
+    event = "VeryLazy",
     dependencies = {
       'lewis6991/gitsigns.nvim', -- git time stamps
       'nvim-lua/plenary.nvim',

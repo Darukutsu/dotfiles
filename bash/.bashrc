@@ -3,8 +3,8 @@
 
 [[ $- == *i* ]] && source /usr/share/blesh/ble.sh --noattach
 shopt -u globstar
-# If not running interactively, don't do anything
 
+#ble/debug/profiler/start a
 ## Add this code after "source ble.sh ..."
 ## debuging ble.sh debug.txt
 #function debug/complete-load-hook {
@@ -29,8 +29,6 @@ shopt -u globstar
 #    timestamp-wrap.advice
 #}
 #blehook/eval-after-load complete debug/complete-load-hook
-
-[[ $- != *i* ]] && return
 
 ## OTHER VAR
 if [ -z "$XDG_CONFIG_HOME" ]; then
@@ -98,14 +96,19 @@ man() {
 }
 
 #just keep both same for same output
-HISTSIZE=10000     #writes to memory
-HISTFILESIZE=10000 #write to disk
+HISTSIZE=100000     #writes to memory
+HISTFILESIZE=100000 #write to disk
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE='?:??:stty*'
 # When the shell exits, append to the history file instead of overwriting it
-#shopt -s histappend
+shopt -s histappend
 # After each command, append to the history file and reread it
 #PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+eval "$(atuin init bash --disable-up-arrow)"
+
+## FZF readline search replacement
+#source "$XDG_CONFIG_HOME/bash/fzf.bash"
+#bind -f $XDG_CONFIG_HOME/bash/inputrc.fzf
 
 #export SESSION_SWITCH="dbus-run-session -- gnome-shell --display-server --wayland"
 
@@ -122,15 +125,16 @@ source "$XDG_CONFIG_HOME/bash/newt_colors"
 
 ## COMPLETION
 if [ -n "$KITTY_REMOTE_SHELL" ]; then
-  source "$XDG_DATA_HOME"/bash-completion/bash_completion
+  #source "$XDG_DATA_HOME"/bash-completion/bash_completion
   source "$XDG_DATA_HOME"/bash-complete-alias/complete_alias
 else
-  source /usr/share/bash-completion/bash_completion
+  #source /usr/share/bash-completion/bash_completion
   source /usr/share/bash-complete-alias/complete_alias
   eval "$(register-python-argcomplete pipx)"
 fi
 #shopt -s progcomp_alias
 complete -F _complete_alias SS
+complete -F _complete_alias saj
 #complete -F _man man
 
 # Enhanced file path completion in bash - https://github.com/sio/bash-complete-partial-path
@@ -139,10 +143,6 @@ complete -F _complete_alias SS
 #    source "$XDG_CONFIG_HOME/bash-complete-partial-path/bash_completion"
 #    _bcpp --defaults
 #fi
-
-## FZF readline search replacement
-source "$XDG_CONFIG_HOME/bash/fzf.bash"
-#bind -f $XDG_CONFIG_HOME/bash/inputrc.fzf
 
 ##POWERLINE
 source "$XDG_CONFIG_HOME/bash/powerline"
@@ -179,13 +179,14 @@ eval "$(zoxide init bash)"
 source "$XDG_CONFIG_HOME/zaje/zaje_functions.rc"
 
 if [[ ${BLE_VERSION-} ]]; then
-  #ble/debug/profiler/start a
-  #source /usr/share/blesh/ble.sh --norc
   #source "$_ble_base/lib/vim-surround.sh"
 
   #bleopt canvas_winch_action=redraw-prev
 
   ble-import contrib/colorglass
+  #ble-import contrib/histdb
+  ble-import contrib/integration/bash-completion
+  #ble-import contrib/airline/*
   ble-import -f integration/zoxide
   #bleopt term_true_colors=
   #bleopt colorglass_gamma=-50
@@ -216,7 +217,7 @@ if [[ ${BLE_VERSION-} ]]; then
   function ble/widget/daru/copy_readline() {
     ble/widget/vi-command/operator y
     ble/widget/vi-command/operator y
-    if [ $XDG_SESSION_TYPE = x11 ]; then
+    if [ "$XDG_SESSION_TYPE" = x11 ]; then
       ble/util/put "${_ble_edit_kill_ring[0]}" | xsel -bi
     else
       ble/util/put "${_ble_edit_kill_ring[0]}" | wl-copy
@@ -224,7 +225,6 @@ if [[ ${BLE_VERSION-} ]]; then
   }
 
   function ble/widget/daru/copy_readline_end() {
-    #ble/widget/vi-command/operator C-v
     ble/widget/vi_nmap/blockwise-visual-mode
     ble/widget/vi-command/forward-eol
     ble/widget/vi-command/operator y

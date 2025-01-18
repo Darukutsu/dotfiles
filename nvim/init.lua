@@ -26,6 +26,9 @@ end
 --require('plug/fcitx')
 --require('plug/suppress-errors')
 
+-- ZLS disable quickfix
+vim.g.zig_fmt_parse_errors = 0
+
 vim.cmd([[
   let g:neovide_scroll_animation_length = 0
   "let g:neovide_cursor_animate_command_line = v:false
@@ -68,7 +71,9 @@ vim.cmd([[
   " Alias
   command W noa wq
 
+  " Fucks with block pasting
   set clipboard+=unnamedplus
+  "set clipboard+=unnamed
 
   set cmdheight=0
 

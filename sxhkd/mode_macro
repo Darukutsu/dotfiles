@@ -38,7 +38,7 @@ p
 r
 	xdotool key Escape; \
         notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
-        pkexec-keystrokes -r -D "Corne Keyboard"
+        pkexec-keystrokes -r -x -D "Corne Keyboard"
 
 # delete macro
 R

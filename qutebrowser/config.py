@@ -439,7 +439,7 @@ c.content.default_encoding = "utf-8"
 ## QtWebEngine, writing the clipboard as response to a user interaction
 ## is always allowed.
 ## Type: Bool
-c.content.javascript.clipboard = "access"
+c.content.javascript.clipboard = "access-paste"
 
 ## Allow JavaScript to close tabs.
 ## Type: Bool
@@ -461,6 +461,13 @@ c.content.javascript.clipboard = "access"
 ## `error`.
 ## Type: Dict
 # c.content.javascript.log = {'unknown': 'debug', 'info': 'debug', 'warning': 'debug', 'error': 'debug'}
+
+c.content.javascript.log_message.excludes = {
+    "userscript:_qute_stylesheet": [
+        "*Refused to apply inline style because it violates the following Content Security Policy directive: *"
+    ],
+    "userscript:_qute_js": ["*TrustedHTML*"],
+}
 
 ## Use the standard JavaScript modal dialog for `alert()` and
 ## `confirm()`.

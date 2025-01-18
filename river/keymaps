@@ -55,17 +55,17 @@ riverctl map normal Super Apostrophe spawn \
 riverctl map normal Super V spawn \
   '"$XDG_CONFIG_HOME"/sxhkd/rofi_launcher.sh clipboard'
 
-# obs stop recording
-riverctl map normal Control Alt R spawn \
-  'obs --stoprecording'
-
 # emoji picker (because fcitx picker doesn't work)
 riverctl map normal Alt E spawn \
-  rofimoji
+  'rofimoji -f all'
 
 # Notification close
 riverctl map normal Super X spawn \
   'dunstctl close-all'
+
+# obs toggle recording
+riverctl map normal Control+Alt R spawn \
+  'obs-cmd recording toggle'
 
 # TODO:
 # Notification history control-panel

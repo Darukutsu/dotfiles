@@ -113,7 +113,7 @@ require('lualine').setup {
         end,
       },
     },
-    lualine_b = { '%l:%c', '%p%% %L' },
+    lualine_b = { '%l:%c', 'selectioncount', '%p%% %L' },
     lualine_x = { 'overseer' },
     lualine_y = { 'filetype', search_result },
     lualine_z = {

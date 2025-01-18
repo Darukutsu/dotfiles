@@ -11,14 +11,11 @@ riverctl rule-add -app-id 'combo-kitty2' tags $RIVER_SCRATCH_TAG3
 riverctl rule-add -app-id 'combo-kitty3' tags $RIVER_SCRATCH_TAG3
 riverctl rule-add -app-id 'combo-kitty4' tags $RIVER_SCRATCH_TAG3
 
-riverctl rule-add -app-id 'mpv' ssd
 riverctl rule-add -app-id 'mpv' float
 riverctl rule-add -app-id 'mpv' dimensions 550 350
 riverctl rule-add -app-id 'mpv' position 1340 660
 # will be visible on every workspace
 riverctl rule-add -app-id 'mpv' tags $((0x1ff))
-riverctl rule-add -app-id 'kitty' ssd
-riverctl rule-add -app-id 'firefox*' ssd
 
 riverctl rule-add -app-id "kdenlive" tags $((1 << 3))
 riverctl rule-add -app-id "Gimp" tags $((1 << 4))

@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local unmap = vim.keymap.del
 
 --vim.cmd([[
 --noremap k m
@@ -21,6 +22,7 @@ local map = vim.keymap.set
 --"noremap I L
 --"map H H
 --]])
+
 map({ "t" }, "<C-S-h>", "<C-\\><C-n>")
 
 vim.g.mapleader = " "
@@ -190,8 +192,8 @@ map({ "n" }, "<leader><leader>f", function() vim.lsp.buf.format({ async = false 
 map({ "n" }, "K", "i<CR><Esc>g;", {})
 
 -- Move highlighted text
-map({ "v" }, "J", ":m '>+1<cr>gv=gv", {})
-map({ "v" }, "K", ":m '<-2<cr>gv=gv", {})
+map({ "v" }, "<M-j>", ":m '>+1<cr>gv=gv", {})
+map({ "v" }, "<M-k>", ":m '<-2<cr>gv=gv", {})
 
 -- Paste single line N times for visual block
 --local function paste_mul()
@@ -251,7 +253,7 @@ map({ "n" }, "X", "\"bX", {})
 --xnoremap <leader>k \"_dP
 
 -- Telescope shortcut
-map({ "n" }, "<leader>f", ":Telescope find_files<cr>", { desc = "jump files" })
+map({ "n" }, "<leader>f", function() vim.find_files_from_project_git_root() end, { desc = "jump files" })
 map({ "n" }, "<leader><Tab>", ":Telescope buffers<cr>", { desc = "jump buffers" })
 
 map({ "n" }, "<leader>c", ":Telescope commands<cr>")
