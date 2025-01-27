@@ -1,0 +1,54 @@
+["gx_plugin_version", 1,
+  "nito", {
+    "graphiceq.g1": 0,
+    "graphiceq.g10": 0,
+    "graphiceq.g11": 0,
+    "graphiceq.g2": 10,
+    "graphiceq.g3": 10,
+    "graphiceq.g4": 15,
+    "graphiceq.g5": 17,
+    "graphiceq.g6": 20,
+    "graphiceq.g7": 0,
+    "graphiceq.g8": 0,
+    "graphiceq.g9": 0
+  },
+  "nito2", {
+    "graphiceq.g1": 0,
+    "graphiceq.g10": 5,
+    "graphiceq.g11": 0,
+    "graphiceq.g2": 10,
+    "graphiceq.g3": 10,
+    "graphiceq.g4": 15,
+    "graphiceq.g5": 17,
+    "graphiceq.g6": 20,
+    "graphiceq.g7": 20,
+    "graphiceq.g8": 15,
+    "graphiceq.g9": 10
+  },
+  "nito3", {
+    "graphiceq.g1": -30,
+    "graphiceq.g10": -30,
+    "graphiceq.g11": -30,
+    "graphiceq.g2": -20,
+    "graphiceq.g3": -15,
+    "graphiceq.g4": -10,
+    "graphiceq.g5": -5.25009,
+    "graphiceq.g6": -0.225721,
+    "graphiceq.g7": 4.2111,
+    "graphiceq.g8": 7.89263,
+    "graphiceq.g9": 0
+  },
+  "nito4", {
+    "graphiceq.g1": -30,
+    "graphiceq.g10": 20,
+    "graphiceq.g11": 20,
+    "graphiceq.g2": -20,
+    "graphiceq.g3": -15,
+    "graphiceq.g4": -10,
+    "graphiceq.g5": -5,
+    "graphiceq.g6": 0,
+    "graphiceq.g7": 4,
+    "graphiceq.g8": 8,
+    "graphiceq.g9": -10
+  }
+]
