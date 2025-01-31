@@ -15,7 +15,7 @@ right_battery=$(
     grep '^.Value' | grep -Eo '[0-9]+' | tail -n1
 )
 
-if [ -z "$right_battery" ]; then
+if [ -n "$right_battery" ]; then
   echo " $left_battery  $right_battery"
 else
   echo ""
