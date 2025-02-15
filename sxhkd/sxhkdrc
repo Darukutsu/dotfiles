@@ -103,10 +103,15 @@ super + c
 ctrl + alt + e
         rofimoji -f emoji kaomoji
 
-## warpd
+# warpd click
 super + x
         warpd --hint2 --oneshot --click 1
 
+# warpd drag
+super + x
+        warpd --hint --drag
+
+# warpd normal mouse move
 super + alt + x
         warpd --normal
 
@@ -120,7 +125,7 @@ super + q
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_macro
 
 super + control + q
-        pkexec keystrokes -s && \
+        keystrokes -s && \
         notify-send -t 3000 --hint int:transient:1 "sxhkd" "Macro forcestopped"
 
 #
@@ -312,11 +317,15 @@ super + w
 # button9 side-front
 # button8 side-back
 # button1 left
-# button2 right
+# button2 wheel
+# button3 right
 
 # maximize/minimize a window
 super + button9
-       bspc node -f pointed; bspc node -t ~fullscreen
+        bspc node -f pointed; bspc node -t ~fullscreen
+
+super + @button2
+        "$XDG_CONFIG_HOME"/sxhkd/colorpicker.sh
 
 #button9 + button8
 #       bspc node -t ~fullscreen

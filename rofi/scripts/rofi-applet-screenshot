@@ -42,15 +42,14 @@ fi
 
 # Rofi CMD
 rofi_cmd() {
-  #rofi -theme-str "window {width: $win_width;}" \
   rofi -theme-str "listview {columns: $list_col; lines: $list_row;}" \
     -theme-str 'textbox-prompt-colon {str: "";}' \
     -dmenu \
     -p "$prompt" \
     -mesg "$mesg" \
     -markup-rows \
-    -theme ${theme} \
-    -normal-window
+    -theme ${theme}
+  #-normal-window
 }
 
 # Pass variables to rofi dmenu
@@ -87,6 +86,11 @@ copy_shot() {
     tee "$file" | xclip -selection clipboard -t image/png
   else
     tee "$file" | wl-copy -t image/png
+  fi
+
+  if ! [ -s "$file" ]; then
+    rm "$file"
+    exit 1
   fi
 }
 
@@ -125,15 +129,16 @@ recordwin() {
 
 shotwin() {
   cd ${dir} && menyoki -q capture -f --select png save "-" | copy_shot && notify_view
+  #  cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot && notify_view
 }
-#shotwin () {
-#  cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot && notify_view
-#}
 
 # with mouse
 shotarea() {
+  #set -e
+  #set -o pipefail
   if [ $XDG_SESSION_TYPE = x11 ]; then
-    cd ${dir} && maim -u -f png -s -D -b 2 -c 0.35,0.55,0.85,0.25 | copy_shot && notify_view
+    cd ${dir} && maim -u -f png -s -k -b 2 | copy_shot && notify_view
+    #cd ${dir} && maim -u -f png -s -k -b 2 -c 0.35,0.55,0.85,0.25 | copy_shot && notify_view
   else
     cd ${dir} && sleep 0.5 && slurp | grim -g - - | copy_shot && notify_view
   fi

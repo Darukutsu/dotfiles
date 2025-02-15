@@ -3,7 +3,7 @@
 
 wids=$(bspc query -N -n .local.hidden)
 
-for wid in $wids;do
+for wid in $wids; do
   wclass=$(xdotool getwindowclassname "$wid")
   wname=$(xdotool getwindowname "$wid")
   #if [ -n "$wclass" ]; then
@@ -18,7 +18,7 @@ done
 #done
 warr_rofi=$(paste <(printf "%s\n" "${warr[@]}") <(printf "\twid: %s\n" "${widarr[@]}"))
 
-choice=$(rofi -dmenu -p "Unhide Window" -normal-window <<< "$warr_rofi")
+choice=$(rofi -dmenu -p "Unhide Window" <<<"$warr_rofi") #-normal-window <<< "$warr_rofi")
 
 wid=$(echo "$choice" | awk -F"wid: #" '{print $2}')
 

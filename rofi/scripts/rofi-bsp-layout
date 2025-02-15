@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-if [ -n "$1" ];then
+if [ -n "$1" ]; then
   msg="BSPWM Layouts Persistent"
 else
   msg="BSPWM Layouts"
 fi
 
-layout=$(bsp-layout layouts | rofi -dmenu -p "$msg" -i -normal-window)
+layout=$(bsp-layout layouts | rofi -dmenu -p "$msg" -i) #-normal-window)
 
-if [ -n "$layout" ];then
-  if [ -n "$1" ];then
+if [ -n "$layout" ]; then
+  if [ -n "$1" ]; then
     bsp-layout set "$layout"
   else
     bsp-layout once "$layout"

@@ -48,8 +48,8 @@ rofi_cmd() {
     -p "$prompt" \
     -mesg "$mesg" \
     -markup-rows \
-    -theme ${theme} \
-    -normal-window
+    -theme ${theme}
+  #-normal-window
 }
 
 # Pass variables to rofi dmenu
