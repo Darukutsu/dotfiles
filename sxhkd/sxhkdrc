@@ -78,7 +78,7 @@ alt + Tab
 
 # screenlock
 #super + alt + BackSpace
-#	bslock
+#	bslock && dunstctl set-paused true
 
 # bitwarden
 super + apostrophe
@@ -94,9 +94,9 @@ super + u
 
 # Notification history control-panel
 super + c
+        "$XDG_CONFIG_HOME"/sxhkd/history_notify.sh show; \
         echo "mode_control_panel" >"$SXHKD_MODE_FILE"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_control_panel
-        #notify-send -t 3000 --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled";
 
 # doesn't work
 #
