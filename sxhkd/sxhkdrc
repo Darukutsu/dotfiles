@@ -121,12 +121,12 @@ super + alt + x
 
 super + q
         echo "mode_macro" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Macro mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Macro mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_macro
 
 super + control + q
         keystrokes -s && \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Macro forcestopped"
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Macro forcestopped"
 
 #
 # BSPWM HOTKEYS
@@ -138,7 +138,7 @@ super + control + q
 
 # make sxhkd reload its configuration files:
 super + Escape
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Restarting sxhkd"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Restarting sxhkd"; \
 	killall "sxhkd"; xmodmap "$XDG_CONFIG_HOME/bspwm/Xmodmap"; sxhkd &
 
 # quit/restart bspwm
@@ -172,7 +172,7 @@ super + {t,s,f}
 # hide mode
 super + h
         echo "mode_hide" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Hide mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Hide mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_hide
         
 # make window appear in below level to be able to record
@@ -262,12 +262,12 @@ super + {j,k}
 
 super + o
         echo "mode_focus" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_focus
 
 super + a
         echo "mode_focus" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Focus/Swap mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_focus
 
 # send focused window to the given desktop
@@ -288,12 +288,12 @@ super + shift + m
 
 super + p
         echo "mode_preselect" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Preselect mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Preselect mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_preselect
 
 super + shift + p
         echo "mode_passthrough" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Passthrough mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Passthrough mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_passthrough
 
 #
@@ -302,13 +302,13 @@ super + shift + p
 
 super + r
         echo "mode_resize" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Resize mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Resize mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_resize
 
 # move a floating window
 super + w
         echo "mode_move" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Move mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Move mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_move
 
 #
@@ -335,5 +335,5 @@ super + @button2
 #
 super + d
         echo "mode_draw" >"$SXHKD_MODE_FILE"; \
-        notify-send -t 3000 --hint int:transient:1 "sxhkd" "Draw mode enabled"; \
+        notify-send -a "system-sxhkd" -t 3000 --hint int:transient:1 "sxhkd" "Draw mode enabled"; \
         killall sxhkd && sxhkd -c "$XDG_CONFIG_HOME"/sxhkd/mode_draw

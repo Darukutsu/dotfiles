@@ -5,4 +5,4 @@ if [ $(pamixer --get-mute) = true ]; then
 fi
 
 volume=$(pamixer --get-volume)
-dunstify -a "changevolume" -r 9993 -h int:value:"$volume" ""$muted"Volume: ${volume}%" -t 1000
+dunstify -a "changevolume" -h int:value:"$volume" ""$muted"Volume: ${volume}%" -t 1000

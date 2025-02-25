@@ -8,39 +8,39 @@ Escape
 d
         xdotool key Escape; \
         delay=$(rofi -dmenu -p "Enter delay between keystrokes in ms: "); \
-        notify-send --hint int:transient:1 "sxhkd" "Playing macro"; \       
-        pkexec keystrokes -d $delay -p -x; \
-        notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing macro"; \       
+        keystrokes -d $delay -p; \
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing macro finished"
 
 # play macro n times 
 n
         xdotool key Escape; \
         times=$(rofi -dmenu -p "Enter repeat count: "); \
-        notify-send --hint int:transient:1 "sxhkd" "Playing macro $times times"; \       
-        pkexec keystrokes -n $times -p -x; \
-        notify-send --hint int:transient:1 "sxhkd" "Recording macro finished"
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing macro $times times"; \       
+        keystrokes -n $times -p; \
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Recording macro finished"
 
 # play mirrored macro
 m
 	xdotool key Escape; \
-        notify-send --hint int:transient:1 "sxhkd" "Playing mirrored macro"; \       
-        pkexec keystrokes -m -p -x; \
-        notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing mirrored macro"; \       
+        keystrokes -m -p; \
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing macro finished"
 
 # play macro
 p
 	xdotool key Escape; \
-        notify-send --hint int:transient:1 "sxhkd" "Playing macro"; \       
-        pkexec keystrokes -p -x; \
-        notify-send --hint int:transient:1 "sxhkd" "Playing macro finished"
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing macro"; \       
+        keystrokes -p; \
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Playing macro finished"
        
 # record macro
 r
 	xdotool key Escape; \
-        notify-send --hint int:transient:1 "sxhkd" "Recording macro"; \       
-        pkexec-keystrokes -r -x -D "Corne Keyboard"
+        notify-send -a "system-sxhkd" --hint int:transient:1 "sxhkd" "Recording macro"; \       
+        keystrokes -r -D "Corne Keyboard" "M705"
 
 # delete macro
 R
 	xdotool key Escape; \
-        pkexec keystrokes -R
+        keystrokes -R
