@@ -191,9 +191,10 @@ map({ "n" }, "<leader><leader>f", function() vim.lsp.buf.format({ async = false 
 -- Split lines under the cursor
 map({ "n" }, "K", "i<CR><Esc>g;", {})
 
+-- NOTE: use mini.move instead
 -- Move highlighted text
-map({ "v" }, "<M-j>", ":m '>+1<cr>gv=gv", {})
-map({ "v" }, "<M-k>", ":m '<-2<cr>gv=gv", {})
+--map({ "v" }, "<M-j>", ":m '>+1<cr>gv=gv", {})
+--map({ "v" }, "<M-k>", ":m '<-2<cr>gv=gv", {})
 
 -- Paste single line N times for visual block
 --local function paste_mul()

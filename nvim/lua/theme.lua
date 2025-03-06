@@ -198,8 +198,5 @@ require("tokyonight").setup({
 vim.opt.termguicolors = true
 
 vim.cmd([[
-"colorscheme tokyonight-night
 colorscheme tokyonight-storm
-"colorscheme tokyonight-day
-"colorscheme nord
 ]])

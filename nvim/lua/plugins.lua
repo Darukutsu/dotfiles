@@ -80,6 +80,13 @@ return {
     end,
   },
   {
+    'echasnovski/mini.nvim',
+    version = false,
+    config = function()
+      require('plug/mini')
+    end,
+  },
+  {
     "luukvbaal/nnn.nvim",
     config = function()
       require("nnn").setup({
@@ -333,6 +340,7 @@ return {
     dependencies = {
       { 'nvim-tree/nvim-web-devicons' },
       { 'folke/tokyonight.nvim' },
+      { 'alexxGmZ/e-ink.nvim' },
       --{ 'shaunsingh/nord.nvim' },
     },
     config = function()

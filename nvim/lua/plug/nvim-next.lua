@@ -10,6 +10,8 @@ require("nvim-next").setup({
   },
 })
 
+require("nvim-next.integrations").treesitter_textobjects()
+
 --local next = require("nvim-next").setup()
 --vim.keymap.set("n", "f", next.make_repeatable_pair(functions.F, functions.f)) -- (prev, next)
 --vim.keymap.set("n", "F", next.make_repeatable_pair(functions.f, functions.F))
