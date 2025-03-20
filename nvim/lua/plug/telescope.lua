@@ -48,7 +48,7 @@ local function ivy()
       vertical = {
         size = {
           width = "100%",
-          height = "50%",
+          height = "60%",
         },
       },
     },
@@ -169,20 +169,20 @@ local function ivy()
 
       local box_by_kind = {
         vertical = Layout.Box({
-          Layout.Box(preview, { grow = 1 }),
+          Layout.Box(preview, { grow = 2 }),
           Layout.Box(results, { grow = 1 }),
-          Layout.Box(prompt, { size = 3 }),
+          Layout.Box(prompt, { size = 2 }),
         }, { dir = "col" }),
         horizontal = Layout.Box({
           Layout.Box({
             Layout.Box(results, { grow = 1 }),
-            Layout.Box(prompt, { size = 3 }),
+            Layout.Box(prompt, { size = 2 }),
           }, { dir = "col", size = "50%" }),
           Layout.Box(preview, { size = "50%" }),
         }, { dir = "row" }),
         minimal = Layout.Box({
           Layout.Box(results, { grow = 1 }),
-          Layout.Box(prompt, { size = 3 }),
+          Layout.Box(prompt, { size = 2 }),
         }, { dir = "col" }),
       }
 
@@ -196,9 +196,9 @@ local function ivy()
         local box_kind = "horizontal"
         if width < 120 then
           box_kind = "vertical"
-          if height < 40 then
-            box_kind = "minimal"
-          end
+          --if height < 40 then
+          --  box_kind = "minimal"
+          --end
         end
         return box_by_kind[box_kind], box_kind
       end
@@ -251,14 +251,14 @@ local function cursor()
 end
 
 tel.setup({
-  defaults = cursor(),
+  defaults = ivy(),
   pickers = {
     buffers = ivy(),
     live_grep = ivy(),
     find_files = ivy(),
     current_buffer_fuzzy_find = ivy(),
     undo = ivy(),
-    --diagnostics = cursor(),
+    diagnostics = ivy(),
     --lsp_document_symbols = cursor(),
     keymaps = ivy(),
     vim_options = ivy(),
@@ -269,13 +269,17 @@ tel.setup({
     --notify = ivy(),
     undo = {
       side_by_side = true,
-      --layout_strategy = "vertical",
-      --layout_config = {
-      --  preview_height = 0.8,
-      --},
     },
+    -- FIX: no idea what does this
+    --lsp_handlers = {
+    --  code_action = {
+    --    telescope = require('telescope.themes').get_dropdown({}),
+    --  },
+    --},
   },
 })
+
+vim.cmd("autocmd User TelescopePreviewerLoaded setlocal number")
 
 function vim.find_files_from_project_git_root()
   local function is_git_repo()
@@ -298,3 +302,5 @@ end
 tel.load_extension("undo")
 tel.load_extension("dap")
 tel.load_extension("ui-select")
+tel.load_extension('lsp_handlers')
+--tel.load_extension("macros")

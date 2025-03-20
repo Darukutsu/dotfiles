@@ -169,8 +169,10 @@ map({ "n" }, "<leader><leader>m", ":MarkdownPreviewToggle<cr>", { desc = "markdo
 map({ "n" }, "<leader>G", ":Neogit<cr>", { desc = "neogit" })
 
 -- Gitsigns
+map({ "n" }, "<leader>gb", ":Gitsigns blame<cr>", {})
+map({ "n" }, "<leader>gl", ":Gitsigns blame_line<cr>", {})
+--map({ "n" }, "<leader>gb", ":Gitsigns toggle_current_line_blame<cr>", {})
 map({ "n" }, "<leader>gh", ":Gitsigns preview_hunk<cr>", {})
-map({ "n" }, "<leader>gb", ":Gitsigns toggle_current_line_blame<cr>", {})
 map({ "n" }, "<leader>gn", ":Gitsigns next_hunk<cr>", {})
 map({ "n" }, "<leader>gp", ":Gitsigns prev_hunk<cr>", {})
 
@@ -210,10 +212,14 @@ map({ "n" }, "K", "i<CR><Esc>g;", {})
 
 
 -- Navigation
-map({ "n" }, "g[", function() vim.diagnostic.goto_prev() end, {})
-map({ "n" }, "g]", function() vim.diagnostic.goto_next() end, {})
+map({ "n" }, "dp", function() vim.diagnostic.goto_prev() end, {})
+map({ "n" }, "dn", function() vim.diagnostic.goto_next() end, {})
 map({ "n" }, "gd", function() vim.lsp.buf.definition() end, {})
+map({ "n" }, "gm", function() vim.lsp.buf.implementation() end, {})
+map({ "n" }, "gp", function() vim.lsp.buf.document_symbol() end, {})
 map({ "n" }, "gr", function() vim.lsp.buf.references() end, {})
+map({ "n" }, "g[", "<C-o>", {})
+map({ "n" }, "g]", "<C-i>", {})
 map({ "n" }, "gl", "``", {})
 map({ "n" }, "gL", "''", {})
 map({ "n" }, "<leader>R", function() vim.lsp.buf.rename() end, { desc = "LSP Rename cursor" })
@@ -263,13 +269,13 @@ map({ "n" }, "<leader>v", ":Telescope vim_options<cr>")
 
 map({ "n" }, "<leader>?a", function() vim.lsp.buf.code_action() end, { desc = "code actions" })
 map({ "n" }, "<leader>?k", ":Telescope keymaps<cr>", { desc = "keymaps" })
-map({ "n" }, "<leader>?s", ":Telescope lsp_document_symbols<cr>", { desc = "document symbols" })
-map({ "n" }, "<leader>?S", ":Telescope lsp_document_symbols<cr>", { desc = "workspace symbols" })
 map({ "n" }, "<leader>?d", ":Telescope diagnostics bufnr=0<cr>", { desc = "workspace diagnostics" })
 map({ "n" }, "<leader>?D", ":Telescope diagnostics<cr>", { desc = "workspace diagnostics" })
 
 map({ "n" }, "\\", ":Telescope current_buffer_fuzzy_find<cr>", { desc = "fzf cur_buffer" })
 map({ "n" }, "<leader>/", ":Telescope live_grep<cr>", { desc = "telescope grep buffers" })
+map({ "n" }, "<leader>m", ":Telescope marks mark_type=local<cr>", { desc = "telescope marks local" })
+map({ "n" }, "<leader>M", ":Telescope marks mark_type=global<cr>", { desc = "telescope marks global" })
 
 map({ "n" }, "<leader>u", ":Telescope undo<cr>", { desc = "telescope undo" })
 
@@ -280,6 +286,9 @@ map({ "n" }, "<leader>du", function() require("dapui").toggle() end)
 
 -- Notification history
 map({ "n" }, "<leader>n", ":Telescope notify<cr>", { desc = "notification history" })
+
+-- NeoComposer Macros
+--map({ "n" }, "<leader>q", ":Telescope macros<cr>", { desc = "neocomposer macros" })
 
 -- Overseer
 map({ "n" }, "<leader>o", ":OverseerRun<cr>", { desc = "Overseer run command" })

@@ -28,15 +28,8 @@ return {
     config = function()
       --require('plug/noice')
     end,
-    opts = {
-      -- add any options here
-    },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
   },
@@ -123,6 +116,8 @@ return {
       --require('plug/notify')
     end,
   },
+  -- marks are for jumps within work file
+  -- harpoon for jumps over work files
   {
     'chentoast/marks.nvim', -- mark hint on side
     config = function()
@@ -152,6 +147,8 @@ return {
   },
   {
     'folke/which-key.nvim', -- key help floating while typing
+    event = "VeryLazy",
+    opts = {},
   },
   {
     'lukas-reineke/indent-blankline.nvim', -- indent show
@@ -220,11 +217,11 @@ return {
     build = function() vim.fn['mkdp#util#install']() end,
   },
 
+  -- I personaly use telescope
   --{ -- better quickfix window
   --  'kevinhwang91/nvim-bqf',
   --  ft = 'qf',
   --  dependencies = {
-  --    -- optional
   --    {
   --      'junegunn/fzf',
   --      build = function()
@@ -233,6 +230,14 @@ return {
   --    }
   --  }
   --},
+
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function()
+      require('plug/ufo')
+    end,
+  },
 
   --use{
   --  'anuvyklack/pretty-fold.nvim',
@@ -250,12 +255,13 @@ return {
     dependencies = {
       'lewis6991/gitsigns.nvim', -- git time stamps
       'nvim-lua/plenary.nvim',
+      "nvim-telescope/telescope.nvim",
       'sindrets/diffview.nvim',
       'nvim-tree/nvim-web-devicons'
     },
     config = function()
       require('plug/neogit')
-      require('gitsigns').setup()
+      require('plug/gitsigns')
     end,
   },
 
@@ -322,6 +328,26 @@ return {
   },
 
   {
+    "chrisgrieser/nvim-recorder",
+    dependencies = "rcarriga/nvim-notify",
+    config = function()
+      require('plug/nvim-recorder')
+    end,
+  },
+
+  --{
+  --  'ecthelionvi/NeoComposer.nvim',
+  --  dependencies = {
+  --    { 'kkharji/sqlite.lua' },
+  --    { 'nvim-telescope/telescope.nvim' },
+  --    { 'nvim-lualine/lualine.nvim' },
+  --  },
+  --  config = function()
+  --    require('plug/neocomposer')
+  --  end,
+  --},
+
+  {
     'nvim-telescope/telescope.nvim',
     dependencies = {
       { 'MunifTanjim/nui.nvim' },
@@ -329,6 +355,7 @@ return {
       { 'debugloop/telescope-undo.nvim' },
       { 'nvim-telescope/telescope-dap.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
+      { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
     },
     config = function()
       require('plug/telescope')

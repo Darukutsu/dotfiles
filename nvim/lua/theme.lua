@@ -20,7 +20,6 @@ function empty:draw(default_highlight)
   return self.status
 end
 
--- Put proper separators and gaps between components in sections
 local function process_sections(sections)
   for name, section in pairs(sections) do
     local left = name:sub(9, 10) < 'x'
@@ -51,17 +50,6 @@ local function search_result()
   return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
 end
 
---local function modified_color()
---  if vim.bo.modified then
---    color = { bg = colors.violet }
---    return color
---  elseif vim.bo.modifiable == false or vim.bo.readonly == true then
---    color = { bg = colors.red }
---    return color
---  end
---  return ''
---end
-
 local function modified()
   if vim.bo.modified then
     return ''
@@ -77,7 +65,10 @@ require('lualine').setup {
     section_separators = { left = '', right = '' },
   },
   sections = process_sections {
-    lualine_a = { 'mode' },
+    lualine_a = {
+      'mode',
+      --{ require('NeoComposer.ui').status_recording },
+    },
     lualine_c = {
       'branch',
       'diff',
@@ -115,7 +106,10 @@ require('lualine').setup {
     },
     lualine_b = { '%l:%c', 'selectioncount', '%p%% %L' },
     lualine_x = { 'overseer' },
-    lualine_y = { 'filetype', search_result },
+    lualine_y = {
+      search_result,
+      'filetype',
+    },
     lualine_z = {
       'encoding',
       'fileformat',
