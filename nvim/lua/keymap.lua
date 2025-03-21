@@ -169,6 +169,7 @@ map({ "n" }, "<leader><leader>m", ":MarkdownPreviewToggle<cr>", { desc = "markdo
 map({ "n" }, "<leader>G", ":Neogit<cr>", { desc = "neogit" })
 
 -- Gitsigns
+map({ "n" }, "<leader>gu", function() Snacks.gitbrowse() end, {})
 map({ "n" }, "<leader>gb", ":Gitsigns blame<cr>", {})
 map({ "n" }, "<leader>gl", ":Gitsigns blame_line<cr>", {})
 --map({ "n" }, "<leader>gb", ":Gitsigns toggle_current_line_blame<cr>", {})
@@ -218,6 +219,8 @@ map({ "n" }, "gd", function() vim.lsp.buf.definition() end, {})
 map({ "n" }, "gm", function() vim.lsp.buf.implementation() end, {})
 map({ "n" }, "gp", function() vim.lsp.buf.document_symbol() end, {})
 map({ "n" }, "gr", function() vim.lsp.buf.references() end, {})
+map({ "n" }, "]]", function() Snacks.words.jump(vim.v.count1) end, { desc = "Next Reference" })
+map({ "n" }, "[[", function() Snacks.words.jump(-vim.v.count1) end, { desc = "Prev Reference" })
 map({ "n" }, "g[", "<C-o>", {})
 map({ "n" }, "g]", "<C-i>", {})
 map({ "n" }, "gl", "``", {})
@@ -301,28 +304,37 @@ map({ "v" }, "<leader><leader>c",
   { desc = "SUM time values visual" })
 
 
-vim.cmd([[
-
-" flash fF movement
-
-
-" Tokyo Theme switch
-let g:isDark = 1
-function! ToggleTheme(isDark)
-  if g:isDark==1
-    :lua vim.o.background = "light"
-    :silent !kitty +kitten themes --reload-in=all "Tokyo Night Day"
-    :exe "normal ne"
-    let g:isDark = 0
+-- Togglables
+--map({ "n" }, "<leader><leader>d", function() Snacks.toggle.dim() end, { desc = "toggle dim" })
+local isDim = false
+map({ "n" }, "<leader><leader>d", function()
+  if isDim then
+    Snacks.dim.disable()
+    isDim = false
   else
-    :lua vim.o.background = "dark"
-    :silent !kitty +kitten themes --reload-in=all "Tokyo Night Storm"
-    :exe "normal ne"
-    let g:isDark = 1
-  endif
-endfunction
-nnoremap <leader><leader>t :call ToggleTheme(isDark)<cr>
+    Snacks.dim.enable()
+    isDim = true
+  end
+end, { desc = "toggle dim" })
 
+local isDark = true
+map({ "n" }, "<leader><leader>t", function()
+  if isDark then
+    vim.o.background = "light"
+    vim.cmd([[
+    :silent !kitty +kitten themes --reload-in=all "Tokyo Night Day"
+    ]])
+    isDark = false
+  else
+    vim.o.background = "dark"
+    vim.cmd([[
+    :silent !kitty +kitten themes --reload-in=all "Tokyo Night Storm"
+    ]])
+    isDark = true
+  end
+end, { desc = "toggle theme" })
+
+vim.cmd([[
 
 " LSP enable(def)/disable
 let g:isLSP = 1
@@ -391,12 +403,6 @@ nnoremap <F2> :lua vim.diagnostic.open_float()<cr>
 "endif
 "nnoremap gn :VinfoNext<cr>
 "nnoremap gp :VinfoPrev<cr>
-
-" Undotree
-"nnoremap <F5> :UndotreeToggle<cr>:UndotreeFocus<cr>
-
-" Lexplore|NNN
-"nnoremap <leader>\ :NnnExplorer<cr>
 
 " Firenvim
 " nnoremap <leader>'l :set lines=

@@ -12,31 +12,10 @@ local function make_popup(options)
   return TSLayout.Window(popup)
 end
 
-local function theme()
+--https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
+local function dynamic_ivy()
   return {
-    borderchars = {
-      { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-      prompt = { "─", "│", " ", "│", '┌', '┐', "│", "│" },
-      results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
-      preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-    },
-    previewer = true,
-    layout_config = {
-      height = 0.5,
-      width = 0.2,
-    },
-    title = false,
-    results_title = false,
-  }
-end
-
-local function ivy()
-  --return require('telescope.themes').get_ivy {
-  --  theme(),
-  --  --grep_open_files = true,
-  --}
-
-  return {
+    --grep_open_files = true,
     layout_strategy = "flex",
     layout_config = {
       horizontal = {
@@ -199,6 +178,8 @@ local function ivy()
           --if height < 40 then
           --  box_kind = "minimal"
           --end
+          --elseif picker.preview_title == nil then -- means that preview content is probably empty
+          --  box_kind = "minimal"
         end
         return box_by_kind[box_kind], box_kind
       end
@@ -244,41 +225,76 @@ local function ivy()
   }
 end
 
+local function no_preview()
+  require('telescope.themes').get_dropdown {
+    --borderchars = {
+    --  { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+    --  prompt = { "─", "│", " ", "│", '┌', '┐', "│", "│" },
+    --  results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+    --  preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+    --},
+    layout_strategy = "vertical",
+    previewer = false,
+    --layout_config = {
+    --anchor = "S",
+    --anchor_padding = 0,
+    --height = 0.5,
+    --width = 0.2,
+    --},
+    title = true,
+    results_title = true,
+  }
+end
+
 local function cursor()
-  return require('telescope.themes').get_cursor {
-    theme()
+  require('telescope.themes').get_cursor {
+    borderchars = {
+      { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+      prompt = { "─", "│", " ", "│", '┌', '┐', "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+      preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+    },
+    previewer = true,
+    layout_config = {
+      height = 0.5,
+      width = 0.2,
+    },
+    title = false,
+    results_title = false,
   }
 end
 
 tel.setup({
-  defaults = ivy(),
-  pickers = {
-    buffers = ivy(),
-    live_grep = ivy(),
-    find_files = ivy(),
-    current_buffer_fuzzy_find = ivy(),
-    undo = ivy(),
-    diagnostics = ivy(),
-    --lsp_document_symbols = cursor(),
-    keymaps = ivy(),
-    vim_options = ivy(),
-    commands = ivy(),
-    --dap = cursor(),
-  },
+  defaults = dynamic_ivy(),
+  pickers = dynamic_ivy(),
+  --pickers = {
+  --  buffers = dynamic_ivy(),
+  --  live_grep = dynamic_ivy(),
+  --  find_files = dynamic_ivy(),
+  --  current_buffer_fuzzy_find = dynamic_ivy(),
+  --  undo = dynamic_ivy(),
+  --  diagnostics = dynamic_ivy(),
+  --  --lsp_document_symbols = cursor(),
+  --  keymaps = dynamic_ivy(),
+  --  vim_options = dynamic_ivy(),
+  --  commands = dynamic_ivy(),
+  --  --dap = cursor(),
+  --},
   extensions = {
-    --notify = ivy(),
+    --notify = dynamic_ivy(),
+    --["ui-select"] = no_preview(),
     undo = {
       side_by_side = true,
     },
-    -- FIX: no idea what does this
     --lsp_handlers = {
     --  code_action = {
-    --    telescope = require('telescope.themes').get_dropdown({}),
+    --    telescope = cursor(),
     --  },
     --},
   },
 })
 
+-- adds linenumber in preview window
 vim.cmd("autocmd User TelescopePreviewerLoaded setlocal number")
 
 function vim.find_files_from_project_git_root()
@@ -301,6 +317,6 @@ end
 
 tel.load_extension("undo")
 tel.load_extension("dap")
-tel.load_extension("ui-select")
+--tel.load_extension("ui-select")
 tel.load_extension('lsp_handlers')
 --tel.load_extension("macros")
