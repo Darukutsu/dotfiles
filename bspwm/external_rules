@@ -29,8 +29,14 @@ else
   follow="follow=on"
 fi
 
+if [[ "$class" =~ gcr-prompter ]]; then
+  xprop -id "$wid" \
+    -f _NET_WM_WINDOW_TYPE 32a \
+    -set _NET_WM_WINDOW_TYPE _NET_WM_WINDOW_TYPE_DIALOG
+fi
+
 if ! [[ "$class" =~ mpv ]] && ! [[ "$class" =~ yad ]] && ! [[ "$class" =~ rofi ]]; then
-  if ! xprop -id "$wid" | grep -o _NET_WM_WINDOW_TYPE_DIALOG; then
+  if ! xprop -id "$wid" | grep -o '_NET_WM_WINDOW_TYPE_DIALOG\|_NET_WM_WINDOW_TYPE_SPLASH'; then
     echo rectangle=900x550+0+0
   fi
   echo center=on

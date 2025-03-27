@@ -108,7 +108,7 @@ super + x
         warpd --hint2 --oneshot --click 1
 
 # warpd drag
-super + x
+super + shift + x
         warpd --hint --drag
 
 # warpd normal mouse move
@@ -319,6 +319,8 @@ super + w
 # button1 left
 # button2 wheel
 # button3 right
+# button4 scroll-up
+# button5 scroll-down
 
 # maximize/minimize a window
 super + button9
@@ -326,6 +328,9 @@ super + button9
 
 super + @button2
         "$XDG_CONFIG_HOME"/sxhkd/colorpicker.sh
+
+#super + button{4,5}
+#	pamixer {-i,-d} 5 ; "$XDG_CONFIG_HOME"/sxhkd/volume_notify.sh
 
 #button9 + button8
 #       bspc node -t ~fullscreen

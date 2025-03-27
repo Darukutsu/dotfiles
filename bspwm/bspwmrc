@@ -28,11 +28,13 @@ bsp-layout set tall I -- --master-size 0.5
 #bsp-layout set grid III
 #bsp-layout set monocle X
 
-feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
+~/Pictures/wallpapers/wallp
+#feh --bg-fill --no-fehbg --xinerama-index 0 --randomize ~/Pictures/wallpapers/arch1*
 
 xset b off
 xset s off
 xset s noblank
+xset -dpms
 #xset s 1200 30
 #xss-lock -n "$XDG_CONFIG_HOME/bslock/dim-screen.sh" -- bslock &
 
@@ -128,6 +130,7 @@ bspc rule -a "Yad" manage=off
 # workspace/desktop assigment
 bspc rule -a "kdenlive" desktop='^4'
 bspc rule -a "Gimp" desktop='^5'
+bspc rule -a "gimp-3.0" desktop='^5'
 bspc rule -a "lmms" desktop='^6'
 bspc rule -a "Carla2" desktop='^7'
 bspc rule -a "Guitarix" desktop='^8'

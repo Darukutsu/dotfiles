@@ -1192,7 +1192,7 @@ c.new_instance_open_target = "tab-silent"
 ##   - last-opened: Open new tabs in the last (newest) opened window.
 ##   - last-focused: Open new tabs in the most recently focused window.
 ##   - last-visible: Open new tabs in the most recently visible window.
-# c.new_instance_open_target_window = 'last-focused'
+c.new_instance_open_target_window = "last-focused"
 
 ## Show a filebrowser in download prompts.
 ## Type: Bool
@@ -1540,7 +1540,7 @@ c.spellcheck.languages = ["en-US", "sk-SK"]
 ##   - next: After the current tab.
 ##   - first: At the beginning.
 ##   - last: At the end.
-# c.tabs.new_position.unrelated = 'last'
+c.tabs.new_position.unrelated = "next"
 
 ## Padding (in pixels) around text for tabs.
 ## Type: Padding
@@ -1650,6 +1650,7 @@ c.tabs.show_switching_delay = 2000
 ## for a blank page.
 ## Type: FuzzyUrl
 # c.url.default_page = 'https://start.duckduckgo.com/'
+c.url.default_page = "http://localhost:8080/"
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1686,7 +1687,14 @@ c.tabs.show_switching_delay = 2000
 ## the search engine name to the search term, e.g. `:open google
 ## qutebrowser`.
 ## Type: Dict
-c.url.searchengines = {"DEFAULT": "https://search.brave.com/search?q={}"}
+c.url.searchengines = {
+    # "DEFAULT": "https://priv.au/search?q={}",
+    # "DEFAULT": "https://search.demonkingswarn.live/search?q={}",
+    "DEFAULT": "http://localhost:8080/search?q={}",
+    "br": "https://search.brave.com/search?q={}",
+    "go": "https://google.com/search?q={}",
+    "dg": "https://search.duckduckgo.com/search?q={}",
+}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl

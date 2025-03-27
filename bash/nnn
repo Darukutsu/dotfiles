@@ -12,6 +12,7 @@ export NNN_OPTS='aAcdHrQU'
 export NNN_FCOLORS='caef273a00608cf7c6d6abc4'
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_OPENER="/home/daru/.config/nnn/plugins/nuke"
+export NNN_OPENWITH="/home/daru/.config/nnn/plugins/openwith"
 
 export NNN_PLUG='?:help;
 a:mtpmount;
@@ -26,6 +27,7 @@ G:gpgd;
 h:http-server;
 i:imgur;
 k:kdeconnect;
+l:sessionls;
 m:nmount;
 o:openall;
 p:cpoverwrite;
@@ -58,7 +60,7 @@ d:$HOME/Downloads/;
 h:$HOME/Templates/Guides;
 G:$HOME/Git;
 g:$HOME/Public;
-t:$HOME/Public/GitTuke/3ZS;
+t:$HOME/Public/GitTuke/3LS;
 p:$HOME/Pictures/;
 v:$HOME/Videos/"
 

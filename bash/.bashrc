@@ -135,6 +135,7 @@ fi
 #shopt -s progcomp_alias
 complete -F _complete_alias SS
 complete -F _complete_alias saj
+complete -r oscap
 #complete -F _man man
 
 # Enhanced file path completion in bash - https://github.com/sio/bash-complete-partial-path
@@ -214,6 +215,27 @@ if [[ ${BLE_VERSION-} ]]; then
   bleopt history_share=1
   #bleopt complete_ambiguous=1
 
+  ## we could bind this to enter
+  function ble/widget/daru/nnn_complete() {
+    ble/widget/vi_nmap/copy-current-line
+    readline_line="${_ble_edit_kill_ring[0]}"
+    ble/widget/kill-line
+
+    if echo "$readline_line" | grep "%j" >/dev/null; then
+      ble/widget/insert-string "cat ${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection} | xargs -0 -I%j sh -c \"$readline_line\""
+    elif echo "$readline_line" | grep "%J" >/dev/null; then
+      #elif echo "$READLINE_LINE" | grep -E "(?<!\\)%J"; then
+      readline_line=$(echo "$readline_line" | sed 's/%J//')
+      ble/widget/insert-string "cat ${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection} | xargs -0 $readline_line"
+    else
+      ble/widget/insert-string "$readline_line"
+      ## or comment this out and don't bind it to enter
+      # echo '%j %J not specified, aborting'
+    fi
+    unset readline_line
+    ble/widget/accept-line
+  }
+
   function ble/widget/daru/copy_readline() {
     ble/widget/vi-command/operator y
     ble/widget/vi-command/operator y
@@ -237,6 +259,8 @@ if [[ ${BLE_VERSION-} ]]; then
 
   ble-bind -m vi_nmap -f Y daru/copy_readline_end
   ble-bind -m vi_nmap -f y daru/copy_readline
+  ble-bind -m vi_nmap -f 'C-/ C-n' daru/nnn_complete
+  ble-bind -m vi_imap -f 'C-/ C-n' daru/nnn_complete
   ble-bind -m vi_imap -f C-e edit-and-execute-command
 
   ble-bind -m vi_nmap -f 'g g' vi-command/first-nol
@@ -249,11 +273,11 @@ if [[ ${BLE_VERSION-} ]]; then
   ble-bind -m vi_nmap -c 'g s' 'git status'
   ble-bind -m vi_nmap -c '; n' 'nn'
   #ble-bind -m vi_nmap -c '; h' 'h'
-  ble-bind -m vi_nmap -c 'C-]' 'exit'
-  ble-bind -m vi_imap -c 'C-]' 'exit'
-  ble-bind -m vi_xmap -c 'C-]' 'exit'
-  ble-bind -m vi_cmap -c 'C-]' 'exit'
-  ble-bind -m vi_omap -c 'C-]' 'exit'
+  ble-bind -m vi_nmap -c 'C-[' 'exit'
+  ble-bind -m vi_imap -c 'C-[' 'exit'
+  ble-bind -m vi_xmap -c 'C-[' 'exit'
+  ble-bind -m vi_cmap -c 'C-[' 'exit'
+  ble-bind -m vi_omap -c 'C-[' 'exit'
   ble-bind -m menu_complete -f '__default__' menu_complete/cancel
   #source "$XDG_CONFIG_HOME/bash/colemak"
 

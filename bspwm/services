@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # probably unneeded
 #dbus-update-activation-environment --all
@@ -48,3 +48,6 @@ systemctl --user start dunst
 
 killall "zmkbatx"
 zmkbatx &
+
+/usr/lib/xdg-desktop-portal-termfilechooser -r &
+/usr/lib/xdg-desktop-portal -r &
