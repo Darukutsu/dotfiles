@@ -1,31 +1,31 @@
 -- see https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 local textobjects = {
-  select = {
-    enable = true,
-    lookahead = true,
+  --select = {
+  --  enable = true,
+  --  lookahead = true,
 
-    keymaps = {
-      -- @statement works on sentences too
-      ["as"] = { query = "@statement.outer", desc = "outer statement" },
-      ["is"] = { query = "@statement.outer", desc = "inner statement" },
-      ["aa"] = { query = "@parameter.outer", desc = "outer parameter" },
-      ["ia"] = { query = "@parameter.inner", desc = "inner parameter" },
-      ["af"] = { query = "@function.outer", desc = "outer function" },
-      ["if"] = { query = "@function.inner", desc = "inner function" },
-      ["ac"] = { query = "@class.outer", desc = "outer class" },
-      ["ic"] = { query = "@class.inner", desc = "inner class" },
-      ["al"] = { query = "@loop.outer", desc = "outer loop" },
-      ["il"] = { query = "@loop.inner", desc = "inner loop" },
-      ["ai"] = { query = "@conditional.outer", desc = "outer condi" },
-      ["ii"] = { query = "@conditional.inner", desc = "inner condi" },
-    },
-    --selection_modes = {
-    --  ['@parameter.outer'] = 'v', -- charwise
-    --  ['@function.outer'] = 'V',  -- linewise
-    --  ['@class.outer'] = '<c-v>', -- blockwise
-    --},
-    include_surrounding_whitespace = true,
-  },
+  --  keymaps = {
+  --    -- @statement works on sentences too
+  --    ["as"] = { query = "@statement.outer", desc = "outer statement" },
+  --    ["is"] = { query = "@statement.outer", desc = "inner statement" },
+  --    ["aa"] = { query = "@parameter.outer", desc = "outer parameter" },
+  --    ["ia"] = { query = "@parameter.inner", desc = "inner parameter" },
+  --    ["af"] = { query = "@function.outer", desc = "outer function" },
+  --    ["if"] = { query = "@function.inner", desc = "inner function" },
+  --    ["ac"] = { query = "@class.outer", desc = "outer class" },
+  --    ["ic"] = { query = "@class.inner", desc = "inner class" },
+  --    ["al"] = { query = "@loop.outer", desc = "outer loop" },
+  --    ["il"] = { query = "@loop.inner", desc = "inner loop" },
+  --    ["ai"] = { query = "@conditional.outer", desc = "outer condi" },
+  --    ["ii"] = { query = "@conditional.inner", desc = "inner condi" },
+  --  },
+  --  --selection_modes = {
+  --  --  ['@parameter.outer'] = 'v', -- charwise
+  --  --  ['@function.outer'] = 'V',  -- linewise
+  --  --  ['@class.outer'] = '<c-v>', -- blockwise
+  --  --},
+  --  include_surrounding_whitespace = true,
+  --},
 
   swap = {
     enable = true,
@@ -77,6 +77,8 @@ local textobjects = {
 
     goto_next = {
       ["]f"] = { query = "@function.outer", desc = "next func" },
+      ["]p"] = { query = "@parameter.outer", desc = "next param" },
+      ["]s"] = { query = "@statement.outer", desc = "next statement" },
       ["]c"] = { query = "@class.outer", desc = "next class" },
       ["]d"] = { query = "@conditional.outer", desc = "next condi" },
       ["]i"] = { query = "@conditional.outer", desc = "next condi" },
@@ -86,6 +88,8 @@ local textobjects = {
     },
     goto_previous = {
       ["[f"] = { query = "@function.outer", desc = "prev func" },
+      ["[p"] = { query = "@parameter.outer", desc = "prev param" },
+      ["[s"] = { query = "@statement.outer", desc = "prev statement" },
       ["[c"] = { query = "@class.outer", desc = "prev class" },
       ["[d"] = { query = "@conditional.outer", desc = "prev condi" },
       ["[i"] = { query = "@conditional.outer", desc = "prev condi" },

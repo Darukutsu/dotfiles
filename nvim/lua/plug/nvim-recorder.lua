@@ -1,6 +1,6 @@
 require("recorder").setup({
 	slots = { "a", "b", "c", "d", "e", "f" },
-	dynamicSlots = "original",
+	dynamicSlots = "rotate",
 	editInBuffer = true,
 	lessNotifications = true,
 	clear = true,

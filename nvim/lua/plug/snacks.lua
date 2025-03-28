@@ -6,6 +6,7 @@ local M = {
   dim = {},
   indent = {},
   bigfile = {},
+  --quickfile = {},
   animate = {},
   --git = {},
   gitbrowse = {},

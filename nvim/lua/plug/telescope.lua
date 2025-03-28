@@ -1,6 +1,6 @@
 local Layout = require("nui.layout")
 local Popup = require("nui.popup")
-local tel = require('telescope')
+local tel = require("telescope")
 local TSLayout = require("telescope.pickers.layout")
 
 local function make_popup(options)
@@ -17,6 +17,7 @@ local function dynamic_ivy()
   return {
     --grep_open_files = true,
     layout_strategy = "flex",
+    --dynamic_preview_title = true,
     layout_config = {
       horizontal = {
         size = {
@@ -173,13 +174,16 @@ local function dynamic_ivy()
 
         local height, width = vim.o.lines, vim.o.columns
         local box_kind = "horizontal"
+
         if width < 120 then
           box_kind = "vertical"
           --if height < 40 then
           --  box_kind = "minimal"
           --end
-          --elseif picker.preview_title == nil then -- means that preview content is probably empty
-          --  box_kind = "minimal"
+          -- means that preview content is probably empty
+          if picker.preview_title == nil then
+            box_kind = "minimal"
+          end
         end
         return box_by_kind[box_kind], box_kind
       end
@@ -226,7 +230,7 @@ local function dynamic_ivy()
 end
 
 local function no_preview()
-  require('telescope.themes').get_dropdown {
+  require("telescope.themes").get_dropdown({
     --borderchars = {
     --  { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
     --  prompt = { "─", "│", " ", "│", '┌', '┐', "│", "│" },
@@ -243,16 +247,16 @@ local function no_preview()
     --},
     title = true,
     results_title = true,
-  }
+  })
 end
 
 local function cursor()
-  require('telescope.themes').get_cursor {
+  require("telescope.themes").get_cursor({
     borderchars = {
-      { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-      prompt = { "─", "│", " ", "│", '┌', '┐', "│", "│" },
+      { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
       results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
-      preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+      preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
     },
     previewer = true,
     layout_config = {
@@ -261,7 +265,7 @@ local function cursor()
     },
     title = false,
     results_title = false,
-  }
+  })
 end
 
 tel.setup({
@@ -285,7 +289,10 @@ tel.setup({
     --["ui-select"] = no_preview(),
     undo = {
       side_by_side = true,
+      preview_title = "Undo Diff",
     },
+    --cmdline = {
+    --},
     --lsp_handlers = {
     --  code_action = {
     --    telescope = cursor(),
@@ -317,6 +324,7 @@ end
 
 tel.load_extension("undo")
 tel.load_extension("dap")
---tel.load_extension("ui-select")
-tel.load_extension('lsp_handlers')
---tel.load_extension("macros")
+--tel.load_extension("ui-select") -- probably using snacks instead of this
+tel.load_extension("lsp_handlers")
+tel.load_extension("cmdline")
+--tel.load_extension("macros") -- using nvim-recorder instead
